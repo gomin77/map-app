@@ -136,6 +136,14 @@ button{cursor:pointer;font-family:inherit}
 .sigungu-all{grid-column:1/-1;background:var(--primary);color:#fff;border-color:var(--primary)}
 .sigungu-loading{padding:12px 20px;font-size:13px;color:var(--muted);text-align:center}
 .sigungu-retry{padding:10px 20px;font-size:13px;color:var(--primary);text-align:center;cursor:pointer;text-decoration:underline;font-weight:600}
+/* ── 크롭 모달 ── */
+#crop-modal{position:fixed;inset:0;z-index:20000;background:rgba(0,0,0,.92);display:none;flex-direction:column;align-items:center;justify-content:center;padding:16px}
+#crop-modal.open{display:flex}
+#crop-canvas{max-width:100%;max-height:calc(100vh - 120px);touch-action:none;cursor:crosshair;border-radius:4px;display:block}
+.crop-hint{color:rgba(255,255,255,.65);font-size:13px;margin-bottom:10px;text-align:center}
+.crop-btns{display:flex;gap:16px;margin-top:14px}
+.crop-confirm{padding:12px 36px;border-radius:24px;background:var(--primary);color:#fff;border:none;font-size:15px;font-weight:700;cursor:pointer}
+.crop-cancel{padding:12px 28px;border-radius:24px;background:rgba(255,255,255,.15);color:#fff;border:none;font-size:15px;cursor:pointer}
 
 /* 상세 모달 */
 .detail-img-wrap{width:100%;aspect-ratio:16/9;overflow:hidden;background:#eee;position:relative;flex-shrink:0}
@@ -1257,14 +1265,24 @@ function renderGallery(){
     : '');
 }
 function addPhotos(inp){
-  const rem=5-tempPhotos.length;
-  if(rem<=0) return;
-  Array.from(inp.files).slice(0,rem).forEach(f=>{
-    const r=new FileReader();
-    r.onload=e=>resizeImg(e.target.result,res=>{ tempPhotos.push(res); renderGallery(); });
-    r.readAsDataURL(f);
-  });
-  inp.value='';
+  const rem = 5 - tempPhotos.length;
+  if (rem <= 0) return;
+  const files = Array.from(inp.files).slice(0, rem);
+  inp.value = '';
+  // 한 장씩 순차 크롭 처리
+  function processNext(idx) {
+    if (idx >= files.length) return;
+    const r = new FileReader();
+    r.onload = e => openCropModal(e.target.result, cropped => {
+      resizeImg(cropped, res => {
+        tempPhotos.push(res);
+        renderGallery();
+        processNext(idx + 1);
+      });
+    }, () => processNext(idx + 1)); // 취소 시 다음 장으로
+    r.readAsDataURL(files[idx]);
+  }
+  processNext(0);
 }
 function delPhoto(i){ tempPhotos.splice(i,1); renderGallery(); }
 
@@ -1490,6 +1508,167 @@ function resetData(){
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    유틸
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* ── 이미지 크롭 모달 ── */
+let _cropCb       = null;  // 확인 콜백
+let _cropCancelCb = null;  // 취소 콜백
+let _cropImg      = null;  // 원본 Image 객체
+let _cropScale    = 1;     // 원본 대비 캔버스 비율
+let _cropBox      = null;  // { x, y, w, h } 캔버스 좌표
+let _cropDrag     = null;  // { mode:'move'|'new'|'nw'|'ne'|'sw'|'se', sx, sy, origBox }
+
+function openCropModal(dataUrl, onConfirm, onCancel) {
+  _cropCb       = onConfirm;
+  _cropCancelCb = onCancel || null;
+  const modal   = document.getElementById('crop-modal');
+  const canvas  = document.getElementById('crop-canvas');
+  _cropImg      = new Image();
+  _cropImg.onload = () => {
+    // 화면 크기에 맞게 캔버스 축소
+    const maxW = window.innerWidth  - 32;
+    const maxH = window.innerHeight - 140;
+    _cropScale  = Math.min(1, maxW / _cropImg.width, maxH / _cropImg.height);
+    canvas.width  = Math.round(_cropImg.width  * _cropScale);
+    canvas.height = Math.round(_cropImg.height * _cropScale);
+    // 초기 크롭박스 = 전체
+    _cropBox = { x: 0, y: 0, w: canvas.width, h: canvas.height };
+    _drawCropOverlay();
+    modal.classList.add('open');
+    _bindCropEvents(canvas);
+  };
+  _cropImg.src = dataUrl;
+}
+
+function _drawCropOverlay() {
+  const canvas = document.getElementById('crop-canvas');
+  const ctx    = canvas.getContext('2d');
+  const { x, y, w, h } = _cropBox;
+  // 이미지
+  ctx.drawImage(_cropImg, 0, 0, canvas.width, canvas.height);
+  // 바깥 어둡게
+  ctx.fillStyle = 'rgba(0,0,0,0.55)';
+  ctx.fillRect(0,  0,  canvas.width, y);           // 위
+  ctx.fillRect(0,  y+h, canvas.width, canvas.height - y - h); // 아래
+  ctx.fillRect(0,  y,  x,       h);                // 왼
+  ctx.fillRect(x+w, y,  canvas.width - x - w, h);  // 오른
+  // 테두리
+  ctx.strokeStyle = '#fff';
+  ctx.lineWidth   = 2;
+  ctx.strokeRect(x, y, w, h);
+  // 3분할 가이드
+  ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+  ctx.lineWidth   = 1;
+  for (let i = 1; i < 3; i++) {
+    ctx.beginPath(); ctx.moveTo(x + w*i/3, y); ctx.lineTo(x + w*i/3, y+h); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x, y + h*i/3); ctx.lineTo(x+w, y + h*i/3); ctx.stroke();
+  }
+  // 모서리 핸들
+  ctx.fillStyle = '#fff';
+  [[x,y],[x+w,y],[x,y+h],[x+w,y+h]].forEach(([hx,hy]) => {
+    ctx.fillRect(hx-6, hy-6, 12, 12);
+  });
+}
+
+function _cropPointerToCanvas(e, canvas) {
+  const r  = canvas.getBoundingClientRect();
+  const cx = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+  const cy = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+  return [cx, cy];
+}
+
+function _cropHitHandle(px, py) {
+  const { x, y, w, h } = _cropBox;
+  const corners = { nw:[x,y], ne:[x+w,y], sw:[x,y+h], se:[x+w,y+h] };
+  for (const [name,[hx,hy]] of Object.entries(corners)) {
+    if (Math.abs(px-hx) < 18 && Math.abs(py-hy) < 18) return name;
+  }
+  if (px > x && px < x+w && py > y && py < y+h) return 'move';
+  return 'new';
+}
+
+function _bindCropEvents(canvas) {
+  const onDown = e => {
+    e.preventDefault();
+    const [px, py] = _cropPointerToCanvas(e, canvas);
+    const mode = _cropHitHandle(px, py);
+    _cropDrag = { mode, sx: px, sy: py, origBox: { ..._cropBox } };
+  };
+  const onMove = e => {
+    e.preventDefault();
+    if (!_cropDrag) return;
+    const [px, py] = _cropPointerToCanvas(e, canvas);
+    const dx = px - _cropDrag.sx, dy = py - _cropDrag.sy;
+    const ob = _cropDrag.origBox;
+    const cw = canvas.width, ch = canvas.height;
+    let { x, y, w, h } = ob;
+    const mode = _cropDrag.mode;
+    if (mode === 'move') {
+      x = Math.max(0, Math.min(cw - w, ob.x + dx));
+      y = Math.max(0, Math.min(ch - h, ob.y + dy));
+    } else if (mode === 'new') {
+      x = Math.max(0, Math.min(px, _cropDrag.sx));
+      y = Math.max(0, Math.min(py, _cropDrag.sy));
+      w = Math.min(cw - x, Math.abs(dx));
+      h = Math.min(ch - y, Math.abs(dy));
+    } else {
+      // 리사이즈 핸들
+      if (mode === 'nw') { x = Math.min(ob.x+ob.w-40, ob.x+dx); y = Math.min(ob.y+ob.h-40, ob.y+dy); w = ob.x+ob.w-x; h = ob.y+ob.h-y; }
+      if (mode === 'ne') { w = Math.max(40, ob.w+dx); y = Math.min(ob.y+ob.h-40, ob.y+dy); h = ob.y+ob.h-y; }
+      if (mode === 'sw') { x = Math.min(ob.x+ob.w-40, ob.x+dx); w = ob.x+ob.w-x; h = Math.max(40, ob.h+dy); }
+      if (mode === 'se') { w = Math.max(40, ob.w+dx); h = Math.max(40, ob.h+dy); }
+      x = Math.max(0, x); y = Math.max(0, y);
+      w = Math.min(cw - x, Math.max(40, w));
+      h = Math.min(ch - y, Math.max(40, h));
+    }
+    _cropBox = { x, y, w, h };
+    _drawCropOverlay();
+  };
+  const onUp = e => { e.preventDefault(); _cropDrag = null; };
+
+  canvas.removeEventListener('mousedown',  canvas._cmDown);
+  canvas.removeEventListener('mousemove',  canvas._cmMove);
+  canvas.removeEventListener('mouseup',    canvas._cmUp);
+  canvas.removeEventListener('touchstart', canvas._ctDown);
+  canvas.removeEventListener('touchmove',  canvas._ctMove);
+  canvas.removeEventListener('touchend',   canvas._ctUp);
+
+  canvas._cmDown = onDown; canvas._cmMove = onMove; canvas._cmUp = onUp;
+  canvas._ctDown = onDown; canvas._ctMove = onMove; canvas._ctUp = onUp;
+
+  canvas.addEventListener('mousedown',  onDown, { passive:false });
+  canvas.addEventListener('mousemove',  onMove, { passive:false });
+  canvas.addEventListener('mouseup',    onUp,   { passive:false });
+  canvas.addEventListener('touchstart', onDown, { passive:false });
+  canvas.addEventListener('touchmove',  onMove, { passive:false });
+  canvas.addEventListener('touchend',   onUp,   { passive:false });
+}
+
+function confirmCrop() {
+  const { x, y, w, h } = _cropBox;
+  const s   = 1 / _cropScale; // 원본 좌표로 역산
+  const out = document.createElement('canvas');
+  out.width  = Math.round(w * s);
+  out.height = Math.round(h * s);
+  out.getContext('2d').drawImage(_cropImg,
+    Math.round(x*s), Math.round(y*s), out.width, out.height,
+    0, 0, out.width, out.height
+  );
+  const result = out.toDataURL('image/jpeg', 0.92);
+  const cb = _cropCb; // 모달 닫기 전에 콜백 저장
+  _closeCropModal();
+  if (cb) cb(result);
+}
+
+function cancelCrop() {
+  _closeCropModal();
+  if (_cropCancelCb) _cropCancelCb();
+}
+
+function _closeCropModal() {
+  document.getElementById('crop-modal').classList.remove('open');
+  _cropCb = null; _cropCancelCb = null; _cropImg = null; _cropDrag = null;
+}
+
 function resizeImg(src,cb){
   const img=new Image();
   img.onload=()=>{
@@ -1850,6 +2029,16 @@ document.addEventListener('DOMContentLoaded', () => {
   </div>
   <div class="bs-scroll" id="fav-scroll">
     <div class="fav-list" id="fav-list"></div>
+  </div>
+</div>
+
+<!-- ════════════ 크롭 모달 ════════════ -->
+<div id="crop-modal">
+  <div class="crop-hint">드래그로 원하는 영역을 선택하세요</div>
+  <canvas id="crop-canvas"></canvas>
+  <div class="crop-btns">
+    <button class="crop-cancel"  onclick="cancelCrop()">취소</button>
+    <button class="crop-confirm" onclick="confirmCrop()">확인</button>
   </div>
 </div>
 
