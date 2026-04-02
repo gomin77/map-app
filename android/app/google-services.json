@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "669464241658",
+    "project_id": "journey-6e8a0",
+    "storage_bucket": "journey-6e8a0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:669464241658:android:226cbf47523f4f4e91f043",
+        "android_client_info": {
+          "package_name": "com.travelmap.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "669464241658-0fh9f20r17rigqm43k0q10hgudck7pln.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.travelmap.app",
+            "certificate_hash": "d1f5d5b79fe8885e0aafa1575220e494a8ab7134"
+          }
+        },
+        {
+          "client_id": "669464241658-fc9ek2ru1c8isif9h6h3feodo1djsscg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCivnI_Tx2S_zrAvj3I6VIcLZi3gtPaShc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "669464241658-fc9ek2ru1c8isif9h6h3feodo1djsscg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

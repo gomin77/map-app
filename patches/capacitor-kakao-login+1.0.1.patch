@@ -1,0 +1,559 @@
+diff --git a/node_modules/capacitor-kakao-login/android/build.gradle b/node_modules/capacitor-kakao-login/android/build.gradle
+index cffea12..72af971 100644
+--- a/node_modules/capacitor-kakao-login/android/build.gradle
++++ b/node_modules/capacitor-kakao-login/android/build.gradle
+@@ -1,6 +1,6 @@
+ buildscript {
+     repositories {
+-        jcenter()
++        mavenCentral()
+         google()
+     }
+     dependencies {
+@@ -11,18 +11,19 @@ buildscript {
+ apply plugin: 'com.android.library'
+ 
+ android {
+-    compileSdkVersion 28
++    namespace "com.vt.kakao.login.capacitorkakaologin"
++    compileSdkVersion 36
+     defaultConfig {
+-        minSdkVersion 21
+-        targetSdkVersion 28
++        minSdkVersion 22
++        targetSdkVersion 36
+         versionCode 1
+         versionName "1.0"
+-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
++        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+     }
+     buildTypes {
+         release {
+             minifyEnabled false
+-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
++            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+         }
+     }
+     lintOptions {
+@@ -32,12 +33,9 @@ android {
+ 
+ repositories {
+     google()
+-    jcenter()
+     mavenCentral()
+-    maven { url 'http://devrepo.kakao.com:8088/nexus/content/groups/public/' }
+ }
+ 
+-
+ dependencies {
+     implementation fileTree(dir: 'libs', include: ['*.jar'])
+     implementation project(':capacitor-android')
+@@ -45,9 +43,6 @@ dependencies {
+     androidTestImplementation 'com.android.support.test:runner:1.0.2'
+     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+ 
+-    implementation 'com.android.support:appcompat-v7:28.0.0'
+-    implementation 'com.android.support:support-compat:28.0.0'
+-
+-    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.21.1'
++    implementation 'androidx.appcompat:appcompat:1.6.1'
++    implementation 'com.kakao.sdk:v2-user:2.20.1'
+ }
+-
+diff --git a/node_modules/capacitor-kakao-login/android/src/main/java/com/vt/kakao/login/KakaoCapacitorErrorHandler.java b/node_modules/capacitor-kakao-login/android/src/main/java/com/vt/kakao/login/KakaoCapacitorErrorHandler.java
+index 740a08a..20fbdd5 100644
+--- a/node_modules/capacitor-kakao-login/android/src/main/java/com/vt/kakao/login/KakaoCapacitorErrorHandler.java
++++ b/node_modules/capacitor-kakao-login/android/src/main/java/com/vt/kakao/login/KakaoCapacitorErrorHandler.java
+@@ -2,72 +2,50 @@ package com.vt.kakao.login;
+ 
+ import com.getcapacitor.JSObject;
+ import com.getcapacitor.PluginCall;
+-import com.kakao.network.ErrorResult;
+ 
+ import java.net.HttpURLConnection;
+ 
+ public class KakaoCapacitorErrorHandler {
+-    public static void errorHandler(PluginCall callbackContext, ErrorResult errorResult){
+-        if(callbackContext == null){
+-            return;
+-        }
+-        try{
+-            JSObject errorJson =  new JSObject();
+-            errorJson.put("osType", "android");
+-            errorJson.put("errorCode", String.valueOf(errorResult.getErrorCode()));
+-            errorJson.put("errorMessage", String.valueOf(errorResult.getErrorMessage()));
+-
+-            JSObject extraErrorJson =  new JSObject();
+-            extraErrorJson.put("httpStatus", String.valueOf(errorResult.getHttpStatus()));
+-            extraErrorJson.put("exception", (errorResult.getException() != null ? errorResult.getException().toString() : ""));
+-
+-            errorJson.put("extra", extraErrorJson);
+ 
+-
+-            callbackContext.error(errorJson.toString());
+-        }catch (Exception e){
+-            callbackContext.error("Something went wrong. " + e.toString());
+-        }
+-    }
+-
+-    public static void errorHandler(PluginCall callbackContext, String errorMessage){
+-        if(callbackContext == null){
++    public static void errorHandler(PluginCall callbackContext, String errorMessage) {
++        if (callbackContext == null) {
+             return;
+         }
+-        try{
+-            JSObject errorJson =  new JSObject();
++        try {
++            JSObject errorJson = new JSObject();
+             errorJson.put("osType", "android");
+             errorJson.put("errorCode", String.valueOf(-777));
+             errorJson.put("errorMessage", errorMessage);
+ 
+-            JSObject extraErrorJson =  new JSObject();
++            JSObject extraErrorJson = new JSObject();
+             extraErrorJson.put("httpStatus", HttpURLConnection.HTTP_INTERNAL_ERROR);
+             extraErrorJson.put("exception", "");
+ 
+             errorJson.put("extra", extraErrorJson);
+-            callbackContext.error(errorJson.toString());
+-        }catch (Exception e){
+-            callbackContext.error("Something went wrong. " + e.toString());
++            callbackContext.reject(errorJson.toString());
++        } catch (Exception e) {
++            callbackContext.reject("Something went wrong. " + e.toString());
+         }
+     }
+ 
+-    public static void errorHandler(PluginCall callbackContext, int errorCode, String errorMessage){
+-        if(callbackContext == null){
++    public static void errorHandler(PluginCall callbackContext, int errorCode, String errorMessage) {
++        if (callbackContext == null) {
+             return;
+         }
+-        try{
+-            JSObject errorJson =  new JSObject();
++        try {
++            JSObject errorJson = new JSObject();
+             errorJson.put("osType", "android");
+             errorJson.put("errorCode", String.valueOf(errorCode));
+             errorJson.put("errorMessage", errorMessage);
+-            JSObject extraErrorJson =  new JSObject();
++
++            JSObject extraErrorJson = new JSObject();
+             extraErrorJson.put("httpStatus", HttpURLConnection.HTTP_INTERNAL_ERROR);
+             extraErrorJson.put("exception", "");
+ 
+             errorJson.put("extra", extraErrorJson);
+-            callbackContext.error(errorJson.toString());
+-        }catch (Exception e){
+-            callbackContext.error("Something went wrong. " + e.toString());
++            callbackContext.reject(errorJson.toString());
++        } catch (Exception e) {
++            callbackContext.reject("Something went wrong. " + e.toString());
+         }
+     }
+ }
+diff --git a/node_modules/capacitor-kakao-login/android/src/main/java/com/vt/kakao/login/KakaoLogin.java b/node_modules/capacitor-kakao-login/android/src/main/java/com/vt/kakao/login/KakaoLogin.java
+index 987586d..53686ec 100644
+--- a/node_modules/capacitor-kakao-login/android/src/main/java/com/vt/kakao/login/KakaoLogin.java
++++ b/node_modules/capacitor-kakao-login/android/src/main/java/com/vt/kakao/login/KakaoLogin.java
+@@ -1,20 +1,7 @@
+ package com.vt.kakao.login;
+ 
+ import android.app.Activity;
+-import android.app.AlertDialog;
+-import android.app.Dialog;
+-import android.content.Context;
+-import android.content.DialogInterface;
+-import android.content.Intent;
+-import android.net.Uri;
+ import android.util.Log;
+-import android.view.Gravity;
+-import android.view.View;
+-import android.view.Window;
+-import android.widget.AdapterView;
+-import android.widget.Button;
+-import android.widget.ListAdapter;
+-import android.widget.ListView;
+ 
+ import com.getcapacitor.JSObject;
+ import com.getcapacitor.NativePlugin;
+@@ -22,297 +9,125 @@ import com.getcapacitor.Plugin;
+ import com.getcapacitor.PluginCall;
+ import com.getcapacitor.PluginMethod;
+ 
+-import com.kakao.auth.ApprovalType;
+-import com.kakao.auth.AuthType;
+-import com.kakao.auth.IApplicationConfig;
+-import com.kakao.auth.ISessionCallback;
+-import com.kakao.auth.ISessionConfig;
+-import com.kakao.auth.KakaoAdapter;
+-import com.kakao.auth.KakaoSDK;
+-import com.kakao.auth.Session;
+-import com.kakao.network.ErrorResult;
+-import com.kakao.usermgmt.UserManagement;
+-import com.kakao.usermgmt.callback.MeV2ResponseCallback;
+-import com.kakao.usermgmt.response.MeV2Response;
+-import com.kakao.util.exception.KakaoException;
+-import org.json.JSONException;
+-import java.util.List;
++import com.kakao.sdk.user.UserApiClient;
++import com.kakao.sdk.user.model.User;
+ 
+-// https://github.com/taejaehan/Cordova-Kakaotalk-Plugin/blob/master/src/android/KakaoTalk.java
++import kotlin.Unit;
+ 
+ @NativePlugin(
+         requestCodes={KakaoLogin.REQUEST_CODE}
+ )
+ public class KakaoLogin extends Plugin {
+ 
+-
+     protected static final int REQUEST_CODE = 1001;
+     private static final String LOG_TAG = "KakaoTalkCapacitor";
+-    private static volatile Activity currentActivity;
+-    private KakaoMeV2ResponseCallback kakaoMeV2ResponseCallback;
+-
+-
+-    public static Activity getCurrentActivity()
+-    {
+-        return currentActivity;
+-    }
+-
+ 
+     @Override
+     public void load() {
+-        Log.v(LOG_TAG, "kakao : initialize");
+-
+-        currentActivity = this.getActivity();
+-        try {
+-            KakaoSDK.init(new KakaoSDKAdapter());
+-            KakaoResources.initResources(currentActivity.getApplication());
+-        } catch (Exception e) {
+-            Log.e(LOG_TAG, e.toString());
+-        }
+-    }
+-
+-    @Override
+-    protected void handleOnActivityResult(int requestCode, int resultCode, Intent data) {
+-
+-        Log.v(LOG_TAG, "kakao : onActivityResult : " + requestCode + ", code: " + resultCode);
+-        Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data);
++        Log.v(LOG_TAG, "kakao : initialize (SDK v2 - auto-init via AndroidManifest meta-data)");
+     }
+ 
+     @PluginMethod()
+     public void login(final PluginCall call) {
+         Log.v(LOG_TAG, "kakao : execute Login");
+-
+-        removeSessionCallback();
+-
+-        kakaoMeV2ResponseCallback = new KakaoMeV2ResponseCallback(call) {
+-            @Override
+-            public void onFailure(ErrorResult errorResult) {
+-                loginProcess(call);
+-            }
+-
+-            @Override
+-            public void onSessionClosed(ErrorResult errorResult) {
+-                loginProcess(call);
+-            }
+-        };
+-        UserManagement.getInstance().me(kakaoMeV2ResponseCallback);
+-
++        Activity activity = getActivity();
+         saveCall(call);
+-    }
+-    private void removeSessionCallback() {
+-        Session.getCurrentSession().clearCallbacks();
+-    }
+-    private void loginProcess(final PluginCall callbackContext) {
+-
+-        try {
+-            Session.getCurrentSession().addCallback(new SessionCallback(callbackContext));
+-
+-            onClickLoginButton(null);
+-
+-            /*
+-            final JSONObject parameters = options.getJSONObject(0);
+-            if (parameters.has("authTypes")) {
+-                JSONArray authTypes = new JSONArray(parameters.getString("authTypes"));
+-                setCustomAuthTypes(authTypes);
+-            }
+-            onClickLoginButton(getAuthTypes());
+-             */
+-
+-        } catch (Exception e) {
+-            e.printStackTrace();
+-            KakaoCapacitorErrorHandler.errorHandler(callbackContext, new ErrorResult(e));
+-        }
+-    }
+-
+-    private void onClickLoginButton(final List<AuthType> authTypes) {
+-        openSession(AuthType.KAKAO_TALK);
+-        /*
+-        if (authTypes.size() == 1) {
+-            openSession(authTypes.get(0));
+ 
++        if (UserApiClient.getInstance().isKakaoTalkLoginAvailable(activity)) {
++            UserApiClient.getInstance().loginWithKakaoTalk(activity, (token, error) -> {
++                if (error != null) {
++                    Log.e(LOG_TAG, "KakaoTalk login failed: " + error.getMessage());
++                    loginWithAccount(call);
++                } else if (token != null) {
++                    fetchUserInfo(call, token.getAccessToken());
++                }
++                return Unit.INSTANCE;
++            });
+         } else {
+-            final Item[] authItems = createAuthItemArray(authTypes);
+-            ListAdapter adapter = createLoginAdapter(authItems);
+-            final Dialog dialog = createLoginDialog(authItems, adapter);
+-            dialog.show();
++            loginWithAccount(call);
+         }
+-
+-         */
+     }
+ 
+-    /**
+-     * 실제로 유저에게 보여질 dialog 객체를 생성한다.
+-     *
+-     * @param authItems 가능한 AuthType들의 정보를 담고 있는 Item array
+-     * @param adapter   Dialog의 list view에 쓰일 adapter
+-     * @return 로그인 방법들을 팝업으로 보여줄 dialog
+-     */
+-    private Dialog createLoginDialog(final Item[] authItems, final ListAdapter adapter) {
+-
+-        final Dialog dialog = new Dialog(this.getActivity(), KakaoResources.LoginDialog);
+-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+-        dialog.setContentView(KakaoResources.layout_login_dialog);
+-        if (dialog.getWindow() != null) {
+-            dialog.getWindow().setGravity(Gravity.CENTER);
+-        }
+-
+-        ListView listView = dialog.findViewById(KakaoResources.login_list_view);
+-        listView.setAdapter(adapter);
+-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+-            @Override
+-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+-                final AuthType authType = authItems[position].authType;
+-                if (authType != null) {
+-                    openSession(authType);
+-                }
+-                dialog.dismiss();
+-            }
+-        });
+-
+-        Button closeButton = dialog.findViewById(KakaoResources.login_close_button);
+-        closeButton.setOnClickListener(new View.OnClickListener() {
+-            @Override
+-            public void onClick(View v) {
+-                dialog.dismiss();
++    private void loginWithAccount(final PluginCall call) {
++        Activity activity = getActivity();
++        UserApiClient.getInstance().loginWithKakaoAccount(activity, (token, error) -> {
++            if (error != null) {
++                Log.e(LOG_TAG, "Account login failed: " + error.getMessage());
++                call.reject("Login failed: " + error.getMessage());
++            } else if (token != null) {
++                fetchUserInfo(call, token.getAccessToken());
+             }
++            return Unit.INSTANCE;
+         });
+-        return dialog;
+-    }
+-
+-    public void openSession(final AuthType authType) {
+-        Session.getCurrentSession().open(authType, currentActivity);
+-
+-    }
+-
+-    private void requestMe(final PluginCall call) {
+-
+-        Session.getCurrentSession().addCallback(new SessionCallback(call));
+-        kakaoMeV2ResponseCallback = new KakaoMeV2ResponseCallback(call);
+-        UserManagement.getInstance().me(kakaoMeV2ResponseCallback);
+-
+     }
+ 
+-    private class SessionCallback implements ISessionCallback {
+-
+-        private PluginCall call;
+-
+-        public SessionCallback(final PluginCall call) {
+-            this.call = call;
+-        }
+-
+-        @Override
+-        public void onSessionOpened() {
+-            requestMe(call);
+-        }
+-
+-        @Override
+-        public void onSessionOpenFailed(KakaoException exception) {
+-
+-            if (exception != null) {
+-                if (exception.toString()
+-                        .contains("App restarted during Kakao login procedure. Restarting from the start.")) {
+-
+-                } else {
+-                    KakaoCapacitorErrorHandler.errorHandler(call, exception.toString());
+-                }
++    private void fetchUserInfo(final PluginCall call, final String accessToken) {
++        UserApiClient.getInstance().me((user, error) -> {
++            if (error != null) {
++                Log.e(LOG_TAG, "Get user info failed: " + error.getMessage());
++                call.reject("Failed to get user info: " + error.getMessage());
++            } else if (user != null) {
++                JSObject response = buildUserResponse(user, accessToken);
++                call.resolve(response);
+             }
+-        }
+-    }
+-
+-    private class KakaoMeV2ResponseCallback extends MeV2ResponseCallback {
+-
+-        private PluginCall call;
+-
+-        public KakaoMeV2ResponseCallback(final PluginCall call) {
+-            this.call = call;
+-        }
+-
+-        @Override
+-        public void onFailure(ErrorResult errorResult) {
+-            KakaoCapacitorErrorHandler.errorHandler(call, errorResult);
+-        }
+-
+-        @Override
+-        public void onSessionClosed(ErrorResult errorResult) {
+-            KakaoCapacitorErrorHandler.errorHandler(call, errorResult);
+-            Session.getCurrentSession().checkAndImplicitOpen();
+-        }
+-
+-        @Override
+-        public void onSuccess(MeV2Response response) {
+-            Log.i("onSuccess", response.toString());
+-            call.success(handleLoginResult(response, Session.getCurrentSession().getTokenInfo().getAccessToken()));
+-        }
+-
++            return Unit.INSTANCE;
++        });
+     }
+ 
+-    private JSObject handleLoginResult(MeV2Response meV2Response, String accessToken) {
+-        Log.v(LOG_TAG, "JSObject : handleLoginResult");
++    private JSObject buildUserResponse(User user, String accessToken) {
+         JSObject response = new JSObject();
+         try {
+-            response = new JSObject(meV2Response.toString());
++            if (user.getId() != null) {
++                response.put("id", user.getId());
++            }
+             response.put("accessToken", accessToken);
+-            Log.v(LOG_TAG, "kakao response: " + response);
+-        } catch (JSONException e) {
+-            Log.v(LOG_TAG, "kakao : handleResult error - " + e.toString());
+-        }
+-        return response;
+-    }
+-
+-    private static class KakaoSDKAdapter extends KakaoAdapter {
+-
+-        @Override
+-        public ISessionConfig getSessionConfig() {
+-            return new ISessionConfig() {
+-                @Override
+-                public AuthType[] getAuthTypes() {
+-                    return new AuthType[]{AuthType.KAKAO_LOGIN_ALL};
+-                }
+-
+-                @Override
+-                public boolean isUsingWebviewTimer() {
+-                    return false;
+-                }
+-
+-                @Override
+-                public ApprovalType getApprovalType() {
+-                    return ApprovalType.INDIVIDUAL;
+-                }
+ 
+-                @Override
+-                public boolean isSecureMode() {
+-                    return false;
++            if (user.getKakaoAccount() != null) {
++                if (user.getKakaoAccount().getEmail() != null) {
++                    response.put("email", user.getKakaoAccount().getEmail());
+                 }
+-
+-                @Override
+-                public boolean isSaveFormData() {
+-                    return false;
+-                }
+-            };
+-        }
+-
+-        @Override
+-        public IApplicationConfig getApplicationConfig() {
+-            return new IApplicationConfig() {
+-                @Override
+-                public Context getApplicationContext() {
+-                    return KakaoLogin.getCurrentActivity().getApplicationContext();
++                if (user.getKakaoAccount().getProfile() != null) {
++                    if (user.getKakaoAccount().getProfile().getNickname() != null) {
++                        response.put("nickname", user.getKakaoAccount().getProfile().getNickname());
++                    }
++                    if (user.getKakaoAccount().getProfile().getProfileImageUrl() != null) {
++                        response.put("profileImageUrl", user.getKakaoAccount().getProfile().getProfileImageUrl());
++                    }
++                    if (user.getKakaoAccount().getProfile().getThumbnailImageUrl() != null) {
++                        response.put("thumbnailImageUrl", user.getKakaoAccount().getProfile().getThumbnailImageUrl());
++                    }
+                 }
+-            };
++            }
++        } catch (Exception e) {
++            Log.e(LOG_TAG, "Error building response: " + e.toString());
+         }
++        return response;
+     }
+ 
+-    private static class Item {
+-        final int textId;
+-        public final int icon;
+-        final int contentDescId;
+-        final AuthType authType;
++    @PluginMethod()
++    public void logout(final PluginCall call) {
++        UserApiClient.getInstance().logout(error -> {
++            if (error != null) {
++                Log.e(LOG_TAG, "Logout failed: " + error.getMessage());
++                call.reject("Logout failed: " + error.getMessage());
++            } else {
++                call.resolve();
++            }
++            return Unit.INSTANCE;
++        });
++    }
+ 
+-        Item(final int textId, final Integer icon, final int contentDescId, final AuthType authType) {
+-            this.textId = textId;
+-            this.icon = icon;
+-            this.contentDescId = contentDescId;
+-            this.authType = authType;
+-        }
++    @PluginMethod()
++    public void getUserInfo(final PluginCall call) {
++        UserApiClient.getInstance().me((user, error) -> {
++            if (error != null) {
++                Log.e(LOG_TAG, "Get user info failed: " + error.getMessage());
++                call.reject("Failed to get user info: " + error.getMessage());
++            } else if (user != null) {
++                JSObject response = buildUserResponse(user, "");
++                call.resolve(response);
++            }
++            return Unit.INSTANCE;
++        });
+     }
+ }

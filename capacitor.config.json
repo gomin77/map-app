@@ -1,0 +1,23 @@
+{
+  "appId": "com.travelmap.app",
+  "appName": "여행기록지도",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "Camera": {
+      "permissions": ["photos", "camera"]
+    },
+    "KakaoLogin": {
+      "kakaoAppKey": "665060f4f7ff4d9f279b0fc4844de59a"
+    },
+    "FirebaseAuthentication": {
+      "skipNativeAuth": false,
+      "providers": ["google.com"],
+      "google": {
+        "webClientId": "669464241658-fc9ek2ru1c8isif9h6h3feodo1djsscg.apps.googleusercontent.com"
+      }
+    }
+  }
+}

@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>여행 기록 지도</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0f0f1a;
+  color: #e0e0e0;
+  font-family: 'Malgun Gothic', 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  width: 100%;
+  padding: 16px 32px;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+header h1 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stats {
+  margin-left: auto;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.stats span { color: #60a5fa; font-weight: 700; font-size: 1rem; }
+
+.main {
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  width: 100%;
+  max-width: 1050px;
+  align-items: flex-start;
+}
+
+.map-container {
+  flex: 1;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+#korea-map {
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+}
+
+.region {
+  cursor: pointer;
+  stroke: #334155;
+  stroke-width: 1;
+  transition: filter 0.2s, stroke 0.2s;
+}
+
+.region.unvisited { fill: #1e293b; }
+
+.region.visited {
+  stroke: #60a5fa;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 5px rgba(96,165,250,0.35));
+}
+
+.region:hover {
+  stroke: #93c5fd;
+  stroke-width: 2;
+  filter: brightness(1.4) drop-shadow(0 0 6px rgba(96,165,250,0.5));
+}
+
+.map-label {
+  font-size: 8px;
+  fill: #64748b;
+  pointer-events: none;
+  text-anchor: middle;
+  font-weight: 500;
+}
+
+.sidebar {
+  width: 270px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.card h3 {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #475569;
+  margin-bottom: 12px;
+}
+
+.progress-track {
+  background: #1e293b;
+  border-radius: 999px;
+  height: 7px;
+  overflow: hidden;
+  margin-bottom: 7px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #60a5fa, #a78bfa);
+  border-radius: 999px;
+  transition: width 0.5s ease;
+  width: 0%;
+}
+
+.progress-text { font-size: 0.8rem; color: #64748b; }
+
+.region-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+.region-list .empty {
+  color: #475569;
+  font-size: 0.82rem;
+  text-align: center;
+  padding: 16px 0;
+}
+
+.region-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.region-item:hover { background: rgba(96,165,250,0.1); }
+
+.region-thumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.region-thumb-placeholder {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: #1e3a5c;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.region-item-name { flex: 1; font-size: 0.85rem; font-weight: 500; }
+
+.del-btn {
+  background: none;
+  border: none;
+  color: #475569;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 3px 5px;
+  border-radius: 4px;
+  transition: color 0.15s;
+  line-height: 1;
+}
+
+.del-btn:hover { color: #f87171; }
+
+/* Modal */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay.open { display: flex; }
+
+.modal {
+  background: #1e293b;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 26px;
+  width: 330px;
+  max-width: 92vw;
+}
+
+.modal-title { font-size: 1.1rem; margin-bottom: 3px; }
+.modal-sub { font-size: 0.78rem; color: #64748b; margin-bottom: 18px; }
+
+.drop-zone {
+  border: 2px dashed #334155;
+  border-radius: 10px;
+  padding: 26px 14px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.2s, background 0.2s;
+  margin-bottom: 14px;
+}
+
+.drop-zone:hover, .drop-zone.drag { border-color: #60a5fa; background: rgba(96,165,250,0.05); }
+
+.drop-zone input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.drop-icon { font-size: 1.8rem; margin-bottom: 6px; }
+.drop-text { font-size: 0.8rem; color: #64748b; }
+
+.preview-img {
+  display: none;
+  width: 100%;
+  height: 155px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 14px;
+}
+
+.modal-actions { display: flex; gap: 8px; }
+
+.btn {
+  flex: 1;
+  padding: 9px;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.btn:hover { opacity: 0.85; }
+.btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.btn-primary { background: linear-gradient(135deg, #60a5fa, #a78bfa); color: #0f172a; }
+.btn-ghost { background: rgba(255,255,255,0.08); color: #e2e8f0; }
+.btn-danger { background: rgba(248,113,113,0.13); color: #f87171; border: 1px solid rgba(248,113,113,0.2); }
+
+/* Tooltip */
+.tip {
+  position: fixed;
+  background: #0f172a;
+  color: #e2e8f0;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.76rem;
+  pointer-events: none;
+  z-index: 200;
+  display: none;
+  white-space: nowrap;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 999px; }
+</style>
+</head>
+<body>
+
+<header>
+  <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+    <circle cx="13" cy="13" r="12" stroke="#60a5fa" stroke-width="1.5"/>
+    <path d="M8 7 L13 5 L18 8 L16 15 L13 21 L10 15 Z" fill="#60a5fa" opacity="0.65"/>
+  </svg>
+  <h1>여행 기록 지도</h1>
+  <div class="stats">방문 지역 <span id="visit-count">0</span> / 17</div>
+</header>
+
+<div class="main">
+  <div class="map-container">
+    <svg id="korea-map" viewBox="0 0 550 750" xmlns="http://www.w3.org/2000/svg">
+      <defs id="svg-defs"></defs>
+
+      <!-- 경기도 -->
+      <path class="region unvisited" id="gyeonggi" data-name="경기도"
+        d="M172 105 L215 92 L265 98 L282 115 L288 148 L280 175 L258 188 L235 192 L212 187 L185 178 L163 160 L155 135 L160 115 Z"/>
+
+      <!-- 서울특별시 -->
+      <path class="region unvisited" id="seoul" data-name="서울특별시"
+        d="M212 130 L228 125 L242 128 L246 142 L238 152 L220 150 L210 142 Z"/>
+
+      <!-- 인천광역시 -->
+      <path class="region unvisited" id="incheon" data-name="인천광역시"
+        d="M148 125 L168 118 L175 135 L168 152 L150 155 L138 144 Z"/>
+
+      <!-- 강원도 -->
+      <path class="region unvisited" id="gangwon" data-name="강원도"
+        d="M282 82 L335 76 L388 80 L415 95 L418 130 L408 168 L392 188 L362 202 L330 207 L302 200 L280 188 L272 168 L270 138 L274 108 Z"/>
+
+      <!-- 세종특별자치시 -->
+      <path class="region unvisited" id="sejong" data-name="세종특별자치시"
+        d="M222 218 L236 214 L244 226 L236 238 L222 236 Z"/>
+
+      <!-- 충청북도 -->
+      <path class="region unvisited" id="chungbuk" data-name="충청북도"
+        d="M258 192 L298 186 L324 198 L330 225 L320 252 L298 264 L272 262 L250 248 L240 228 L242 208 Z"/>
+
+      <!-- 충청남도 -->
+      <path class="region unvisited" id="chungnam" data-name="충청남도"
+        d="M158 198 L196 190 L222 190 L240 208 L236 238 L222 260 L198 272 L168 276 L146 260 L132 240 L130 218 Z"/>
+
+      <!-- 대전광역시 -->
+      <path class="region unvisited" id="daejeon" data-name="대전광역시"
+        d="M226 242 L244 240 L252 252 L246 266 L228 268 L218 256 Z"/>
+
+      <!-- 경상북도 -->
+      <path class="region unvisited" id="gyeongbuk" data-name="경상북도"
+        d="M328 202 L392 194 L432 208 L446 240 L450 272 L440 308 L416 328 L386 338 L356 332 L330 320 L312 298 L308 264 L316 234 Z"/>
+
+      <!-- 대구광역시 -->
+      <path class="region unvisited" id="daegu" data-name="대구광역시"
+        d="M372 320 L396 314 L410 326 L410 344 L396 352 L374 348 L362 336 Z"/>
+
+      <!-- 전라북도 -->
+      <path class="region unvisited" id="jeonbuk" data-name="전라북도"
+        d="M166 278 L202 272 L228 270 L250 280 L264 304 L260 332 L240 346 L210 352 L182 346 L160 328 L150 304 L154 284 Z"/>
+
+      <!-- 경상남도 -->
+      <path class="region unvisited" id="gyeongnam" data-name="경상남도"
+        d="M312 336 L358 334 L392 338 L418 358 L424 386 L412 414 L386 428 L354 434 L322 426 L300 408 L290 380 L294 354 Z"/>
+
+      <!-- 울산광역시 -->
+      <path class="region unvisited" id="ulsan" data-name="울산광역시"
+        d="M418 322 L442 317 L455 335 L452 356 L436 366 L418 358 L410 342 Z"/>
+
+      <!-- 부산광역시 -->
+      <path class="region unvisited" id="busan" data-name="부산광역시"
+        d="M386 428 L414 422 L436 436 L436 458 L414 468 L388 462 L374 448 Z"/>
+
+      <!-- 전라남도 -->
+      <path class="region unvisited" id="jeonnam" data-name="전라남도"
+        d="M152 352 L192 346 L222 352 L248 366 L258 392 L250 422 L228 442 L198 452 L168 448 L142 430 L128 404 L128 376 L138 356 Z"/>
+
+      <!-- 광주광역시 -->
+      <path class="region unvisited" id="gwangju" data-name="광주광역시"
+        d="M198 354 L218 350 L228 364 L224 378 L208 382 L196 372 Z"/>
+
+      <!-- 제주특별자치도 -->
+      <path class="region unvisited" id="jeju" data-name="제주특별자치도"
+        d="M160 548 L206 538 L250 542 L268 560 L260 577 L234 588 L198 590 L166 580 L150 562 Z"/>
+
+      <!-- Labels -->
+      <text class="map-label" x="227" y="142">서울</text>
+      <text class="map-label" x="157" y="137">인천</text>
+      <text class="map-label" x="215" y="145" font-size="7">경기</text>
+      <text class="map-label" x="345" y="148">강원도</text>
+      <text class="map-label" x="233" y="228" font-size="6.5">세종</text>
+      <text class="map-label" x="284" y="228">충청북도</text>
+      <text class="map-label" x="185" y="232">충청남도</text>
+      <text class="map-label" x="237" y="256" font-size="7">대전</text>
+      <text class="map-label" x="378" y="268">경상북도</text>
+      <text class="map-label" x="390" y="335" font-size="7">대구</text>
+      <text class="map-label" x="207" y="314">전라북도</text>
+      <text class="map-label" x="360" y="385">경상남도</text>
+      <text class="map-label" x="434" y="340" font-size="7">울산</text>
+      <text class="map-label" x="407" y="447" font-size="7">부산</text>
+      <text class="map-label" x="192" y="400">전라남도</text>
+      <text class="map-label" x="210" y="367" font-size="7">광주</text>
+      <text class="map-label" x="210" y="562">제주도</text>
+    </svg>
+  </div>
+
+  <div class="sidebar">
+    <div class="card">
+      <h3>방문 진행률</h3>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-text" id="progress-text">0 / 17 지역 방문</div>
+    </div>
+
+    <div class="card">
+      <h3>방문한 지역</h3>
+      <ul class="region-list" id="region-list">
+        <li class="empty">지도에서 지역을 클릭해 보세요!</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-sub" id="modal-sub"></div>
+
+    <img class="preview-img" id="preview-img" alt="미리보기">
+
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept="image/*">
+      <div class="drop-icon">📷</div>
+      <div class="drop-text">클릭하거나 사진을 드래그하세요</div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="btn-cancel">취소</button>
+      <button class="btn btn-danger" id="btn-delete" style="display:none">삭제</button>
+      <button class="btn btn-primary" id="btn-save" disabled>저장</button>
+    </div>
+  </div>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<script>
+const REGIONS = [
+  'seoul','incheon','gyeonggi','gangwon',
+  'sejong','chungbuk','chungnam','daejeon',
+  'gyeongbuk','daegu','ulsan','busan',
+  'jeonbuk','jeonnam','gwangju',
+  'gyeongnam','jeju'
+];
+const TOTAL = REGIONS.length;
+
+let visits = {};
+let activeRegion = null;
+let pendingPhoto = null;
+
+function load() {
+  try { visits = JSON.parse(localStorage.getItem('travel') || '{}'); } catch { visits = {}; }
+}
+
+function save() {
+  localStorage.setItem('travel', JSON.stringify(visits));
+}
+
+function applyPatterns() {
+  const defs = document.getElementById('svg-defs');
+  defs.innerHTML = '';
+
+  REGIONS.forEach(id => {
+    const data = visits[id];
+    if (!data?.photo) return;
+
+    const el = document.getElementById(id);
+    if (!el) return;
+    const bbox = el.getBBox();
+
+    const pat = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
+    pat.setAttribute('id', 'pat-' + id);
+    pat.setAttribute('patternUnits', 'userSpaceOnUse');
+    pat.setAttribute('x', bbox.x);
+    pat.setAttribute('y', bbox.y);
+    pat.setAttribute('width', bbox.width);
+    pat.setAttribute('height', bbox.height);
+
+    const img = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+    img.setAttribute('href', data.photo);
+    img.setAttribute('x', 0);
+    img.setAttribute('y', 0);
+    img.setAttribute('width', bbox.width);
+    img.setAttribute('height', bbox.height);
+    img.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+
+    // Overlay tint
+    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    rect.setAttribute('x', 0); rect.setAttribute('y', 0);
+    rect.setAttribute('width', bbox.width); rect.setAttribute('height', bbox.height);
+    rect.setAttribute('fill', 'rgba(96,165,250,0.18)');
+
+    pat.appendChild(img);
+    pat.appendChild(rect);
+    defs.appendChild(pat);
+
+    el.style.fill = `url(#pat-${id})`;
+  });
+}
+
+function render() {
+  const count = Object.keys(visits).length;
+  document.getElementById('visit-count').textContent = count;
+  document.getElementById('progress-fill').style.width = (count / TOTAL * 100) + '%';
+  document.getElementById('progress-text').textContent = `${count} / ${TOTAL} 지역 방문`;
+
+  REGIONS.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (visits[id]) {
+      el.classList.remove('unvisited');
+      el.classList.add('visited');
+      if (!visits[id].photo) el.style.fill = '#1a3a5c';
+    } else {
+      el.classList.remove('visited');
+      el.classList.add('unvisited');
+      el.style.fill = '';
+    }
+  });
+
+  applyPatterns();
+
+  const list = document.getElementById('region-list');
+  const entries = Object.entries(visits);
+
+  if (!entries.length) {
+    list.innerHTML = '<li class="empty">지도에서 지역을 클릭해 보세요!</li>';
+    return;
+  }
+
+  list.innerHTML = '';
+  entries.forEach(([id, data]) => {
+    const name = document.getElementById(id)?.dataset.name || id;
+    const li = document.createElement('li');
+    li.className = 'region-item';
+
+    const thumb = data.photo
+      ? `<img class="region-thumb" src="${data.photo}" alt="">`
+      : `<div class="region-thumb-placeholder">📍</div>`;
+
+    li.innerHTML = `${thumb}<span class="region-item-name">${name}</span><button class="del-btn" title="삭제">✕</button>`;
+    li.querySelector('.region-item-name').onclick = () => openModal(id);
+    li.querySelector('.del-btn').onclick = (e) => { e.stopPropagation(); remove(id); };
+    list.appendChild(li);
+  });
+}
+
+function remove(id) {
+  delete visits[id];
+  save();
+  render();
+}
+
+function openModal(id) {
+  activeRegion = id;
+  pendingPhoto = null;
+
+  const name = document.getElementById(id)?.dataset.name || id;
+  const hasVisit = !!visits[id];
+  const hasPhoto = !!visits[id]?.photo;
+
+  document.getElementById('modal-title').textContent = name;
+  document.getElementById('modal-sub').textContent = hasVisit
+    ? '사진을 변경하거나 방문 기록을 삭제하세요'
+    : '사진을 업로드하여 방문을 기록하세요';
+
+  const preview = document.getElementById('preview-img');
+  const drop = document.getElementById('drop-zone');
+  const btnSave = document.getElementById('btn-save');
+  const btnDel = document.getElementById('btn-delete');
+
+  if (hasPhoto) {
+    preview.src = visits[id].photo;
+    preview.style.display = 'block';
+    drop.style.display = 'none';
+    btnSave.disabled = false;
+    btnSave.textContent = '사진 변경';
+  } else {
+    preview.style.display = 'none';
+    preview.src = '';
+    drop.style.display = 'block';
+    btnSave.disabled = true;
+    btnSave.textContent = '저장';
+  }
+
+  btnDel.style.display = hasVisit ? 'block' : 'none';
+  document.getElementById('file-input').value = '';
+  document.getElementById('overlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('open');
+  activeRegion = null;
+  pendingPhoto = null;
+}
+
+function handleFile(file) {
+  if (!file?.type.startsWith('image/')) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    pendingPhoto = e.target.result;
+    const preview = document.getElementById('preview-img');
+    preview.src = pendingPhoto;
+    preview.style.display = 'block';
+    document.getElementById('drop-zone').style.display = 'none';
+    const btnSave = document.getElementById('btn-save');
+    btnSave.disabled = false;
+    btnSave.textContent = '저장';
+  };
+  reader.readAsDataURL(file);
+}
+
+// File input
+document.getElementById('file-input').addEventListener('change', e => handleFile(e.target.files[0]));
+
+// Drag & drop
+const dropZone = document.getElementById('drop-zone');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('drag');
+  handleFile(e.dataTransfer.files[0]);
+});
+
+// Click drop zone -> open file picker
+dropZone.addEventListener('click', e => {
+  if (e.target !== document.getElementById('file-input'))
+    document.getElementById('file-input').click();
+});
+
+// Save
+document.getElementById('btn-save').addEventListener('click', () => {
+  if (!activeRegion) return;
+  if (pendingPhoto) {
+    visits[activeRegion] = { photo: pendingPhoto };
+  } else if (!visits[activeRegion]) {
+    visits[activeRegion] = {};
+  }
+  save();
+  render();
+  closeModal();
+});
+
+// Delete
+document.getElementById('btn-delete').addEventListener('click', () => {
+  if (activeRegion) { remove(activeRegion); closeModal(); }
+});
+
+// Cancel
+document.getElementById('btn-cancel').addEventListener('click', closeModal);
+document.getElementById('overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('overlay')) closeModal();
+});
+
+// Map region click
+REGIONS.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('click', () => openModal(id));
+});
+
+// Tooltip
+const tip = document.getElementById('tip');
+REGIONS.forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener('mouseenter', () => {
+    tip.textContent = (el.dataset.name || id) + (visits[id] ? ' ✓' : '');
+    tip.style.display = 'block';
+  });
+  el.addEventListener('mousemove', e => {
+    tip.style.left = (e.clientX + 14) + 'px';
+    tip.style.top = (e.clientY - 10) + 'px';
+  });
+  el.addEventListener('mouseleave', () => tip.style.display = 'none');
+});
+
+// Init
+load();
+render();
+</script>
+</body>
+</html>
