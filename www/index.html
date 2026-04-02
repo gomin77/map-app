@@ -141,7 +141,7 @@ button{cursor:pointer;font-family:inherit}
 .detail-img-wrap{width:100%;aspect-ratio:16/9;overflow:hidden;background:#eee;position:relative;flex-shrink:0}
 .detail-img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
 .detail-img-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:40px;color:#ccc;background:#f0ece4}
-.detail-body{padding:16px 20px}
+.detail-body{padding:16px 20px 80px}
 .detail-top-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:6px}
 .detail-title{font-size:18px;font-weight:800;flex:1}
 .detail-fav-btn{font-size:22px;border:none;background:none;cursor:pointer;padding:0;line-height:1;color:#ccc;flex-shrink:0}
@@ -1564,7 +1564,9 @@ async function fetchSigungu(code) {
   const raw = json?.response?.body?.items?.item;
   if (!raw) throw new Error('no items');
   const list = Array.isArray(raw) ? raw : [raw];
-  return list.filter(i => i.code && i.name).map(i => ({c: String(i.code), n: i.name}));
+  // 제주 구코드(남제주군=1, 북제주군=2) 데이터 없음 → 제외
+  const EXCLUDE = code === '39' ? ['1','2'] : [];
+  return list.filter(i => i.code && i.name && !EXCLUDE.includes(String(i.code))).map(i => ({c: String(i.code), n: i.name}));
 }
 
 async function toggleProvince(code) {
