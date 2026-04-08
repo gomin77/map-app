@@ -52,199 +52,101 @@
     <path d="M410.22,300.85L410.93,299.14L410.02,297.62L411.23,293.53L412.69,292.27L415.67,292.33L416.25,290.24L420.56,290.38L423.45,288.23L426.04,290.49L426.2,293.1L424.49,295.05L421.95,295.33L422.16,297.35L425.22,297.07L426.43,297.95L429.12,297.34L427.43,300.34L429.53,301.64L428.9,303.22L430.41,303.82L431.02,306.73L428.66,308.62L428.18,307L426.17,306.75L425.59,307.96L422.28,308.07L421.52,306.59L418.9,306.69L415.95,300.21L413.72,298.98L412.68,300.17L412.83,302.62Z" class="land" id="JP-44" title="Oita"/>
     <path d="M412.05,353.97L411.89,352.09L414,348.52L414.4,351.52L412.24,356.49L412.66,357.71L410.71,358.85L410.72,356.3ZM401.57,320.99L402.35,321.79L406.28,321.02L408.16,322.17L407.72,323.09L411.18,326.62L410.95,328.42L412.79,328.95L413.99,332L416.38,332.22L415.93,335.64L414.87,335.27L413.27,337.7L414.87,338.26L414.14,340.48L412.32,342.34L407.5,344.75L406.79,343.73L408.42,342.47L409.48,338.22L407.59,335.54L407.7,333.77L405.69,333.05L407.25,332.04L408.79,333.45L409.37,330.57L406.94,329.86L404.28,335.46L405.24,338.55L407.02,339.65L405.62,341.93L403.33,339.97L398.94,340.02L398.71,337.73L401.09,333.7L400.89,331.55L398.09,328.65L399.12,326.19L398.15,322.41ZM392.13,327.68L392.13,327.68L392.13,327.68ZM399.23,356.26L399.23,356.26L399.23,356.26ZM390.17,331.78L390.17,331.78L390.17,331.78ZM404.02,356.41L407.11,358.2L405.58,361L402.93,361.02L401.87,357.83Z" class="land" id="JP-46" title="Kagoshima"/>
     <path d="M356.03,437.74L358.7,436.19L357.1,433.32L361.17,433.76L364.03,429.49L365.21,432L363.61,434.39L357.16,439.39L355.23,442.97L356.34,443.66L353.22,445.3L352.86,443.01L355.01,441.08L354.26,438.92ZM286.77,479.39L285.4,481.43L282.14,480.89L283.75,478.19ZM310.23,471.57L311.27,469.89L313.83,472.09L311.24,472.46ZM376.71,409.74L377.92,411.65L377.04,413.52L375.09,412.45L375.44,408.99ZM290.87,477.6L292.9,475.41L292.17,479.63L290.63,479.96ZM387.85,399.33L385.43,400.83L385.52,402.54L383.45,404.19L382.13,402.58L379.64,401.71L383.31,399.36L386.29,398.72L389.56,396.08L390.03,398.13ZM395.72,399.38L394.63,401.09L393.55,400.52ZM337.35,440.48L337.35,440.48L337.35,440.48ZM381.18,403.62L383.32,405.28L381.24,404.83ZM370.59,419.68L368.88,418.85L371.44,418.67ZM308.2,470.37L308.2,470.37L308.2,470.37Z" class="land" id="JP-47" title="Okinawa"/>
-  
-<g id="prefecture-labels">
-  <text x="623.8" y="63.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">홋카이도</text>
-  <text x="623.8" y="63.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">홋카이도</text>
-  <text x="587.7" y="126.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.87" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">아오모리</text>
-  <text x="587.7" y="126.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.87" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">아오모리</text>
-  <text x="598.3" y="156.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="6.05" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">이와테</text>
-  <text x="598.3" y="156.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="6.05" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">이와테</text>
-  <text x="591.1" y="184.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.88" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">미야기</text>
-  <text x="591.1" y="184.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.88" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">미야기</text>
-  <text x="579.9" y="154.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.53" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">아키타</text>
-  <text x="579.9" y="154.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.53" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">아키타</text>
-  <text x="575.6" y="183.2" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.54" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">야마가타</text>
-  <text x="575.6" y="183.2" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.54" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">야마가타</text>
-  <text x="575.7" y="207.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="6.02" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">후쿠시마</text>
-  <text x="575.7" y="207.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="6.02" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">후쿠시마</text>
-  <text x="579.0" y="230.7" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.75" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">이바라키</text>
-  <text x="579.0" y="230.7" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.75" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">이바라키</text>
-  <text x="570.2" y="223.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.99" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">도치기</text>
-  <text x="570.2" y="223.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.99" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">도치기</text>
-  <text x="556.6" y="226.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">군마</text>
-  <text x="556.6" y="226.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">군마</text>
-  <text x="579.5" y="249.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">치바</text>
-  <text x="579.5" y="249.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">치바</text>
-  <text x="516.7" y="220.2" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.59" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">이시카와</text>
-  <text x="516.7" y="220.2" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.59" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">이시카와</text>
-  <text x="504.9" y="241.8" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.82" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">후쿠이</text>
-  <text x="504.9" y="241.8" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.82" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">후쿠이</text>
-  <text x="482.0" y="256.7" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">효고</text>
-  <text x="482.0" y="256.7" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">효고</text>
-  <text x="446.8" y="291.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="6.86" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">에히메</text>
-  <text x="446.8" y="291.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="6.86" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">에히메</text>
-  <text x="406.0" y="292.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.69" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">후쿠오카</text>
-  <text x="406.0" y="292.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.69" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">후쿠오카</text>
-  <text x="444.4" y="268.2" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.47" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">히로시마</text>
-  <text x="444.4" y="268.2" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.47" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">히로시마</text>
-  <text x="467.0" y="277.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.63" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">가가와</text>
-  <text x="467.0" y="277.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.63" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">가가와</text>
-  <text x="561.8" y="251.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.59" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">가나가와</text>
-  <text x="561.8" y="251.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.59" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">가나가와</text>
-  <text x="564.0" y="244.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.88" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">도쿄</text>
-  <text x="564.0" y="244.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.88" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">도쿄</text>
-  <text x="551.9" y="201.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">니가타</text>
-  <text x="551.9" y="201.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">니가타</text>
-  <text x="525.1" y="224.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.22" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">도야마</text>
-  <text x="525.1" y="224.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.22" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">도야마</text>
-  <text x="550.0" y="247.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.03" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">야마나시</text>
-  <text x="550.0" y="247.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.03" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">야마나시</text>
-  <text x="561.6" y="237.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.81" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">사이타마</text>
-  <text x="561.6" y="237.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.81" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">사이타마</text>
-  <text x="538.8" y="235.5" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.95" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">나가노</text>
-  <text x="538.8" y="235.5" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.95" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">나가노</text>
-  <text x="519.6" y="242.5" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">기후</text>
-  <text x="519.6" y="242.5" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">기후</text>
-  <text x="543.7" y="257.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.32" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">시즈오카</text>
-  <text x="543.7" y="257.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.32" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">시즈오카</text>
-  <text x="524.7" y="260.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.96" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">아이치</text>
-  <text x="524.7" y="260.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.96" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">아이치</text>
-  <text x="509.4" y="271.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="6.89" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">미에</text>
-  <text x="509.4" y="271.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="6.89" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">미에</text>
-  <text x="504.4" y="254.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.41" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">시가</text>
-  <text x="504.4" y="254.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.41" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">시가</text>
-  <text x="492.7" y="255.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">교토</text>
-  <text x="492.7" y="255.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">교토</text>
-  <text x="491.9" y="267.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.74" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">오사카</text>
-  <text x="491.9" y="267.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.74" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">오사카</text>
-  <text x="500.2" y="274.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.32" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">나라</text>
-  <text x="500.2" y="274.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.32" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">나라</text>
-  <text x="494.0" y="283.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.06" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">와카야마</text>
-  <text x="494.0" y="283.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.06" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">와카야마</text>
-  <text x="463.6" y="252.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.89" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">돗토리</text>
-  <text x="463.6" y="252.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.89" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">돗토리</text>
-  <text x="439.9" y="260.9" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">시마네</text>
-  <text x="439.9" y="260.9" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">시마네</text>
-  <text x="463.8" y="262.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.67" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">오카야마</text>
-  <text x="463.8" y="262.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.67" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">오카야마</text>
-  <text x="422.8" y="275.5" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.42" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">야마구치</text>
-  <text x="422.8" y="275.5" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.42" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">야마구치</text>
-  <text x="470.3" y="283.9" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.5" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">도쿠시마</text>
-  <text x="470.3" y="283.9" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.5" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">도쿠시마</text>
-  <text x="457.1" y="296.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">고치</text>
-  <text x="457.1" y="296.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">고치</text>
-  <text x="398.0" y="297.7" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.87" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">사가</text>
-  <text x="398.0" y="297.7" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.87" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">사가</text>
-  <text x="394.5" y="303.2" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.65" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">나가사키</text>
-  <text x="394.5" y="303.2" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.65" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">나가사키</text>
-  <text x="410.2" y="310.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.12" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">구마모토</text>
-  <text x="410.2" y="310.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.12" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">구마모토</text>
-  <text x="418.2" y="321.9" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.77" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">미야자키</text>
-  <text x="418.2" y="321.9" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.77" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">미야자키</text>
-  <text x="420.5" y="298.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.04" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">오이타</text>
-  <text x="420.5" y="298.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.04" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">오이타</text>
-  <text x="407.2" y="332.9" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.29" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">가고시마</text>
-  <text x="407.2" y="332.9" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.29" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">가고시마</text>
-  <text x="359.0" y="437.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.5" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">오키나와</text>
-  <text x="359.0" y="437.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.5" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">오키나와</text>
-</g>
 </g>
 
 <g id="prefecture-labels">
-  <text x="623.8" y="63.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">홋카이도</text>
-  <text x="623.8" y="63.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">홋카이도</text>
-  <text x="587.7" y="126.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.87" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">아오모리</text>
-  <text x="587.7" y="126.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.87" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">아오모리</text>
-  <text x="598.3" y="156.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="6.05" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">이와테</text>
-  <text x="598.3" y="156.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="6.05" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">이와테</text>
-  <text x="591.1" y="184.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.88" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">미야기</text>
-  <text x="591.1" y="184.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.88" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">미야기</text>
-  <text x="579.9" y="154.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.53" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">아키타</text>
-  <text x="579.9" y="154.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.53" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">아키타</text>
-  <text x="575.6" y="183.2" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.54" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">야마가타</text>
-  <text x="575.6" y="183.2" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.54" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">야마가타</text>
-  <text x="575.7" y="207.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="6.02" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">후쿠시마</text>
-  <text x="575.7" y="207.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="6.02" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">후쿠시마</text>
-  <text x="579.0" y="230.7" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.75" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">이바라키</text>
-  <text x="579.0" y="230.7" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.75" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">이바라키</text>
-  <text x="570.2" y="223.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.99" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">도치기</text>
-  <text x="570.2" y="223.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.99" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">도치기</text>
-  <text x="556.6" y="226.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">군마</text>
-  <text x="556.6" y="226.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">군마</text>
-  <text x="579.5" y="249.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">치바</text>
-  <text x="579.5" y="249.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">치바</text>
-  <text x="516.7" y="220.2" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.59" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">이시카와</text>
-  <text x="516.7" y="220.2" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.59" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">이시카와</text>
-  <text x="504.9" y="241.8" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.82" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">후쿠이</text>
-  <text x="504.9" y="241.8" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.82" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">후쿠이</text>
-  <text x="482.0" y="256.7" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">효고</text>
-  <text x="482.0" y="256.7" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">효고</text>
-  <text x="446.8" y="291.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="6.86" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">에히메</text>
-  <text x="446.8" y="291.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="6.86" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">에히메</text>
-  <text x="406.0" y="292.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.69" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">후쿠오카</text>
-  <text x="406.0" y="292.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.69" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">후쿠오카</text>
-  <text x="444.4" y="268.2" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.47" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">히로시마</text>
-  <text x="444.4" y="268.2" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.47" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">히로시마</text>
-  <text x="467.0" y="277.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.63" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">가가와</text>
-  <text x="467.0" y="277.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.63" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">가가와</text>
-  <text x="561.8" y="251.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.59" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">가나가와</text>
-  <text x="561.8" y="251.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.59" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">가나가와</text>
-  <text x="564.0" y="244.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.88" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">도쿄</text>
-  <text x="564.0" y="244.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.88" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">도쿄</text>
-  <text x="551.9" y="201.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">니가타</text>
-  <text x="551.9" y="201.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">니가타</text>
-  <text x="525.1" y="224.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.22" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">도야마</text>
-  <text x="525.1" y="224.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.22" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">도야마</text>
-  <text x="550.0" y="247.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.03" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">야마나시</text>
-  <text x="550.0" y="247.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.03" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">야마나시</text>
-  <text x="561.6" y="237.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.81" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">사이타마</text>
-  <text x="561.6" y="237.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.81" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">사이타마</text>
-  <text x="538.8" y="235.5" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.95" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">나가노</text>
-  <text x="538.8" y="235.5" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.95" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">나가노</text>
-  <text x="519.6" y="242.5" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">기후</text>
-  <text x="519.6" y="242.5" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">기후</text>
-  <text x="543.7" y="257.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.32" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">시즈오카</text>
-  <text x="543.7" y="257.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.32" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">시즈오카</text>
-  <text x="524.7" y="260.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.96" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">아이치</text>
-  <text x="524.7" y="260.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.96" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">아이치</text>
-  <text x="509.4" y="271.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="6.89" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">미에</text>
-  <text x="509.4" y="271.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="6.89" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">미에</text>
-  <text x="504.4" y="254.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.41" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">시가</text>
-  <text x="504.4" y="254.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.41" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">시가</text>
-  <text x="492.7" y="255.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">교토</text>
-  <text x="492.7" y="255.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">교토</text>
-  <text x="491.9" y="267.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.74" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">오사카</text>
-  <text x="491.9" y="267.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.74" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">오사카</text>
-  <text x="500.2" y="274.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.32" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">나라</text>
-  <text x="500.2" y="274.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.32" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">나라</text>
-  <text x="494.0" y="283.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.06" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">와카야마</text>
-  <text x="494.0" y="283.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.06" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">와카야마</text>
-  <text x="463.6" y="252.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.89" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">돗토리</text>
-  <text x="463.6" y="252.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.89" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">돗토리</text>
-  <text x="439.9" y="260.9" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">시마네</text>
-  <text x="439.9" y="260.9" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">시마네</text>
-  <text x="463.8" y="262.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.67" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">오카야마</text>
-  <text x="463.8" y="262.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.67" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">오카야마</text>
-  <text x="422.8" y="275.5" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.42" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">야마구치</text>
-  <text x="422.8" y="275.5" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.42" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">야마구치</text>
-  <text x="470.3" y="283.9" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.5" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">도쿠시마</text>
-  <text x="470.3" y="283.9" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.5" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">도쿠시마</text>
-  <text x="457.1" y="296.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">고치</text>
-  <text x="457.1" y="296.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">고치</text>
-  <text x="398.0" y="297.7" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.87" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">사가</text>
-  <text x="398.0" y="297.7" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="4.87" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">사가</text>
-  <text x="394.5" y="303.2" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.65" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">나가사키</text>
-  <text x="394.5" y="303.2" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.65" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">나가사키</text>
-  <text x="410.2" y="310.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.12" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">구마모토</text>
-  <text x="410.2" y="310.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.12" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">구마모토</text>
-  <text x="418.2" y="321.9" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.77" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">미야자키</text>
-  <text x="418.2" y="321.9" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.77" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">미야자키</text>
-  <text x="420.5" y="298.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.04" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">오이타</text>
-  <text x="420.5" y="298.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="5.04" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">오이타</text>
-  <text x="407.2" y="332.9" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.29" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">가고시마</text>
-  <text x="407.2" y="332.9" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.29" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">가고시마</text>
-  <text x="359.0" y="437.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.5" text-anchor="middle" dominant-baseline="middle" stroke="white" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke">오키나와</text>
-  <text x="359.0" y="437.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.5" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">오키나와</text>
+<text x="623.8" y="63.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.5" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">홋카이도</text>
+
+  <text x="587.7" y="132" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.94" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">아오모리</text>
+  <text x="598.3" y="156.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.03" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">이와테</text>
+
+  <text x="591.1" y="181" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.94" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">미야기</text>
+
+  <text x="581" y="154.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.77" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">아키타</text>
+
+  <text x="575.6" y="181" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.77" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">야마가타</text>
+
+  <text x="575.7" y="207.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.01" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">후쿠시마</text>
+
+  <text x="577" y="235" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.77" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">이바라키</text>
+
+  <text x="570.2" y="223.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.77" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">도치기</text>
+
+  <text x="556.6" y="226.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.5" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">군마</text>
+
+  <text x="579" y="246" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.77" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">치바</text>
+
+  <text x="512" y="232" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="1.8" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">이시카와</text>
+
+  <text x="508" y="240" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.91" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">후쿠이</text>
+
+  <text x="482.0" y="259" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.5" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">효고</text>
+
+  <text x="445" y="290" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">에히메</text>
+
+  <text x="408" y="291" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.1" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">후쿠오카</text>
+
+  <text x="444.4" y="268.2" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.77" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">히로시마</text>
+
+  <text x="465" y="277.4" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="1.88" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">가가와</text>
+
+  <text x="561.8" y="251.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="1.8" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">가나가와</text>
+
+  <text x="563" y="245" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">도쿄</text>
+
+  <text x="559" y="201.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.5" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">니가타</text>
+
+  <text x="525.1" y="224.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.77" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">도야마</text>
+
+  <text x="550.0" y="247.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.77" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">야마나시</text>
+
+  <text x="561.6" y="237.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.5" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">사이타마</text>
+
+  <text x="538.8" y="235.5" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.98" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">나가노</text>
+
+  <text x="522" y="242.5" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="3.5" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">기후</text>
+
+  <text x="540" y="260" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.66" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">시즈오카</text>
+
+  <text x="524.7" y="260.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.77" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">아이치</text>
+
+  <text x="509.4" y="271.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.77" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">미에</text>
+
+  <text x="504.4" y="254.6" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.77" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">시가</text>
+
+  <text x="492.7" y="255.0" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.77" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">교토</text>
+
+  <text x="494" y="272" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="1.5" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">오사카</text>
+
+  <text x="500.2" y="274.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.16" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">나라</text>
+
+  <text x="491" y="283.1" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="1.53" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">와카야마</text>
+
+  <text x="463.6" y="251" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.5" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">돗토리</text>
+
+  <text x="439" y="260.9" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.5" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">시마네</text>
+
+  <text x="463.8" y="262.3" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">오카야마</text>
+
+  <text x="422.8" y="278" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">야마구치</text>
+
+  <text x="470.3" y="283" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.5" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">도쿠시마</text>
+
+  <text x="457.1" y="290" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.7" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">고치</text>
+
+  <text x="398.0" y="297" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.44" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">사가</text>
+
+  <text x="394.5" y="307" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="1.5" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">나가사키</text>
+
+  <text x="411" y="306" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">구마모토</text>
+
+  <text x="416" y="325" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="1.89" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">미야자키</text>
+
+  <text x="420.5" y="300" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.52" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">오이타</text>
+
+  <text x="405" y="327" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.3" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">가고시마</text>
+
+  <text x="359.0" y="420" font-family="'Nanum Gothic','Malgun Gothic',sans-serif" font-size="2.77" text-anchor="middle" dominant-baseline="middle" fill="#1a1a1a">오키나와</text>
+</g>
 </g>
 </svg>

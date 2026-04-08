@@ -64,10 +64,11 @@ const MAPS = {
   domestic: [
     {id:'kr', name:'한국 전체', icon:'🗺️', total:229, file:'assets/korea-map-detail.svg', prefix:'region_', avail:true},
     {id:'jeju', name:'제주도', icon:'🏝️', total:0, prefix:'jeju_', avail:false},
-    {id:'seoul', name:'서울', icon:'🏙️', total:0, prefix:'seoul_', avail:false},
+    {id:'seoul', name:'서울', icon:'🏙️', total:25, file:'assets/seoul-map.svg', prefix:'seoul_', avail:true},
   ],
   intl: [
-    {id:'jp', name:'일본', icon:'🗾', total:47, file:'assets/japan-map.svg', prefix:'JP-', avail:true},
+    {id:'jp',    name:'일본', icon:'🗾', total:47,  file:'assets/japan-map.svg', prefix:'JP-',  avail:true},
+    {id:'world', name:'세계', icon:'🌍', total:195, file:'assets/world-map.svg', prefix:'wld_', avail:true},
   ]
 };
 function allMaps(){ return [...MAPS.domestic, ...MAPS.intl]; }

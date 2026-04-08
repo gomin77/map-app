@@ -71,8 +71,10 @@
     </div>
     <div class="map-area" id="map-area">
       <div id="zoom-layer">
-        <div id="kr-box" class="svg-box active"></div>
-        <div id="jp-box" class="svg-box"></div>
+        <div id="kr-box"    class="svg-box active"></div>
+        <div id="jp-box"    class="svg-box"></div>
+        <div id="seoul-box" class="svg-box"></div>
+        <div id="world-box" class="svg-box"></div>
       </div>
     </div>
     <div class="rec-section">
@@ -90,9 +92,33 @@
     <div class="sec-title">최근 본 지역</div>
     <div class="recent-scroll" id="recent-scroll"></div>
     <div class="sec-title">방문 통계</div>
+    <div class="stats-filter-row">
+      <button class="stats-filter-btn active" onclick="switchStatsFilter('kr')"   id="sfb-kr">한국</button>
+      <button class="stats-filter-btn"        onclick="switchStatsFilter('seoul')" id="sfb-seoul">서울</button>
+      <button class="stats-filter-btn"        onclick="switchStatsFilter('jp')"   id="sfb-jp">일본</button>
+      <button class="stats-filter-btn"        onclick="switchStatsFilter('world')" id="sfb-world">세계</button>
+    </div>
     <div class="charts-row">
-      <div class="chart-wrap"><canvas id="ch-kr" width="110" height="110"></canvas><div class="chart-label">한국 (229개)</div></div>
-      <div class="chart-wrap"><canvas id="ch-jp" width="110" height="110"></canvas><div class="chart-label">일본 (47개)</div></div>
+      <div class="chart-wrap" id="cw-kr">
+        <canvas id="ch-kr"    width="160" height="160"></canvas>
+        <div class="chart-label">한국</div>
+        <div class="chart-count" id="cc-kr"></div>
+      </div>
+      <div class="chart-wrap" id="cw-seoul" style="display:none">
+        <canvas id="ch-seoul" width="160" height="160"></canvas>
+        <div class="chart-label">서울</div>
+        <div class="chart-count" id="cc-seoul"></div>
+      </div>
+      <div class="chart-wrap" id="cw-jp" style="display:none">
+        <canvas id="ch-jp"    width="160" height="160"></canvas>
+        <div class="chart-label">일본</div>
+        <div class="chart-count" id="cc-jp"></div>
+      </div>
+      <div class="chart-wrap" id="cw-world" style="display:none">
+        <canvas id="ch-world" width="160" height="160"></canvas>
+        <div class="chart-label">세계</div>
+        <div class="chart-count" id="cc-world"></div>
+      </div>
     </div>
     <div class="sec-title">여행 캘린더</div>
     <div class="cal-wrap">

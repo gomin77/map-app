@@ -33,6 +33,14 @@ async function initMap(type){
       const txt = await res.text();
       box.innerHTML = txt;
       const svg = box.querySelector('svg');
+
+      // viewBox 없는 SVG (서울 등): width/height 변경 전에 원본 크기로 viewBox 설정
+      if(!svg.getAttribute('viewBox')){
+        const ow = parseFloat(svg.getAttribute('width')) || 800;
+        const oh = parseFloat(svg.getAttribute('height')) || 600;
+        svg.setAttribute('viewBox', `0 0 ${ow} ${oh}`);
+        svg.removeAttribute('overflow');
+      }
       svg.setAttribute('width','100%'); svg.setAttribute('height','100%');
       if(!svg.querySelector('defs')) svg.prepend(document.createElementNS('http://www.w3.org/2000/svg','defs'));
 
@@ -42,6 +50,32 @@ async function initMap(type){
           if(!p.getAttribute('data-name') && p.getAttribute('title'))
             p.setAttribute('data-name', p.getAttribute('title'));
         });
+      }
+
+      if(type==='world'){
+        svg.querySelectorAll('.land').forEach(p=>{
+          p.classList.add('region');
+          const iso = p.getAttribute('id') || '';
+          p.setAttribute('id', 'wld_' + iso);
+          if(!p.getAttribute('data-name') && p.getAttribute('title'))
+            p.setAttribute('data-name', p.getAttribute('title'));
+        });
+      }
+
+      // 서울: SVG에 pre-marked .region이 없을 경우에만 폴백 처리
+      if(type==='seoul'){
+        if(svg.querySelectorAll('.region').length === 0){
+          const SEOUL_DISTRICTS = [
+            '도봉구','노원구','강북구','성북구','종로구','중구','용산구','은평구','서대문구',
+            '마포구','강서구','양천구','구로구','영등포구','동작구','관악구','금천구',
+            '강남구','서초구','송파구','강동구','광진구','성동구','동대문구','중랑구'
+          ];
+          Array.from(svg.querySelectorAll('path')).forEach((p, i) => {
+            p.setAttribute('id', 'seoul_'+i);
+            p.setAttribute('data-name', SEOUL_DISTRICTS[i] || '서울_'+i);
+            p.classList.add('region');
+          });
+        }
       }
       svg.querySelectorAll('.region').forEach(p=>{
         p.addEventListener('click', e=>{ e.stopPropagation(); openRecModal(p.id); });
@@ -60,7 +94,7 @@ function applyTextOverrides(svg, type){
   svg.querySelectorAll('text').forEach(t=>{
     if(window.getComputedStyle(t).display==='none') return;
     const content = t.textContent.trim();
-    if(type==='jp') t.style.setProperty('font-size','5px','important');
+    if(type==='jp') t.style.setProperty('font-size','2.5px','important');
     if(type==='kr'){
       const small = ['부천','광명','과천','안양','군포','의왕'];
       if(small.some(n=>content.includes(n))) t.style.setProperty('font-size','3px','important');
@@ -131,11 +165,11 @@ function updateColors(svg){
         svg.appendChild(img);
         p.style.fill='rgba(139,94,60,.15)';
       } else { p.style.fill='rgba(139,94,60,.5)'; }
-      p.style.stroke='#8b5e3c'; p.style.strokeWidth='0.5';
+      p.style.stroke='#8b5e3c'; p.style.strokeWidth=p.id.startsWith('seoul_')?'2':'0.5';
     } else if(d && d.status==='wish'){
-      p.style.fill='transparent'; p.style.stroke='#2980b9'; p.style.strokeWidth='1.5'; p.style.strokeDasharray='3,2';
+      p.style.fill='transparent'; p.style.stroke='#2980b9'; p.style.strokeWidth=p.id.startsWith('seoul_')?'2':'1.5'; p.style.strokeDasharray='3,2';
     } else {
-      p.style.fill='#e8dcc8'; p.style.stroke='#b0a090'; p.style.strokeWidth='0.3';
+      p.style.fill='#e8dcc8'; p.style.stroke='#b0a090'; p.style.strokeWidth=p.id.startsWith('seoul_')?'1':'0.3';
     }
   });
 }
@@ -232,6 +266,10 @@ function selectMap(id){
   document.getElementById('map-hd-name').textContent=cfg.name+' ▾';
   document.getElementById('kr-box').classList.toggle('active',id==='kr');
   document.getElementById('jp-box').classList.toggle('active',id==='jp');
+  const seoulBox=document.getElementById('seoul-box');
+  if(seoulBox) seoulBox.classList.toggle('active',id==='seoul');
+  const worldBox=document.getElementById('world-box');
+  if(worldBox) worldBox.classList.toggle('active',id==='world');
   closeMapPicker(); resetZoom(); showAll=false; renderTravel();
 }
 
@@ -334,10 +372,30 @@ function reportBug(){
   const link = `mailto:gomin7734@gmail.com?subject=${encodeURIComponent('[여정] 버그신고/개선요청')}&body=${body}`;
   try{ window.open(link,'_self'); }catch(e){ showToast('gomin7734@gmail.com 으로 메일을 보내주세요.'); }
 }
+let statsFilter = 'kr';
+function switchStatsFilter(id){
+  statsFilter = id;
+  ['kr','seoul','jp','world'].forEach(k=>{
+    const btn = document.getElementById('sfb-'+k);
+    const cw  = document.getElementById('cw-'+k);
+    if(btn) btn.classList.toggle('active', k===id);
+    if(cw)  cw.style.display = k===id ? '' : 'none';
+  });
+  drawDonuts();
+}
+
 function drawDonuts(){
-  const kr=Object.keys(visits).filter(id=>id.startsWith('region_')&&visits[id].status==='visited').length;
-  const jp=Object.keys(visits).filter(id=>id.startsWith('JP-')&&visits[id].status==='visited').length;
-  donut('ch-kr',kr,229,'#8b5e3c'); donut('ch-jp',jp,47,'#c19a6b');
+  const data = {
+    kr:    { visited: Object.keys(visits).filter(id=>id.startsWith('region_')&&visits[id].status==='visited').length, total:229,  color:'#8b5e3c' },
+    seoul: { visited: Object.keys(visits).filter(id=>id.startsWith('seoul_') &&visits[id].status==='visited').length, total:25,   color:'#5b8c5a' },
+    jp:    { visited: Object.keys(visits).filter(id=>id.startsWith('JP-')    &&visits[id].status==='visited').length, total:47,   color:'#c19a6b' },
+    world: { visited: Object.keys(visits).filter(id=>id.startsWith('wld_')   &&visits[id].status==='visited').length, total:195,  color:'#4a7fb5' },
+  };
+  const d = data[statsFilter];
+  if(!d) return;
+  donut('ch-'+statsFilter, d.visited, d.total, d.color);
+  const cc = document.getElementById('cc-'+statsFilter);
+  if(cc) cc.textContent = `${d.visited} / ${d.total}개 방문`;
 }
 function donut(id,c,t,color){
   const ctx=document.getElementById(id).getContext('2d'); const pct=t>0?c/t:0;
