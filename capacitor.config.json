@@ -1,6 +1,6 @@
 {
   "appId": "com.travelmap.app",
-  "appName": "여행기록지도",
+  "appName": "여정",
   "webDir": "www",
   "server": {
     "androidScheme": "https"
