@@ -11,6 +11,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 import java.security.MessageDigest;
+import androidx.activity.OnBackPressedCallback;
 
 public class MainActivity extends BridgeActivity {
     private boolean backPressedOnce = false;
@@ -19,17 +20,19 @@ public class MainActivity extends BridgeActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         printKeyHash();
-    }
 
-    @Override
-    public void onBackPressed() {
-        if (backPressedOnce) {
-            super.onBackPressed();
-            return;
-        }
-        backPressedOnce = true;
-        Toast.makeText(this, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
-        new Handler().postDelayed(() -> backPressedOnce = false, 2000);
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (backPressedOnce) {
+                    finish();
+                    return;
+                }
+                backPressedOnce = true;
+                Toast.makeText(MainActivity.this, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(() -> backPressedOnce = false, 2000);
+            }
+        });
     }
 
     private void printKeyHash() {
