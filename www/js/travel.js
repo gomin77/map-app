@@ -243,7 +243,19 @@ mapArea.addEventListener('touchmove', e=>{
   applyTransform();
 },{ passive:false });
 mapArea.addEventListener('touchend', ()=>{ isPinch=false; isDrag=false; });
-function applyTransform(){ zoomLayer.style.transform=`translate(${offX}px,${offY}px) scale(${zoom})`; }
+function applyTransform(){
+  // 지도 이동 한계 (지도가 화면 밖으로 완전히 벗어나지 않도록)
+  const rect = mapArea.getBoundingClientRect();
+  const mapW = rect.width * zoom;
+  const mapH = rect.height * zoom;
+  const maxX = rect.width * 0.8;
+  const maxY = rect.height * 0.8;
+  const minX = -(mapW - rect.width * 0.2);
+  const minY = -(mapH - rect.height * 0.2);
+  offX = Math.min(maxX, Math.max(minX, offX));
+  offY = Math.min(maxY, Math.max(minY, offY));
+  zoomLayer.style.transform=`translate(${offX}px,${offY}px) scale(${zoom})`;
+}
 function resetZoom(){ zoom=1; offX=0; offY=0; applyTransform(); }
 
 /* ── 지도 선택 ── */
@@ -313,11 +325,11 @@ function addPhotos(inp){
 function delPhoto(i){ tempPhotos.splice(i,1); renderGallery(); }
 function saveRecord(){
   visits[activeRegion]={ status:tempStatus, photos:tempPhotos, photo:tempPhotos[0]||null, date:document.getElementById('rec-date').value, tags:document.getElementById('rec-tags').value, memo:document.getElementById('rec-memo').value };
-  saveVisits(); closeRecModal(); renderTravel(); showToast('저장되었습니다 ✓');
+  saveVisits(); closeRecModal(); renderTravel(); drawDonuts(); renderCalendar(); showToast('저장되었습니다 ✓');
 }
 function deleteRecord(){
   if(!confirm('이 기록을 삭제할까요?')) return;
-  delete visits[activeRegion]; saveVisits(); closeRecModal(); renderTravel(); showToast('삭제되었습니다.');
+  delete visits[activeRegion]; saveVisits(); closeRecModal(); renderTravel(); drawDonuts(); renderCalendar(); showToast('삭제되었습니다.');
 }
 function closeRecModal(e){ if(!e||e.target.id==='rec-modal') document.getElementById('rec-modal').classList.remove('open'); }
 
@@ -342,7 +354,7 @@ function handleAvatar(inp){
 }
 function saveProfile(){
   profile.nickname=document.getElementById('edit-nick').value||'여정객';
-  saveProfile(); updateProfileUI(); closeProfModal(); showToast('프로필이 수정되었습니다.');
+  localStorage.setItem('user_profile', JSON.stringify(profile)); updateProfileUI(); closeProfModal(); showToast('프로필이 수정되었습니다.');
 }
 function closeProfModal(e){ if(!e||e.target.id==='prof-modal') document.getElementById('prof-modal').classList.remove('open'); }
 
@@ -391,6 +403,13 @@ function drawDonuts(){
     jp:    { visited: Object.keys(visits).filter(id=>id.startsWith('JP-')    &&visits[id].status==='visited').length, total:47,   color:'#c19a6b' },
     world: { visited: Object.keys(visits).filter(id=>id.startsWith('wld_')   &&visits[id].status==='visited').length, total:195,  color:'#4a7fb5' },
   };
+  // 스토리탭 카드 통계 업데이트
+  Object.entries(data).forEach(([k, d]) => {
+    const bar = document.getElementById('smc-bar-'+k);
+    const cnt = document.getElementById('smc-count-'+k);
+    if(bar) bar.style.width = (d.total>0 ? (d.visited/d.total*100) : 0)+'%';
+    if(cnt) cnt.textContent = `${d.visited} / ${d.total}`;
+  });
   const d = data[statsFilter];
   if(!d) return;
   donut('ch-'+statsFilter, d.visited, d.total, d.color);
@@ -409,15 +428,26 @@ function donut(id,c,t,color){
 function renderCalendar(){
   const y=calMonth.getFullYear(), m=calMonth.getMonth();
   document.getElementById('cal-title').textContent=`${y}년 ${m+1}월`;
-  const vDates={}; Object.values(visits).forEach(v=>{ if(v.date&&v.status==='visited') vDates[v.date]=(vDates[v.date]||0)+1; });
+  // 날짜별 방문 데이터 수집 (사진 포함)
+  const vDates={};
+  Object.values(visits).forEach(v=>{
+    if(v.date && v.status==='visited'){
+      if(!vDates[v.date]) vDates[v.date]={count:0, photo:null};
+      vDates[v.date].count++;
+      if(!vDates[v.date].photo && (v.photos?.[0] || v.photo)) vDates[v.date].photo = v.photos?.[0] || v.photo;
+    }
+  });
   const first=new Date(y,m,1).getDay(); const days=new Date(y,m+1,0).getDate();
   const today=new Date().toISOString().split('T')[0]; const dows=['일','월','화','수','목','금','토'];
   let html=dows.map(d=>`<div class="cal-dow">${d}</div>`).join('');
   for(let i=0;i<first;i++) html+='<div></div>';
   for(let d=1;d<=days;d++){
     const ds=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    const has=vDates[ds]>0, isT=ds===today;
-    html+=`<div class="cal-day${isT?' today':''}${has?' has-visit':''}" onclick="showDayVisits('${ds}')"><span>${d}</span>${has?'<div class="cal-dot"></div>':''}</div>`;
+    const info=vDates[ds], has=info?.count>0, isT=ds===today;
+    const inner = has && info.photo
+      ? `<img class="cal-photo-thumb" src="${info.photo}">`
+      : has ? '<div class="cal-dot"></div>' : '';
+    html+=`<div class="cal-day${isT?' today':''}${has?' has-visit':''}" onclick="showDayVisits('${ds}')"><span>${d}</span>${inner}</div>`;
   }
   document.getElementById('cal-grid').innerHTML=html;
 }
@@ -456,4 +486,5 @@ function resetData(){
 /* ── 초기화 ── */
 document.addEventListener('DOMContentLoaded', () => {
   loadAll();
+  renderCalendar();
 });

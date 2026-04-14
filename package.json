@@ -18,6 +18,8 @@
     "@capacitor/camera": "^8.0.1",
     "@capacitor/cli": "^8.1.0",
     "@capacitor/core": "^8.1.0",
+    "@capacitor/filesystem": "^8.1.2",
+    "@capacitor/share": "^8.0.1",
     "@svg-maps/south-korea": "^2.0.0",
     "capacitor-kakao-login": "^1.0.1"
   },

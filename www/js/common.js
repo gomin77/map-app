@@ -131,9 +131,13 @@ function loadAll(){
   try{ profile = JSON.parse(localStorage.getItem('user_profile')||'{"nickname":"여정객","avatar":null}'); }catch{}
   try{ recentViews = JSON.parse(localStorage.getItem('recent_views')||'[]'); }catch{ recentViews=[]; }
   try{ notiSettings = JSON.parse(localStorage.getItem('noti_settings')||'{"travel":true,"notice":true,"weekly":false}'); }catch{}
-  updateProfileUI();
+  if (typeof updateProfileUI === 'function') updateProfileUI();
 }
-function saveVisits(){ localStorage.setItem('travel_v2', JSON.stringify(visits)); }
+function saveVisits(){ 
+  localStorage.setItem('travel_v2', JSON.stringify(visits)); 
+  // 클라우드 자동 동기화
+  autoSyncToCloud();
+}
 function saveProfile(){ localStorage.setItem('user_profile', JSON.stringify(profile)); }
 function saveRecent(){ localStorage.setItem('recent_views', JSON.stringify(recentViews)); }
 function saveNoti(){ localStorage.setItem('noti_settings', JSON.stringify(notiSettings)); }
