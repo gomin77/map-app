@@ -7,6 +7,7 @@ android/build/
 android/app/build/
 android/.gradle/
 android/local.properties
+android/.idea/
 
 # Capacitor
 android/app/src/main/assets/public/
@@ -15,3 +16,12 @@ android/app/src/main/assets/public/
 .DS_Store
 Thumbs.db
 temp_build_folder/
+
+# Local secrets / signing files
+*.jks
+*.keystore
+*.p12
+*.mobileprovision
+*.orig
+.env
+.env.*
