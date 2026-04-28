@@ -1,0 +1,1142 @@
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/edfc43ba554a9d24f413966f4dccf0c4/results.bin b/node_modules/@capgo/capacitor-admob/android/build/.transforms/edfc43ba554a9d24f413966f4dccf0c4/results.bin
+new file mode 100644
+index 0000000..0d259dd
+--- /dev/null
++++ b/node_modules/@capgo/capacitor-admob/android/build/.transforms/edfc43ba554a9d24f413966f4dccf0c4/results.bin
+@@ -0,0 +1 @@
++o/classes
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/edfc43ba554a9d24f413966f4dccf0c4/transformed/classes/classes_dex/classes.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/edfc43ba554a9d24f413966f4dccf0c4/transformed/classes/classes_dex/classes.dex
+new file mode 100644
+index 0000000..30f3684
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/edfc43ba554a9d24f413966f4dccf0c4/transformed/classes/classes_dex/classes.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/edfc43ba554a9d24f413966f4dccf0c4/transformed/classes/classes_global-synthetics/global.globals b/node_modules/@capgo/capacitor-admob/android/build/.transforms/edfc43ba554a9d24f413966f4dccf0c4/transformed/classes/classes_global-synthetics/global.globals
+new file mode 100644
+index 0000000..e87b511
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/edfc43ba554a9d24f413966f4dccf0c4/transformed/classes/classes_global-synthetics/global.globals differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/results.bin b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/results.bin
+new file mode 100644
+index 0000000..7ed749e
+--- /dev/null
++++ b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/results.bin
+@@ -0,0 +1 @@
++o/bundleLibRuntimeToDirDebug
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/AdMobPlusPlugin$Companion.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/AdMobPlusPlugin$Companion.dex
+new file mode 100644
+index 0000000..d1b99de
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/AdMobPlusPlugin$Companion.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/AdMobPlusPlugin.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/AdMobPlusPlugin.dex
+new file mode 100644
+index 0000000..62092f7
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/AdMobPlusPlugin.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ExecuteContext$Companion.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ExecuteContext$Companion.dex
+new file mode 100644
+index 0000000..28bea22
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ExecuteContext$Companion.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ExecuteContext.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ExecuteContext.dex
+new file mode 100644
+index 0000000..d40fed8
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ExecuteContext.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/Generated$Events.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/Generated$Events.dex
+new file mode 100644
+index 0000000..259a638
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/Generated$Events.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/Generated.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/Generated.dex
+new file mode 100644
+index 0000000..dfb0a29
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/Generated.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/AdBase.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/AdBase.dex
+new file mode 100644
+index 0000000..c6ab387
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/AdBase.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Banner$Companion.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Banner$Companion.dex
+new file mode 100644
+index 0000000..4575153
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Banner$Companion.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Banner$load$1$onAdLoaded$1.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Banner$load$1$onAdLoaded$1.dex
+new file mode 100644
+index 0000000..871eef1
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Banner$load$1$onAdLoaded$1.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Banner$load$1.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Banner$load$1.dex
+new file mode 100644
+index 0000000..374d475
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Banner$load$1.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Banner.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Banner.dex
+new file mode 100644
+index 0000000..7050ade
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Banner.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Interstitial$load$1$onAdLoaded$1.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Interstitial$load$1$onAdLoaded$1.dex
+new file mode 100644
+index 0000000..c40a6e7
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Interstitial$load$1$onAdLoaded$1.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Interstitial$load$1.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Interstitial$load$1.dex
+new file mode 100644
+index 0000000..c49c401
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Interstitial$load$1.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Interstitial.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Interstitial.dex
+new file mode 100644
+index 0000000..36311c9
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Interstitial.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Rewarded$load$1$onAdLoaded$1.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Rewarded$load$1$onAdLoaded$1.dex
+new file mode 100644
+index 0000000..545a616
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Rewarded$load$1$onAdLoaded$1.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Rewarded$load$1.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Rewarded$load$1.dex
+new file mode 100644
+index 0000000..f5655bf
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Rewarded$load$1.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Rewarded.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Rewarded.dex
+new file mode 100644
+index 0000000..e18221a
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/Rewarded.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/RewardedInterstitial$load$1$onAdLoaded$1.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/RewardedInterstitial$load$1$onAdLoaded$1.dex
+new file mode 100644
+index 0000000..9cccd06
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/RewardedInterstitial$load$1$onAdLoaded$1.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/RewardedInterstitial$load$1.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/RewardedInterstitial$load$1.dex
+new file mode 100644
+index 0000000..c2afba8
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/RewardedInterstitial$load$1.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/RewardedInterstitial.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/RewardedInterstitial.dex
+new file mode 100644
+index 0000000..1046454
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/capacitor/ads/RewardedInterstitial.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Ad$emit$1.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Ad$emit$1.dex
+new file mode 100644
+index 0000000..c524bca
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Ad$emit$1.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Ad$emit$2.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Ad$emit$2.dex
+new file mode 100644
+index 0000000..acbba57
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Ad$emit$2.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Ad$emit$3$1.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Ad$emit$3$1.dex
+new file mode 100644
+index 0000000..101fa46
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Ad$emit$3$1.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Ad$emit$3.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Ad$emit$3.dex
+new file mode 100644
+index 0000000..f648e8d
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Ad$emit$3.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Ad$emit$4.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Ad$emit$4.dex
+new file mode 100644
+index 0000000..56973f8
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Ad$emit$4.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Ad.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Ad.dex
+new file mode 100644
+index 0000000..7dcb831
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Ad.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Context$Companion.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Context$Companion.dex
+new file mode 100644
+index 0000000..76afbcb
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Context$Companion.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Context$DefaultImpls.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Context$DefaultImpls.dex
+new file mode 100644
+index 0000000..b1204e4
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Context$DefaultImpls.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Context.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Context.dex
+new file mode 100644
+index 0000000..64c9713
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Context.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/GenericAd$DefaultImpls.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/GenericAd$DefaultImpls.dex
+new file mode 100644
+index 0000000..2aa7f73
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/GenericAd$DefaultImpls.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/GenericAd.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/GenericAd.dex
+new file mode 100644
+index 0000000..416c489
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/GenericAd.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Helper$Adapter$DefaultImpls.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Helper$Adapter$DefaultImpls.dex
+new file mode 100644
+index 0000000..87d6b31
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Helper$Adapter$DefaultImpls.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Helper$Adapter.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Helper$Adapter.dex
+new file mode 100644
+index 0000000..f532d4f
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Helper$Adapter.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Helper$Companion.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Helper$Companion.dex
+new file mode 100644
+index 0000000..2b58418
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Helper$Companion.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Helper.dex b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Helper.dex
+new file mode 100644
+index 0000000..e85421e
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/admob/plus/core/Helper.dex differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$1df4d07afc091e942c3733d74f58a34bc0ff061937802ef691e2efc144d40b06$0.globals b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$1df4d07afc091e942c3733d74f58a34bc0ff061937802ef691e2efc144d40b06$0.globals
+new file mode 100644
+index 0000000..e87b511
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$1df4d07afc091e942c3733d74f58a34bc0ff061937802ef691e2efc144d40b06$0.globals differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$8ae0e5619bc6d87174c3a6406deeba61f2e4c37f63c38f60b0f4be95f70fa098$0.globals b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$8ae0e5619bc6d87174c3a6406deeba61f2e4c37f63c38f60b0f4be95f70fa098$0.globals
+new file mode 100644
+index 0000000..e87b511
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$8ae0e5619bc6d87174c3a6406deeba61f2e4c37f63c38f60b0f4be95f70fa098$0.globals differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$8ae0e5619bc6d87174c3a6406deeba61f2e4c37f63c38f60b0f4be95f70fa098$1.globals b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$8ae0e5619bc6d87174c3a6406deeba61f2e4c37f63c38f60b0f4be95f70fa098$1.globals
+new file mode 100644
+index 0000000..e87b511
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$8ae0e5619bc6d87174c3a6406deeba61f2e4c37f63c38f60b0f4be95f70fa098$1.globals differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$bd3baa01b82428e86bbb660606efe87a72aebfd4b5029f9e5e9388003da6ddc2$0.globals b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$bd3baa01b82428e86bbb660606efe87a72aebfd4b5029f9e5e9388003da6ddc2$0.globals
+new file mode 100644
+index 0000000..e87b511
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$bd3baa01b82428e86bbb660606efe87a72aebfd4b5029f9e5e9388003da6ddc2$0.globals differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$d7dda62a1fc075449875d8c72c4aeef1b54df6df8beab2115016990d0900090a$0.globals b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$d7dda62a1fc075449875d8c72c4aeef1b54df6df8beab2115016990d0900090a$0.globals
+new file mode 100644
+index 0000000..e87b511
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$d7dda62a1fc075449875d8c72c4aeef1b54df6df8beab2115016990d0900090a$0.globals differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$e7bf0a5419eb697afce0d3e723802f933f422e72d1b6eb13652f24dcf98eef37$0.globals b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$e7bf0a5419eb697afce0d3e723802f933f422e72d1b6eb13652f24dcf98eef37$0.globals
+new file mode 100644
+index 0000000..e87b511
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$e7bf0a5419eb697afce0d3e723802f933f422e72d1b6eb13652f24dcf98eef37$0.globals differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$f038281f8bac3c7b7fb98f46bca14d5c37e442b0b56fbb321c2175265a4d4f87$0.globals b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$f038281f8bac3c7b7fb98f46bca14d5c37e442b0b56fbb321c2175265a4d4f87$0.globals
+new file mode 100644
+index 0000000..e87b511
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$f038281f8bac3c7b7fb98f46bca14d5c37e442b0b56fbb321c2175265a4d4f87$0.globals differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$f8e65363069d4261f048affc65f094aeae16f339c66192903cfc224a6fc6ce90$0.globals b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$f8e65363069d4261f048affc65f094aeae16f339c66192903cfc224a6fc6ce90$0.globals
+new file mode 100644
+index 0000000..e87b511
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$f8e65363069d4261f048affc65f094aeae16f339c66192903cfc224a6fc6ce90$0.globals differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$f8e65363069d4261f048affc65f094aeae16f339c66192903cfc224a6fc6ce90$1.globals b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$f8e65363069d4261f048affc65f094aeae16f339c66192903cfc224a6fc6ce90$1.globals
+new file mode 100644
+index 0000000..e87b511
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/AdMobPlusPlugin$$InternalSyntheticLambda$2$f8e65363069d4261f048affc65f094aeae16f339c66192903cfc224a6fc6ce90$1.globals differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/ads/Rewarded$$InternalSyntheticLambda$2$bdb43060b687c8408c3e7c61dc49230611d8931e723ab42da79b99a86a435d35$0.globals b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/ads/Rewarded$$InternalSyntheticLambda$2$bdb43060b687c8408c3e7c61dc49230611d8931e723ab42da79b99a86a435d35$0.globals
+new file mode 100644
+index 0000000..e87b511
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/ads/Rewarded$$InternalSyntheticLambda$2$bdb43060b687c8408c3e7c61dc49230611d8931e723ab42da79b99a86a435d35$0.globals differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/ads/RewardedInterstitial$$InternalSyntheticLambda$2$b28dee211d42b4e74439dbc15614d989f025f02e6a314c713b4a7e1187d8e916$0.globals b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/ads/RewardedInterstitial$$InternalSyntheticLambda$2$b28dee211d42b4e74439dbc15614d989f025f02e6a314c713b4a7e1187d8e916$0.globals
+new file mode 100644
+index 0000000..e87b511
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_global-synthetics/admob/plus/capacitor/ads/RewardedInterstitial$$InternalSyntheticLambda$2$b28dee211d42b4e74439dbc15614d989f025f02e6a314c713b4a7e1187d8e916$0.globals differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin
+new file mode 100644
+index 0000000..601f245
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/.transforms/f6b707d37f205137afde891eefef4f2b/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/AndroidManifest.xml b/node_modules/@capgo/capacitor-admob/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/AndroidManifest.xml
+new file mode 100644
+index 0000000..99aca54
+--- /dev/null
++++ b/node_modules/@capgo/capacitor-admob/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/AndroidManifest.xml
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="admob.plus.capacitor" >
++
++    <uses-sdk android:minSdkVersion="24" />
++
++    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
++    <uses-permission android:name="android.permission.INTERNET" />
++
++</manifest>
+\ No newline at end of file
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/output-metadata.json b/node_modules/@capgo/capacitor-admob/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/output-metadata.json
+new file mode 100644
+index 0000000..e8d4a93
+--- /dev/null
++++ b/node_modules/@capgo/capacitor-admob/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/output-metadata.json
+@@ -0,0 +1,18 @@
++{
++  "version": 3,
++  "artifactType": {
++    "type": "AAPT_FRIENDLY_MERGED_MANIFESTS",
++    "kind": "Directory"
++  },
++  "applicationId": "admob.plus.capacitor",
++  "variantName": "debug",
++  "elements": [
++    {
++      "type": "SINGLE",
++      "filters": [],
++      "attributes": [],
++      "outputFile": "AndroidManifest.xml"
++    }
++  ],
++  "elementType": "File"
++}
+\ No newline at end of file
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/aar_main_jar/debug/syncDebugLibJars/classes.jar b/node_modules/@capgo/capacitor-admob/android/build/intermediates/aar_main_jar/debug/syncDebugLibJars/classes.jar
+new file mode 100644
+index 0000000..b023aae
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/aar_main_jar/debug/syncDebugLibJars/classes.jar differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/aar_metadata/debug/writeDebugAarMetadata/aar-metadata.properties b/node_modules/@capgo/capacitor-admob/android/build/intermediates/aar_metadata/debug/writeDebugAarMetadata/aar-metadata.properties
+new file mode 100644
+index 0000000..ba000c0
+--- /dev/null
++++ b/node_modules/@capgo/capacitor-admob/android/build/intermediates/aar_metadata/debug/writeDebugAarMetadata/aar-metadata.properties
+@@ -0,0 +1,6 @@
++aarFormatVersion=1.0
++aarMetadataVersion=1.0
++minCompileSdk=36
++minCompileSdkExtension=0
++minAndroidGradlePluginVersion=1.0.0
++coreLibraryDesugaringEnabled=false
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/android_res_source_set_path_map/debug/mapDebugSourceSetPaths/file-map.txt b/node_modules/@capgo/capacitor-admob/android/build/intermediates/android_res_source_set_path_map/debug/mapDebugSourceSetPaths/file-map.txt
+new file mode 100644
+index 0000000..83fcd7b
+--- /dev/null
++++ b/node_modules/@capgo/capacitor-admob/android/build/intermediates/android_res_source_set_path_map/debug/mapDebugSourceSetPaths/file-map.txt
+@@ -0,0 +1,9 @@
++admob.plus.capacitor.capgo-capacitor-admob-pngs-0 /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/build/generated/res/pngs/debug
++admob.plus.capacitor.capgo-capacitor-admob-resValues-1 /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/build/generated/res/resValues/debug
++admob.plus.capacitor.capgo-capacitor-admob-updated_navigation_xml-2 /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/build/generated/updated_navigation_xml/debug
++admob.plus.capacitor.capgo-capacitor-admob-mergeDebugResources-3 /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/build/intermediates/incremental/debug/mergeDebugResources/merged.dir
++admob.plus.capacitor.capgo-capacitor-admob-mergeDebugResources-4 /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/build/intermediates/incremental/debug/mergeDebugResources/stripped.dir
++admob.plus.capacitor.capgo-capacitor-admob-debug-5 /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/build/intermediates/merged_res/debug/mergeDebugResources
++admob.plus.capacitor.capgo-capacitor-admob-debug-6 /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/build/intermediates/packaged_res/debug/packageDebugResources
++admob.plus.capacitor.capgo-capacitor-admob-debug-7 /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/debug/res
++admob.plus.capacitor.capgo-capacitor-admob-main-8 /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/res
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/annotation_processor_list/debug/javaPreCompileDebug/annotationProcessors.json b/node_modules/@capgo/capacitor-admob/android/build/intermediates/annotation_processor_list/debug/javaPreCompileDebug/annotationProcessors.json
+new file mode 100644
+index 0000000..9e26dfe
+--- /dev/null
++++ b/node_modules/@capgo/capacitor-admob/android/build/intermediates/annotation_processor_list/debug/javaPreCompileDebug/annotationProcessors.json
+@@ -0,0 +1 @@
++{}
+\ No newline at end of file
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/annotations_typedef_file/debug/extractDebugAnnotations/typedefs.txt b/node_modules/@capgo/capacitor-admob/android/build/intermediates/annotations_typedef_file/debug/extractDebugAnnotations/typedefs.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/compile_library_classes_jar/debug/bundleLibCompileToJarDebug/classes.jar b/node_modules/@capgo/capacitor-admob/android/build/intermediates/compile_library_classes_jar/debug/bundleLibCompileToJarDebug/classes.jar
+new file mode 100644
+index 0000000..551d787
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/compile_library_classes_jar/debug/bundleLibCompileToJarDebug/classes.jar differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/compile_r_class_jar/debug/generateDebugRFile/R.jar b/node_modules/@capgo/capacitor-admob/android/build/intermediates/compile_r_class_jar/debug/generateDebugRFile/R.jar
+new file mode 100644
+index 0000000..c9e6572
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/compile_r_class_jar/debug/generateDebugRFile/R.jar differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/compile_symbol_list/debug/generateDebugRFile/R.txt b/node_modules/@capgo/capacitor-admob/android/build/intermediates/compile_symbol_list/debug/generateDebugRFile/R.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/incremental/debug-mergeJavaRes/merge-state b/node_modules/@capgo/capacitor-admob/android/build/intermediates/incremental/debug-mergeJavaRes/merge-state
+new file mode 100644
+index 0000000..43dec65
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/incremental/debug-mergeJavaRes/merge-state differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties b/node_modules/@capgo/capacitor-admob/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
+new file mode 100644
+index 0000000..0c56c8d
+--- /dev/null
++++ b/node_modules/@capgo/capacitor-admob/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
+@@ -0,0 +1 @@
++#Tue Apr 28 16:07:21 KST 2026
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml b/node_modules/@capgo/capacitor-admob/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml
+new file mode 100644
+index 0000000..2e51a7f
+--- /dev/null
++++ b/node_modules/@capgo/capacitor-admob/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~:!&lt;dir>navigation"><source path="/Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~:!&lt;dir>navigation"><source path="/Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/build/generated/res/resValues/debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated" generated-set="generated$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~:!&lt;dir>navigation"><source path="/Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/build/generated/res/resValues/debug"/></dataSet><mergedItems/></merger>
+\ No newline at end of file
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/incremental/mergeDebugAssets/merger.xml b/node_modules/@capgo/capacitor-admob/android/build/intermediates/incremental/mergeDebugAssets/merger.xml
+new file mode 100644
+index 0000000..ab21594
+--- /dev/null
++++ b/node_modules/@capgo/capacitor-admob/android/build/intermediates/incremental/mergeDebugAssets/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/assets"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/debug/assets"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml b/node_modules/@capgo/capacitor-admob/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml
+new file mode 100644
+index 0000000..ece3aa4
+--- /dev/null
++++ b/node_modules/@capgo/capacitor-admob/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/jniLibs"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/debug/jniLibs"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/java_res/debug/processDebugJavaRes/out/META-INF/capgo-capacitor-admob_debug.kotlin_module b/node_modules/@capgo/capacitor-admob/android/build/intermediates/java_res/debug/processDebugJavaRes/out/META-INF/capgo-capacitor-admob_debug.kotlin_module
+new file mode 100644
+index 0000000..ef915de
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/java_res/debug/processDebugJavaRes/out/META-INF/capgo-capacitor-admob_debug.kotlin_module differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/local_only_symbol_list/debug/parseDebugLocalResources/R-def.txt b/node_modules/@capgo/capacitor-admob/android/build/intermediates/local_only_symbol_list/debug/parseDebugLocalResources/R-def.txt
+new file mode 100644
+index 0000000..78ac5b8
+--- /dev/null
++++ b/node_modules/@capgo/capacitor-admob/android/build/intermediates/local_only_symbol_list/debug/parseDebugLocalResources/R-def.txt
+@@ -0,0 +1,2 @@
++R_DEF: Internal format may change without notice
++local
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/manifest_merge_blame_file/debug/processDebugManifest/manifest-merger-blame-debug-report.txt b/node_modules/@capgo/capacitor-admob/android/build/intermediates/manifest_merge_blame_file/debug/processDebugManifest/manifest-merger-blame-debug-report.txt
+new file mode 100644
+index 0000000..438f5bc
+--- /dev/null
++++ b/node_modules/@capgo/capacitor-admob/android/build/intermediates/manifest_merge_blame_file/debug/processDebugManifest/manifest-merger-blame-debug-report.txt
+@@ -0,0 +1,16 @@
++1<?xml version="1.0" encoding="utf-8"?>
++2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++3    package="admob.plus.capacitor" >
++4
++5    <uses-sdk android:minSdkVersion="24" />
++5-->INJECTED
++5-->INJECTED
++6
++7    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
++7-->/Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/AndroidManifest.xml:4:5-78
++7-->/Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/AndroidManifest.xml:4:22-76
++8    <uses-permission android:name="android.permission.INTERNET" />
++8-->/Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/AndroidManifest.xml:5:5-66
++8-->/Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/AndroidManifest.xml:5:22-64
++9
++10</manifest>
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/merged_java_res/debug/mergeDebugJavaResource/feature-capgo-capacitor-admob.jar b/node_modules/@capgo/capacitor-admob/android/build/intermediates/merged_java_res/debug/mergeDebugJavaResource/feature-capgo-capacitor-admob.jar
+new file mode 100644
+index 0000000..2cba4b4
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/merged_java_res/debug/mergeDebugJavaResource/feature-capgo-capacitor-admob.jar differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml b/node_modules/@capgo/capacitor-admob/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml
+new file mode 100644
+index 0000000..99aca54
+--- /dev/null
++++ b/node_modules/@capgo/capacitor-admob/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="admob.plus.capacitor" >
++
++    <uses-sdk android:minSdkVersion="24" />
++
++    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
++    <uses-permission android:name="android.permission.INTERNET" />
++
++</manifest>
+\ No newline at end of file
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/navigation_json/debug/extractDeepLinksDebug/navigation.json b/node_modules/@capgo/capacitor-admob/android/build/intermediates/navigation_json/debug/extractDeepLinksDebug/navigation.json
+new file mode 100644
+index 0000000..0637a08
+--- /dev/null
++++ b/node_modules/@capgo/capacitor-admob/android/build/intermediates/navigation_json/debug/extractDeepLinksDebug/navigation.json
+@@ -0,0 +1 @@
++[]
+\ No newline at end of file
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/nested_resources_validation_report/debug/generateDebugResources/nestedResourcesValidationReport.txt b/node_modules/@capgo/capacitor-admob/android/build/intermediates/nested_resources_validation_report/debug/generateDebugResources/nestedResourcesValidationReport.txt
+new file mode 100644
+index 0000000..08f4ebe
+--- /dev/null
++++ b/node_modules/@capgo/capacitor-admob/android/build/intermediates/nested_resources_validation_report/debug/generateDebugResources/nestedResourcesValidationReport.txt
+@@ -0,0 +1 @@
++0 Warning/Error
+\ No newline at end of file
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/META-INF/capgo-capacitor-admob_debug.kotlin_module b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/META-INF/capgo-capacitor-admob_debug.kotlin_module
+new file mode 100644
+index 0000000..ef915de
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/META-INF/capgo-capacitor-admob_debug.kotlin_module differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/AdMobPlusPlugin$Companion.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/AdMobPlusPlugin$Companion.class
+new file mode 100644
+index 0000000..62b5d41
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/AdMobPlusPlugin$Companion.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/AdMobPlusPlugin.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/AdMobPlusPlugin.class
+new file mode 100644
+index 0000000..98dfce8
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/AdMobPlusPlugin.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ExecuteContext$Companion.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ExecuteContext$Companion.class
+new file mode 100644
+index 0000000..4d47b46
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ExecuteContext$Companion.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ExecuteContext.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ExecuteContext.class
+new file mode 100644
+index 0000000..38ec03a
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ExecuteContext.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/Generated$Events.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/Generated$Events.class
+new file mode 100644
+index 0000000..25d84cb
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/Generated$Events.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/Generated.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/Generated.class
+new file mode 100644
+index 0000000..4ed0bec
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/Generated.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/AdBase.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/AdBase.class
+new file mode 100644
+index 0000000..d24d319
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/AdBase.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Banner$Companion.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Banner$Companion.class
+new file mode 100644
+index 0000000..17b2aa3
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Banner$Companion.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Banner$load$1$onAdLoaded$1.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Banner$load$1$onAdLoaded$1.class
+new file mode 100644
+index 0000000..5c1ff9c
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Banner$load$1$onAdLoaded$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Banner$load$1.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Banner$load$1.class
+new file mode 100644
+index 0000000..7f98111
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Banner$load$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Banner.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Banner.class
+new file mode 100644
+index 0000000..be5d31b
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Banner.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Interstitial$load$1$onAdLoaded$1.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Interstitial$load$1$onAdLoaded$1.class
+new file mode 100644
+index 0000000..a37f6d9
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Interstitial$load$1$onAdLoaded$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Interstitial$load$1.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Interstitial$load$1.class
+new file mode 100644
+index 0000000..44823d0
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Interstitial$load$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Interstitial.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Interstitial.class
+new file mode 100644
+index 0000000..54305bd
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Interstitial.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Rewarded$load$1$onAdLoaded$1.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Rewarded$load$1$onAdLoaded$1.class
+new file mode 100644
+index 0000000..35f8273
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Rewarded$load$1$onAdLoaded$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Rewarded$load$1.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Rewarded$load$1.class
+new file mode 100644
+index 0000000..6c25e2e
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Rewarded$load$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Rewarded.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Rewarded.class
+new file mode 100644
+index 0000000..8932345
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/Rewarded.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/RewardedInterstitial$load$1$onAdLoaded$1.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/RewardedInterstitial$load$1$onAdLoaded$1.class
+new file mode 100644
+index 0000000..c7970bd
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/RewardedInterstitial$load$1$onAdLoaded$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/RewardedInterstitial$load$1.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/RewardedInterstitial$load$1.class
+new file mode 100644
+index 0000000..e6eb5a3
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/RewardedInterstitial$load$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/RewardedInterstitial.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/RewardedInterstitial.class
+new file mode 100644
+index 0000000..960c126
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/capacitor/ads/RewardedInterstitial.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Ad$emit$1.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Ad$emit$1.class
+new file mode 100644
+index 0000000..9fb1b1b
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Ad$emit$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Ad$emit$2.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Ad$emit$2.class
+new file mode 100644
+index 0000000..35a8b18
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Ad$emit$2.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Ad$emit$3$1.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Ad$emit$3$1.class
+new file mode 100644
+index 0000000..51ca739
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Ad$emit$3$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Ad$emit$3.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Ad$emit$3.class
+new file mode 100644
+index 0000000..863bb2b
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Ad$emit$3.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Ad$emit$4.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Ad$emit$4.class
+new file mode 100644
+index 0000000..21d3229
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Ad$emit$4.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Ad.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Ad.class
+new file mode 100644
+index 0000000..abe9076
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Ad.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Context$Companion.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Context$Companion.class
+new file mode 100644
+index 0000000..22f292c
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Context$Companion.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Context$DefaultImpls.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Context$DefaultImpls.class
+new file mode 100644
+index 0000000..ccee851
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Context$DefaultImpls.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Context.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Context.class
+new file mode 100644
+index 0000000..181f661
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Context.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/GenericAd$DefaultImpls.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/GenericAd$DefaultImpls.class
+new file mode 100644
+index 0000000..eea5d83
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/GenericAd$DefaultImpls.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/GenericAd.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/GenericAd.class
+new file mode 100644
+index 0000000..fa59bfb
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/GenericAd.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Helper$Adapter$DefaultImpls.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Helper$Adapter$DefaultImpls.class
+new file mode 100644
+index 0000000..740688c
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Helper$Adapter$DefaultImpls.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Helper$Adapter.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Helper$Adapter.class
+new file mode 100644
+index 0000000..3881ab0
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Helper$Adapter.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Helper$Companion.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Helper$Companion.class
+new file mode 100644
+index 0000000..92f8eb3
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Helper$Companion.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Helper.class b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Helper.class
+new file mode 100644
+index 0000000..37785d7
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/admob/plus/core/Helper.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_jar/debug/bundleLibRuntimeToJarDebug/classes.jar b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_jar/debug/bundleLibRuntimeToJarDebug/classes.jar
+new file mode 100644
+index 0000000..86a6fba
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/intermediates/runtime_library_classes_jar/debug/bundleLibRuntimeToJarDebug/classes.jar differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/intermediates/symbol_list_with_package_name/debug/generateDebugRFile/package-aware-r.txt b/node_modules/@capgo/capacitor-admob/android/build/intermediates/symbol_list_with_package_name/debug/generateDebugRFile/package-aware-r.txt
+new file mode 100644
+index 0000000..0c328aa
+--- /dev/null
++++ b/node_modules/@capgo/capacitor-admob/android/build/intermediates/symbol_list_with_package_name/debug/generateDebugRFile/package-aware-r.txt
+@@ -0,0 +1 @@
++admob.plus.capacitor
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab
+new file mode 100644
+index 0000000..a1e0971
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream
+new file mode 100644
+index 0000000..4a2d6cd
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream.len
+new file mode 100644
+index 0000000..8333bd9
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.len
+new file mode 100644
+index 0000000..a363176
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.values.at b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.values.at
+new file mode 100644
+index 0000000..ccbf6c7
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.values.at differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i
+new file mode 100644
+index 0000000..80b1637
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab
+new file mode 100644
+index 0000000..314ad78
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream
+new file mode 100644
+index 0000000..72fd7dc
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream.len
+new file mode 100644
+index 0000000..5f11fc6
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.len
+new file mode 100644
+index 0000000..14f7c06
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.values.at b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.values.at
+new file mode 100644
+index 0000000..c1f99d4
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.values.at differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i
+new file mode 100644
+index 0000000..ded8d02
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab
+new file mode 100644
+index 0000000..cf4e524
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream
+new file mode 100644
+index 0000000..72fd7dc
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream.len
+new file mode 100644
+index 0000000..5f11fc6
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.len
+new file mode 100644
+index 0000000..14f7c06
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.values.at b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.values.at
+new file mode 100644
+index 0000000..9036576
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.values.at differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i
+new file mode 100644
+index 0000000..ded8d02
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab
+new file mode 100644
+index 0000000..bdf584a
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab.keystream b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab.keystream
+new file mode 100644
+index 0000000..10473d9
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab.keystream differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab.keystream.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab.keystream.len
+new file mode 100644
+index 0000000..826d10c
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab.keystream.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab.len
+new file mode 100644
+index 0000000..2a17e6e
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab.values.at b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab.values.at
+new file mode 100644
+index 0000000..ccdd5b3
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab.values.at differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab_i b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab_i
+new file mode 100644
+index 0000000..baf5eb6
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab_i differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab_i.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab_i.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab
+new file mode 100644
+index 0000000..f9a3513
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream
+new file mode 100644
+index 0000000..4a1cd9d
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream.len
+new file mode 100644
+index 0000000..0bb1f48
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.len
+new file mode 100644
+index 0000000..b8872cd
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.values.at b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.values.at
+new file mode 100644
+index 0000000..cc74f37
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.values.at differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i
+new file mode 100644
+index 0000000..f3837a7
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab
+new file mode 100644
+index 0000000..c1da2f4
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream
+new file mode 100644
+index 0000000..a030229
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream.len
+new file mode 100644
+index 0000000..7e2aa70
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.len
+new file mode 100644
+index 0000000..8fe89d8
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.values.at b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.values.at
+new file mode 100644
+index 0000000..623f663
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.values.at differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab_i b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab_i
+new file mode 100644
+index 0000000..31fba98
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab_i differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab_i.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab_i.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab
+new file mode 100644
+index 0000000..03e9089
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream
+new file mode 100644
+index 0000000..4a2d6cd
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream.len
+new file mode 100644
+index 0000000..8333bd9
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.len
+new file mode 100644
+index 0000000..a363176
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.values.at b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.values.at
+new file mode 100644
+index 0000000..d2b173c
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.values.at differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i
+new file mode 100644
+index 0000000..80b1637
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab
+new file mode 100644
+index 0000000..2639b46
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream
+new file mode 100644
+index 0000000..a2ac1df
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream.len
+new file mode 100644
+index 0000000..cff5dd5
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.len
+new file mode 100644
+index 0000000..9e27f73
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.values.at b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.values.at
+new file mode 100644
+index 0000000..64c3be0
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.values.at differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i
+new file mode 100644
+index 0000000..ce0ac18
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab
+new file mode 100644
+index 0000000..353bc42
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream
+new file mode 100644
+index 0000000..027b97a
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream.len
+new file mode 100644
+index 0000000..b59255e
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.len
+new file mode 100644
+index 0000000..817b326
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.values.at b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.values.at
+new file mode 100644
+index 0000000..011682b
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.values.at differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i
+new file mode 100644
+index 0000000..b8672b1
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/counters.tab b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/counters.tab
+new file mode 100644
+index 0000000..9153a30
+--- /dev/null
++++ b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/counters.tab
+@@ -0,0 +1,2 @@
++12
++0
+\ No newline at end of file
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab
+new file mode 100644
+index 0000000..2c8245c
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream
+new file mode 100644
+index 0000000..4a2d6cd
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream.len
+new file mode 100644
+index 0000000..8333bd9
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.len
+new file mode 100644
+index 0000000..a363176
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.values.at b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.values.at
+new file mode 100644
+index 0000000..09947d1
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.values.at differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i
+new file mode 100644
+index 0000000..80b1637
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab
+new file mode 100644
+index 0000000..11cf19e
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream
+new file mode 100644
+index 0000000..82dcce2
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream.len
+new file mode 100644
+index 0000000..1ff194f
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.len
+new file mode 100644
+index 0000000..a363176
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.values.at b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.values.at
+new file mode 100644
+index 0000000..4b90673
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.values.at differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i
+new file mode 100644
+index 0000000..8452381
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab
+new file mode 100644
+index 0000000..7d22a4c
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream
+new file mode 100644
+index 0000000..a63db92
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream.len
+new file mode 100644
+index 0000000..21a5d93
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.len
+new file mode 100644
+index 0000000..c92caa8
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.values.at b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.values.at
+new file mode 100644
+index 0000000..a239a67
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.values.at differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i
+new file mode 100644
+index 0000000..2935ce5
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i.len b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i.len
+new file mode 100644
+index 0000000..131e265
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i.len differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/last-build.bin b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/last-build.bin
+new file mode 100644
+index 0000000..b454c46
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/cacheable/last-build.bin differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/classpath-snapshot/shrunk-classpath-snapshot.bin b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/classpath-snapshot/shrunk-classpath-snapshot.bin
+new file mode 100644
+index 0000000..bc6b745
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/kotlin/compileDebugKotlin/classpath-snapshot/shrunk-classpath-snapshot.bin differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/outputs/aar/capgo-capacitor-admob-debug.aar b/node_modules/@capgo/capacitor-admob/android/build/outputs/aar/capgo-capacitor-admob-debug.aar
+new file mode 100644
+index 0000000..cae16d3
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/outputs/aar/capgo-capacitor-admob-debug.aar differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/outputs/logs/manifest-merger-debug-report.txt b/node_modules/@capgo/capacitor-admob/android/build/outputs/logs/manifest-merger-debug-report.txt
+new file mode 100644
+index 0000000..ea7c649
+--- /dev/null
++++ b/node_modules/@capgo/capacitor-admob/android/build/outputs/logs/manifest-merger-debug-report.txt
+@@ -0,0 +1,24 @@
++-- Merging decision tree log ---
++manifest
++ADDED from /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/AndroidManifest.xml:1:1-6:12
++INJECTED from /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/AndroidManifest.xml:1:1-6:12
++	package
++		INJECTED from /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/AndroidManifest.xml
++	xmlns:android
++		ADDED from /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/AndroidManifest.xml:1:11-69
++uses-permission#android.permission.ACCESS_NETWORK_STATE
++ADDED from /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/AndroidManifest.xml:4:5-78
++	android:name
++		ADDED from /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/AndroidManifest.xml:4:22-76
++uses-permission#android.permission.INTERNET
++ADDED from /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/AndroidManifest.xml:5:5-66
++	android:name
++		ADDED from /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/AndroidManifest.xml:5:22-64
++uses-sdk
++INJECTED from /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
++INJECTED from /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/AndroidManifest.xml
++INJECTED from /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/AndroidManifest.xml
++	android:targetSdkVersion
++		INJECTED from /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/AndroidManifest.xml
++	android:minSdkVersion
++		INJECTED from /Users/gomin77/Desktop/map-app/node_modules/@capgo/capacitor-admob/android/src/main/AndroidManifest.xml
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/META-INF/capgo-capacitor-admob_debug.kotlin_module b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/META-INF/capgo-capacitor-admob_debug.kotlin_module
+new file mode 100644
+index 0000000..ef915de
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/META-INF/capgo-capacitor-admob_debug.kotlin_module differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/AdMobPlusPlugin$Companion.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/AdMobPlusPlugin$Companion.class
+new file mode 100644
+index 0000000..62b5d41
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/AdMobPlusPlugin$Companion.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/AdMobPlusPlugin.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/AdMobPlusPlugin.class
+new file mode 100644
+index 0000000..98dfce8
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/AdMobPlusPlugin.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ExecuteContext$Companion.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ExecuteContext$Companion.class
+new file mode 100644
+index 0000000..4d47b46
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ExecuteContext$Companion.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ExecuteContext.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ExecuteContext.class
+new file mode 100644
+index 0000000..38ec03a
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ExecuteContext.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/Generated$Events.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/Generated$Events.class
+new file mode 100644
+index 0000000..25d84cb
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/Generated$Events.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/Generated.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/Generated.class
+new file mode 100644
+index 0000000..4ed0bec
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/Generated.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/AdBase.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/AdBase.class
+new file mode 100644
+index 0000000..d24d319
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/AdBase.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Banner$Companion.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Banner$Companion.class
+new file mode 100644
+index 0000000..17b2aa3
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Banner$Companion.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Banner$load$1$onAdLoaded$1.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Banner$load$1$onAdLoaded$1.class
+new file mode 100644
+index 0000000..5c1ff9c
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Banner$load$1$onAdLoaded$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Banner$load$1.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Banner$load$1.class
+new file mode 100644
+index 0000000..7f98111
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Banner$load$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Banner.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Banner.class
+new file mode 100644
+index 0000000..be5d31b
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Banner.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Interstitial$load$1$onAdLoaded$1.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Interstitial$load$1$onAdLoaded$1.class
+new file mode 100644
+index 0000000..a37f6d9
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Interstitial$load$1$onAdLoaded$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Interstitial$load$1.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Interstitial$load$1.class
+new file mode 100644
+index 0000000..44823d0
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Interstitial$load$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Interstitial.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Interstitial.class
+new file mode 100644
+index 0000000..54305bd
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Interstitial.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Rewarded$load$1$onAdLoaded$1.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Rewarded$load$1$onAdLoaded$1.class
+new file mode 100644
+index 0000000..35f8273
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Rewarded$load$1$onAdLoaded$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Rewarded$load$1.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Rewarded$load$1.class
+new file mode 100644
+index 0000000..6c25e2e
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Rewarded$load$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Rewarded.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Rewarded.class
+new file mode 100644
+index 0000000..8932345
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/Rewarded.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/RewardedInterstitial$load$1$onAdLoaded$1.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/RewardedInterstitial$load$1$onAdLoaded$1.class
+new file mode 100644
+index 0000000..c7970bd
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/RewardedInterstitial$load$1$onAdLoaded$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/RewardedInterstitial$load$1.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/RewardedInterstitial$load$1.class
+new file mode 100644
+index 0000000..e6eb5a3
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/RewardedInterstitial$load$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/RewardedInterstitial.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/RewardedInterstitial.class
+new file mode 100644
+index 0000000..960c126
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/capacitor/ads/RewardedInterstitial.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Ad$emit$1.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Ad$emit$1.class
+new file mode 100644
+index 0000000..9fb1b1b
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Ad$emit$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Ad$emit$2.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Ad$emit$2.class
+new file mode 100644
+index 0000000..35a8b18
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Ad$emit$2.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Ad$emit$3$1.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Ad$emit$3$1.class
+new file mode 100644
+index 0000000..51ca739
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Ad$emit$3$1.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Ad$emit$3.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Ad$emit$3.class
+new file mode 100644
+index 0000000..863bb2b
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Ad$emit$3.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Ad$emit$4.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Ad$emit$4.class
+new file mode 100644
+index 0000000..21d3229
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Ad$emit$4.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Ad.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Ad.class
+new file mode 100644
+index 0000000..abe9076
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Ad.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Context$Companion.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Context$Companion.class
+new file mode 100644
+index 0000000..22f292c
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Context$Companion.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Context$DefaultImpls.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Context$DefaultImpls.class
+new file mode 100644
+index 0000000..ccee851
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Context$DefaultImpls.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Context.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Context.class
+new file mode 100644
+index 0000000..181f661
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Context.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/GenericAd$DefaultImpls.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/GenericAd$DefaultImpls.class
+new file mode 100644
+index 0000000..eea5d83
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/GenericAd$DefaultImpls.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/GenericAd.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/GenericAd.class
+new file mode 100644
+index 0000000..fa59bfb
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/GenericAd.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Helper$Adapter$DefaultImpls.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Helper$Adapter$DefaultImpls.class
+new file mode 100644
+index 0000000..740688c
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Helper$Adapter$DefaultImpls.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Helper$Adapter.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Helper$Adapter.class
+new file mode 100644
+index 0000000..3881ab0
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Helper$Adapter.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Helper$Companion.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Helper$Companion.class
+new file mode 100644
+index 0000000..92f8eb3
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Helper$Companion.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Helper.class b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Helper.class
+new file mode 100644
+index 0000000..37785d7
+Binary files /dev/null and b/node_modules/@capgo/capacitor-admob/android/build/tmp/kotlin-classes/debug/admob/plus/core/Helper.class differ
+diff --git a/node_modules/@capgo/capacitor-admob/android/src/main/kotlin/admob/plus/capacitor/ads/Banner.kt b/node_modules/@capgo/capacitor-admob/android/src/main/kotlin/admob/plus/capacitor/ads/Banner.kt
+index 3cbb32d..39764b5 100644
+--- a/node_modules/@capgo/capacitor-admob/android/src/main/kotlin/admob/plus/capacitor/ads/Banner.kt
++++ b/node_modules/@capgo/capacitor-admob/android/src/main/kotlin/admob/plus/capacitor/ads/Banner.kt
+@@ -14,6 +14,8 @@ import android.view.View
+ import android.view.ViewGroup
+ import android.webkit.WebView
+ import android.widget.LinearLayout
++import androidx.core.view.ViewCompat
++import androidx.core.view.WindowInsetsCompat
+ import com.google.android.libraries.ads.mobile.sdk.banner.AdSize
+ import com.google.android.libraries.ads.mobile.sdk.banner.AdView
+ import com.google.android.libraries.ads.mobile.sdk.banner.BannerAd
+@@ -142,7 +144,7 @@ class Banner(ctx: ExecuteContext) : AdBase(ctx), GenericAd {
+             wvParentView.addView(parentView)
+         }
+         if (gravity == Gravity.TOP) {
+-            parentView!!.addView(adView, 0)
++            parentView!!.addView(adView, 0, createBannerLayoutParams(plugin))
+         } else {
+             parentView!!.addView(adView)
+         }
+@@ -151,6 +153,19 @@ class Banner(ctx: ExecuteContext) : AdBase(ctx), GenericAd {
+         parentView!!.requestFocus()
+     }
+ 
++    private fun createBannerLayoutParams(plugin: AdMobPlusPlugin?): LinearLayout.LayoutParams {
++        val statusBarInset = ViewCompat.getRootWindowInsets(plugin!!.bridge.webView)
++            ?.getInsets(WindowInsetsCompat.Type.statusBars())
++            ?.top ?: 0
++        val extraTopMargin = (8 * activity.resources.displayMetrics.density).toInt()
++        return LinearLayout.LayoutParams(
++            ViewGroup.LayoutParams.MATCH_PARENT,
++            ViewGroup.LayoutParams.WRAP_CONTENT
++        ).apply {
++            topMargin = statusBarInset + extraTopMargin
++        }
++    }
++
+     private fun resolveAdSize(): AdSize {
+         val displayMetrics: DisplayMetrics = activity.resources.displayMetrics
+         val adWidth = (displayMetrics.widthPixels / displayMetrics.density).toInt().coerceAtLeast(1)

@@ -7,6 +7,7 @@ function goToMain(){
   document.getElementById('main-tab-bar').style.display = 'flex';
   renderTravel();
   shuffleRecs();
+  updateBannerForTab('recommend');
 }
 
 function switchTab(tab){
@@ -16,6 +17,7 @@ function switchTab(tab){
   document.querySelectorAll('.tab-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('tab-'+tab).classList.add('active');
   document.getElementById('nav-'+tab).classList.add('active');
+  updateBannerForTab(tab);
   if(tab==='travel') renderTravel();
   if(tab==='stats'){ renderRecentViews(); drawDonuts(); renderCalendar(); }
 }
