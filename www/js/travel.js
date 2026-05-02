@@ -8,6 +8,7 @@ function goToMain(){
   renderTravel();
   shuffleRecs();
   updateBannerForTab('recommend');
+  if (shouldShowOnboard()) showOnboard();
 }
 
 function switchTab(tab){
@@ -482,7 +483,10 @@ function exportData(){
 }
 function resetData(){
   if(!confirm('모든 여행 기록이 삭제됩니다. 계속할까요?')) return;
-  localStorage.removeItem('travel_v2'); visits={}; renderTravel(); showToast('초기화되었습니다.');
+  localStorage.removeItem('travel_v2');
+  localStorage.removeItem(ONBOARD_KEY);
+  localStorage.removeItem(TOUR_KEY);
+  visits={}; renderTravel(); showToast('초기화되었습니다.');
 }
 
 /* ── 초기화 ── */

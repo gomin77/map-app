@@ -33,6 +33,137 @@ window.addEventListener('deviceready', ()=>{}, false);
   </div>
 </div>
 
+<!-- ════════════ ONBOARDING ════════════ -->
+<div id="screen-onboard">
+  <div class="ob-header">
+    <div class="ob-step-label" id="ob-step-label">1 / 7</div>
+    <button class="ob-skip" onclick="finishOnboard()">건너뛰기</button>
+  </div>
+  <div class="ob-track" id="ob-track">
+  <div class="ob-slides-wrap" id="ob-slides-wrap">
+
+    <!-- 슬라이드 1 -->
+    <div class="ob-slide">
+      <div class="ob-icon-wrap"><span class="ob-icon">🗺️</span></div>
+      <div class="ob-title">여정에 오신 것을 환영합니다</div>
+      <div class="ob-desc">
+        여행한 곳을 지도에 기록하고,<br>
+        나만의 발자취를 한눈에 확인하세요.<br><br>
+        캘린더·통계·추천여행지까지<br>
+        여행의 모든 것을 담는 공간입니다.
+      </div>
+    </div>
+
+    <!-- 슬라이드 2 -->
+    <div class="ob-slide">
+      <div class="ob-icon-wrap"><span class="ob-icon">🧭</span></div>
+      <div class="ob-title">여행 탭 — 지도 선택</div>
+      <div class="ob-desc">
+        상단의 <b>지도 이름</b>을 탭하면<br>
+        지도를 전환할 수 있어요.<br><br>
+        · 한국 전체 (229개 시·군·구)<br>
+        · 서울 (25개 자치구)<br>
+        · 일본 (47개 도·도·부·현)<br>
+        · 세계 (195개국)
+      </div>
+    </div>
+
+    <!-- 슬라이드 3 -->
+    <div class="ob-slide">
+      <div class="ob-icon-wrap"><span class="ob-icon">📍</span></div>
+      <div class="ob-title">여행 탭 — 지역 기록</div>
+      <div class="ob-desc">
+        지도에서 <b>지역을 탭</b>하면 기록창이 열려요.<br><br>
+        · ✅ 방문 완료 / 🔖 가고 싶어요 선택<br>
+        · 방문 날짜 입력<br>
+        · #태그 입력 (예: #바다 #맛집)<br>
+        · 메모 작성<br>
+        · 사진 첨부 (최대 5장)
+      </div>
+    </div>
+
+    <!-- 슬라이드 4 -->
+    <div class="ob-slide">
+      <div class="ob-icon-wrap"><span class="ob-icon">🖼️</span></div>
+      <div class="ob-title">사진 & 크롭</div>
+      <div class="ob-desc">
+        사진을 첨부하면 <b>크롭 화면</b>이 열려요.<br><br>
+        · 드래그로 원하는 영역 선택<br>
+        · 확인을 누르면 선택 영역만 저장<br>
+        · 저장된 사진은 지도 위 해당 지역에<br>
+        &nbsp;&nbsp;마스킹 이미지로 표시돼요.<br><br>
+        사진은 최대 <b>5장</b>까지 첨부할 수 있어요.
+      </div>
+    </div>
+
+    <!-- 슬라이드 5 -->
+    <div class="ob-slide">
+      <div class="ob-icon-wrap"><span class="ob-icon">📊</span></div>
+      <div class="ob-title">스토리 탭</div>
+      <div class="ob-desc">
+        여행 기록을 다양한 방식으로 확인해요.<br><br>
+        · <b>방문 통계</b> — 지도별 달성률과<br>
+        &nbsp;&nbsp;도넛 차트로 진행도 확인<br>
+        · <b>여행 캘린더</b> — 방문 날짜가<br>
+        &nbsp;&nbsp;캘린더에 자동 반영<br>
+        · 날짜를 탭하면 그날 기록 조회
+      </div>
+    </div>
+
+    <!-- 슬라이드 6 -->
+    <div class="ob-slide">
+      <div class="ob-icon-wrap"><span class="ob-icon">🏖️</span></div>
+      <div class="ob-title">추천 탭</div>
+      <div class="ob-desc">
+        가고 싶은 지역의 <b>관광지를 추천</b>받아요.<br><br>
+        · 지역을 선택하면 관광지 목록 표시<br>
+        · 카드를 탭하면 상세 정보·주소·전화번호 확인<br>
+        · ♡ 버튼으로 즐겨찾기 저장<br>
+        · 🔀 버튼으로 새 목록 랜덤 새로고침
+      </div>
+    </div>
+
+    <!-- 슬라이드 7 -->
+    <div class="ob-slide">
+      <div class="ob-icon-wrap"><span class="ob-icon">👤</span></div>
+      <div class="ob-title">MY 탭 & 동기화</div>
+      <div class="ob-desc">
+        · <b>프로필 수정</b> — 닉네임·사진 변경<br>
+        · <b>데이터 백업</b> — JSON으로 내보내기<br>
+        · <b>데이터 초기화</b> — 모든 기록 삭제<br>
+        · <b>소셜 로그인</b>을 하면 카카오·구글 계정으로<br>
+        &nbsp;&nbsp;기기 간 동기화가 자동으로 이루어져요.<br><br>
+        뒤로가기를 <b>두 번</b> 누르면 앱이 종료돼요.
+      </div>
+    </div>
+
+  </div><!-- /ob-slides-wrap -->
+  </div><!-- /ob-track -->
+
+  <div class="ob-dots" id="ob-dots"></div>
+  <div class="ob-btn-row">
+    <button class="ob-btn-prev" id="ob-btn-prev" onclick="obPrev()">이전</button>
+    <button class="ob-btn-next" id="ob-btn-next" onclick="obNext()">다음</button>
+  </div>
+</div>
+
+<!-- ════════════ SPOTLIGHT TOUR ════════════ -->
+<div id="ob-tour-overlay"></div>
+<div id="ob-tour-highlight-ring"></div>
+<div id="ob-tour-card">
+  <div class="ob-tour-card-top">
+    <span class="ob-tour-step-label" id="ob-tour-step-label">1 / 6</span>
+    <button class="ob-skip" onclick="finishTour()">닫기</button>
+  </div>
+  <div class="ob-tour-icon" id="ob-tour-icon">🗺️</div>
+  <div class="ob-tour-title" id="ob-tour-title"></div>
+  <div class="ob-tour-desc" id="ob-tour-desc"></div>
+  <div class="ob-btn-row" style="padding:14px 0 0">
+    <button class="ob-btn-prev" id="ob-tour-btn-prev" onclick="tourPrev()">이전</button>
+    <button class="ob-btn-next" id="ob-tour-btn-next" onclick="tourNext()">다음</button>
+  </div>
+</div>
+
 <!-- ════════════ MAIN ════════════ -->
 <div class="screen" id="screen-main">
 

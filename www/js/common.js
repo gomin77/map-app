@@ -452,3 +452,203 @@ function _closeCropModal() {
   document.getElementById('crop-modal').classList.remove('open');
   _cropCb = null; _cropCancelCb = null; _cropImg = null; _cropDrag = null;
 }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   온보딩 가이드
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+const ONBOARD_KEY = 'onboard_done_v1';
+const OB_TOTAL = 7;
+let obIdx = 0;
+let obTouchStartX = 0;
+
+function shouldShowOnboard() {
+  return !localStorage.getItem(ONBOARD_KEY);
+}
+
+function showOnboard() {
+  obIdx = 0;
+  const el = document.getElementById('screen-onboard');
+  if (!el) return;
+  el.classList.add('active');
+  _obRenderDots();
+  _obMoveTo(0);
+  initSwipeOnboard();
+}
+
+function finishOnboard() {
+  localStorage.setItem(ONBOARD_KEY, '1');
+  const el = document.getElementById('screen-onboard');
+  if (el) el.classList.remove('active');
+  setTimeout(() => startAppTour(), 300);
+}
+
+function obNext() {
+  if (obIdx >= OB_TOTAL - 1) { finishOnboard(); return; }
+  obIdx++;
+  _obMoveTo(obIdx);
+}
+
+function obPrev() {
+  if (obIdx <= 0) return;
+  obIdx--;
+  _obMoveTo(obIdx);
+}
+
+function obGoTo(idx) {
+  obIdx = idx;
+  _obMoveTo(obIdx);
+}
+
+function _obMoveTo(idx) {
+  const wrap = document.getElementById('ob-slides-wrap');
+  if (wrap) wrap.style.transform = `translateX(-${idx * 100}%)`;
+  // 인디케이터
+  document.querySelectorAll('.ob-dot').forEach((d, i) => {
+    d.classList.toggle('active', i === idx);
+  });
+  // 스텝 레이블
+  const lbl = document.getElementById('ob-step-label');
+  if (lbl) lbl.textContent = `${idx + 1} / ${OB_TOTAL}`;
+  // 이전 버튼
+  const prevBtn = document.getElementById('ob-btn-prev');
+  if (prevBtn) prevBtn.disabled = (idx === 0);
+  // 다음 버튼
+  const nextBtn = document.getElementById('ob-btn-next');
+  if (nextBtn) nextBtn.textContent = (idx === OB_TOTAL - 1) ? '시작하기' : '다음';
+}
+
+function _obRenderDots() {
+  const wrap = document.getElementById('ob-dots');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  for (let i = 0; i < OB_TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'ob-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => obGoTo(i);
+    wrap.appendChild(d);
+  }
+}
+
+function initSwipeOnboard() {
+  const track = document.getElementById('ob-track');
+  if (!track || track._obSwipeInit) return;
+  track._obSwipeInit = true;
+  track.addEventListener('touchstart', e => {
+    obTouchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - obTouchStartX;
+    if (Math.abs(dx) < 40) return;
+    if (dx < 0) obNext();
+    else obPrev();
+  }, { passive: true });
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   스포트라이트 투어 (실제 앱 화면 위 가이드)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+const TOUR_KEY = 'tour_done_v1';
+const TOUR_STEPS = [
+  {
+    selector: '#map-area',
+    tab: 'travel',
+    icon: '📍',
+    title: '지도에서 지역 탭하기',
+    desc: '지도 위 지역을 <b>탭</b>하면 방문 기록창이 열려요.\n방문 완료 / 가고 싶어요를 선택하고\n날짜·태그·메모·사진을 남길 수 있어요.'
+  },
+  {
+    selector: '.map-hd',
+    tab: 'travel',
+    icon: '🧭',
+    title: '지도 전환',
+    desc: '상단의 <b>지도 이름</b>을 탭하면\n한국 전체 · 서울 · 일본 · 세계\n4가지 지도로 전환할 수 있어요.'
+  },
+  {
+    selector: '#nav-stats',
+    tab: 'travel',
+    icon: '📊',
+    title: '스토리 탭',
+    desc: '<b>스토리 탭</b>에서 방문 통계와\n도넛 차트, 여행 캘린더를 확인해요.\n날짜를 탭하면 그날 기록을 바로 조회해요.'
+  },
+  {
+    selector: '#nav-recommend',
+    tab: 'travel',
+    icon: '🏖️',
+    title: '추천 탭',
+    desc: '<b>추천 탭</b>에서 지역별 관광지를\n추천받고 즐겨찾기할 수 있어요.\n🔀 버튼으로 새 목록을 랜덤으로 불러와요.'
+  },
+  {
+    selector: '#nav-my',
+    tab: 'travel',
+    icon: '👤',
+    title: 'MY 탭',
+    desc: '<b>MY 탭</b>에서 프로필을 수정하고\n데이터 백업 및 초기화를 할 수 있어요.\n소셜 로그인으로 기기 간 동기화도 돼요.'
+  },
+  {
+    selector: '#main-tab-bar',
+    tab: 'travel',
+    icon: '✅',
+    title: '준비 완료!',
+    desc: '하단 <b>탭 바</b>로 언제든 화면을 전환해요.\n여행 · 스토리 · 추천 · MY\n이제 여정을 시작해보세요!'
+  }
+];
+let tourIdx = 0;
+
+function shouldShowTour() {
+  return !localStorage.getItem(TOUR_KEY);
+}
+
+function startAppTour() {
+  if (!shouldShowTour()) return;
+  tourIdx = 0;
+  switchTab('travel');
+  setTimeout(() => _tourRender(), 350);
+}
+
+function _tourRender() {
+  const step = TOUR_STEPS[tourIdx];
+  const total = TOUR_STEPS.length;
+  // 텍스트 업데이트
+  document.getElementById('ob-tour-icon').textContent = step.icon;
+  document.getElementById('ob-tour-title').textContent = step.title;
+  document.getElementById('ob-tour-desc').innerHTML = step.desc.replace(/\n/g, '<br>');
+  document.getElementById('ob-tour-step-label').textContent = `${tourIdx + 1} / ${total}`;
+  document.getElementById('ob-tour-btn-prev').disabled = (tourIdx === 0);
+  document.getElementById('ob-tour-btn-next').textContent = (tourIdx === total - 1) ? '완료' : '다음';
+  // 활성화
+  document.getElementById('ob-tour-overlay').classList.add('active');
+  document.getElementById('ob-tour-card').classList.add('active');
+  // 하이라이트 링 위치
+  const target = document.querySelector(step.selector);
+  const ring = document.getElementById('ob-tour-highlight-ring');
+  if (target && ring) {
+    const r = target.getBoundingClientRect();
+    const pad = 6;
+    ring.style.top    = (r.top    - pad) + 'px';
+    ring.style.left   = (r.left   - pad) + 'px';
+    ring.style.width  = (r.width  + pad * 2) + 'px';
+    ring.style.height = (r.height + pad * 2) + 'px';
+    ring.classList.add('active');
+  } else if (ring) {
+    ring.classList.remove('active');
+  }
+}
+
+function tourNext() {
+  if (tourIdx >= TOUR_STEPS.length - 1) { finishTour(); return; }
+  tourIdx++;
+  _tourRender();
+}
+
+function tourPrev() {
+  if (tourIdx <= 0) return;
+  tourIdx--;
+  _tourRender();
+}
+
+function finishTour() {
+  localStorage.setItem(TOUR_KEY, '1');
+  document.getElementById('ob-tour-overlay').classList.remove('active');
+  document.getElementById('ob-tour-card').classList.remove('active');
+  document.getElementById('ob-tour-highlight-ring').classList.remove('active');
+}
