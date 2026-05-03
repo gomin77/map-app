@@ -331,82 +331,117 @@ body.admob-banner-top-visible #tab-my{
   background:var(--bg);flex-direction:column;
 }
 #screen-onboard.active{display:flex}
-.ob-header{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:calc(var(--safe-t) + 14px) 20px 12px;
-  flex-shrink:0;
+
+/* 건너뛰기 버튼 — 우상단 고정 */
+#screen-onboard > .ob-skip{
+  position:absolute;
+  top:calc(var(--safe-t) + 16px);
+  right:20px;
+  z-index:1;
+  border:none;background:rgba(139,94,60,.1);
+  color:var(--primary);font-size:13px;font-weight:600;
+  padding:7px 14px;border-radius:20px;
+  font-family:inherit;
 }
-.ob-step-label{font-size:13px;color:var(--muted);font-weight:600}
-.ob-skip{border:none;background:none;font-size:13px;color:var(--muted);padding:4px 2px;font-family:inherit}
-.ob-track{
-  flex:1;overflow:hidden;position:relative;min-height:0;
-}
-.ob-slides-wrap{
-  display:flex;height:100%;
-  transition:transform .35s cubic-bezier(.4,0,.2,1);
-  will-change:transform;
-}
+
+.ob-track{flex:1;overflow:hidden;position:relative;min-height:0}
+.ob-slides-wrap{display:flex;height:100%;transition:transform .35s cubic-bezier(.4,0,.2,1);will-change:transform}
+
 .ob-slide{
   min-width:100%;width:100%;flex-shrink:0;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
-  padding:0 32px 16px;
+  padding:60px 28px 16px;
   text-align:center;
 }
+
+/* 아이콘 */
 .ob-icon-wrap{
-  width:110px;height:110px;border-radius:55px;
-  background:rgba(193,154,107,.15);
+  width:96px;height:96px;border-radius:48px;
+  background:linear-gradient(135deg,rgba(193,154,107,.25),rgba(193,154,107,.08));
   display:flex;align-items:center;justify-content:center;
-  margin-bottom:28px;flex-shrink:0;
+  margin-bottom:24px;flex-shrink:0;
+  box-shadow:0 4px 20px rgba(193,154,107,.2);
 }
-.ob-icon{font-size:52px;line-height:1}
+.ob-icon{font-size:46px;line-height:1}
+
+/* 제목 */
 .ob-title{
-  font-size:22px;font-weight:900;color:var(--text);
-  margin-bottom:18px;line-height:1.3;word-break:keep-all;
+  font-size:26px;font-weight:900;
+  color:var(--text);
+  margin-bottom:10px;
+  line-height:1.25;
+  word-break:keep-all;
+  letter-spacing:-0.5px;
 }
-.ob-desc{
-  font-size:15px;line-height:1.9;color:var(--muted);
-  word-break:keep-all;text-align:left;width:100%;max-width:340px;
+
+/* 서브타이틀 */
+.ob-subtitle{
+  font-size:14px;color:var(--muted);
+  margin-bottom:28px;
+  line-height:1.5;word-break:keep-all;
 }
-.ob-desc b{color:var(--primary)}
+
+/* 카드 리스트 */
+.ob-cards{
+  width:100%;max-width:320px;
+  display:flex;flex-direction:column;gap:10px;
+}
+.ob-card{
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:14px;
+  padding:13px 16px;
+  font-size:14px;
+  font-weight:600;
+  color:var(--text);
+  text-align:left;
+  line-height:1.4;
+  word-break:keep-all;
+}
+
+/* 인디케이터 */
 .ob-dots{
   display:flex;justify-content:center;align-items:center;
-  gap:8px;padding:12px 0 6px;flex-shrink:0;
+  gap:6px;padding:14px 0 8px;flex-shrink:0;
 }
 .ob-dot{
-  width:8px;height:8px;border-radius:4px;
-  background:var(--border);transition:all .25s;
+  width:7px;height:7px;border-radius:4px;
+  background:var(--border);transition:all .25s;cursor:pointer;
 }
-.ob-dot.active{background:var(--primary);width:22px;border-radius:4px}
+.ob-dot.active{background:var(--primary);width:20px}
+
+/* 버튼 영역 */
 .ob-btn-row{
   display:flex;gap:10px;
-  padding:12px 20px calc(28px + var(--safe-b));
+  padding:8px 20px calc(24px + var(--safe-b));
   flex-shrink:0;
 }
 .ob-btn-prev{
-  flex:0 0 80px;padding:16px 0;
+  flex:0 0 72px;padding:15px 0;
   border:1.5px solid var(--border);border-radius:14px;
   background:var(--surface);color:var(--muted);
-  font-size:15px;font-weight:700;font-family:inherit;
+  font-size:14px;font-weight:700;font-family:inherit;
 }
-.ob-btn-prev:disabled{opacity:.3}
+.ob-btn-prev:disabled{opacity:.25}
 .ob-btn-next{
-  flex:1;padding:16px 0;
+  flex:1;padding:15px 0;
   background:var(--primary);color:#fff;border:none;border-radius:14px;
   font-size:16px;font-weight:700;font-family:inherit;
+  letter-spacing:0.3px;
 }
 
 /* ── 스포트라이트 투어 ── */
 #ob-tour-overlay{
   display:none;position:fixed;inset:0;
-  background:rgba(0,0,0,.6);z-index:16000;
+  background:rgba(0,0,0,.55);z-index:16000;
   pointer-events:none;
 }
 #ob-tour-overlay.active{display:block}
 #ob-tour-highlight-ring{
   display:none;position:fixed;z-index:16001;
-  border:3px solid var(--primary);border-radius:14px;
-  box-shadow:0 0 0 4px rgba(193,154,107,.35);
+  border:2.5px solid var(--primary);border-radius:14px;
+  box-shadow:0 0 0 5px rgba(193,154,107,.3);
   pointer-events:none;
   transition:all .3s cubic-bezier(.4,0,.2,1);
 }
@@ -417,7 +452,7 @@ body.admob-banner-top-visible #tab-my{
   bottom:calc(var(--tab-h) + var(--safe-b) + 14px);
   background:var(--surface);border-radius:22px;
   padding:18px 20px 20px;z-index:16002;
-  box-shadow:0 8px 40px rgba(0,0,0,.22);
+  box-shadow:0 8px 40px rgba(0,0,0,.18);
 }
 #ob-tour-card.active{display:block}
 .ob-tour-card-top{
@@ -425,8 +460,13 @@ body.admob-banner-top-visible #tab-my{
   margin-bottom:10px;
 }
 .ob-tour-step-label{font-size:12px;color:var(--muted);font-weight:600}
-.ob-tour-icon{font-size:32px;margin-bottom:8px}
+#ob-tour-card .ob-skip{
+  border:none;background:rgba(139,94,60,.08);
+  color:var(--primary);font-size:12px;font-weight:600;
+  padding:5px 12px;border-radius:16px;font-family:inherit;
+}
+.ob-tour-icon{font-size:28px;margin-bottom:6px}
 .ob-tour-title{font-size:17px;font-weight:900;color:var(--text);margin-bottom:8px}
-.ob-tour-desc{font-size:14px;line-height:1.8;color:var(--muted);word-break:keep-all}
+.ob-tour-desc{font-size:14px;line-height:1.75;color:var(--muted);word-break:keep-all}
 .ob-tour-desc b{color:var(--primary)}
 
