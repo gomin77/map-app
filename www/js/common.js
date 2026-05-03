@@ -652,3 +652,15 @@ function finishTour() {
   document.getElementById('ob-tour-card').classList.remove('active');
   document.getElementById('ob-tour-highlight-ring').classList.remove('active');
 }
+
+function showGuideAgain() {
+  localStorage.removeItem(ONBOARD_KEY);
+  localStorage.removeItem(TOUR_KEY);
+  obIdx = 0;
+  const el = document.getElementById('screen-onboard');
+  if (!el) return;
+  el.classList.add('active');
+  _obRenderDots();
+  _obMoveTo(0);
+  initSwipeOnboard();
+}
