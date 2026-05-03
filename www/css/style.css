@@ -434,16 +434,17 @@ body.admob-banner-top-visible #tab-my{
 /* ── 스포트라이트 투어 ── */
 #ob-tour-overlay{
   display:none;position:fixed;inset:0;
-  background:rgba(0,0,0,.55);z-index:16000;
+  background:rgba(0,0,0,.28);z-index:16000;
   pointer-events:none;
 }
 #ob-tour-overlay.active{display:block}
 #ob-tour-highlight-ring{
   display:none;position:fixed;z-index:16001;
-  border:2.5px solid var(--primary);border-radius:14px;
-  box-shadow:0 0 0 5px rgba(193,154,107,.3);
+  border:3px solid #f5c06e;border-radius:14px;
+  box-shadow:0 0 0 4px rgba(245,192,110,.45), 0 0 18px 4px rgba(245,192,110,.35);
   pointer-events:none;
   transition:all .3s cubic-bezier(.4,0,.2,1);
+  background:rgba(245,192,110,.08);
 }
 #ob-tour-highlight-ring.active{display:block}
 #ob-tour-card{
