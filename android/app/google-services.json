@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "669464241658-954j0rq041a6ihrjfksdq29uplru5i4p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.travelmap.app",
+            "certificate_hash": "4e4618b3a216126ba0ef6d23297a203997df288f"
+          }
+        },
+        {
           "client_id": "669464241658-hb0rffmltpbc7vo8c05486q3rvdd242q.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
