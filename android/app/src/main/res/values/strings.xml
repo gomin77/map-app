@@ -5,5 +5,5 @@
     <string name="package_name">com.travelmap.app</string>
     <string name="custom_url_scheme">com.travelmap.app</string>
     <string name="kakao_app_key">665060f4f7ff4d9f279b0fc4844de59a</string>
-    <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="admob_app_id">ca-app-pub-5276384655786625~2997568151</string>
 </resources>

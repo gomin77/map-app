@@ -126,19 +126,19 @@ let admobReady = false;
 let admobBannerCreated = false;
 const ADMOB_CONFIG = {
   enabledTabs: ['my'],
-  isTest: true,
+  isTest: false,
   bannerId: 10001,
   units: {
     banner: {
       test: 'ca-app-pub-3940256099942544/9214589741',
-      production: 'ca-app-pub-xxxxxxxxxxxxxxxx/yyyyyyyyyy'
+      production: 'ca-app-pub-5276384655786625/6487210854'
     }
   }
 };
 let admobBannerPosition = 'top';
 const APP_CONFIG = {
   ads: {
-    mode: 'test'
+    mode: 'production'
   }
 };
 
