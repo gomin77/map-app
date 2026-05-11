@@ -11,6 +11,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 import java.security.MessageDigest;
+import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 
 public class MainActivity extends BridgeActivity {
@@ -18,6 +19,7 @@ public class MainActivity extends BridgeActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        EdgeToEdge.enable(this);
         super.onCreate(savedInstanceState);
         printKeyHash();
 
