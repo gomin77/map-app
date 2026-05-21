@@ -364,7 +364,7 @@ function closeProfModal(e){ if(!e||e.target.id==='prof-modal') document.getEleme
 /* ── 통계 및 최근 본 지역 ── */
 function renderRecentViews(){
   const el = document.getElementById('recent-scroll');
-  if(!recentViews.length){ el.innerHTML = '<div style="font-size:13px;color:var(--muted);padding:4px 0">아직 열어본 지역이 없어요.</div>'; return; }
+  if(!recentViews.length){ el.innerHTML = '<div style="font-size:13px;color:var(--muted);padding:10px 16px 12px">아직 열어본 지역이 없어요.</div>'; return; }
   el.innerHTML = recentViews.map(item=>{
     const id = typeof item === 'string' ? item : item.id;
     const name = typeof item === 'string' ? getRegionName(id) : (item.name || getRegionName(id));
