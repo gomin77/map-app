@@ -262,6 +262,9 @@ button{cursor:pointer;font-family:inherit}
 body.admob-banner-top-visible #tab-my{
   padding-top: 4px;
 }
+body.admob-banner-failed #tab-my{
+  padding-top: 0;
+}
 /* 理쒓렐 蹂?吏??媛濡??ㅽ겕濡?*/
 .recent-scroll{display:flex;gap:10px;padding:0 16px 14px;overflow-x:auto}
 .recent-scroll::-webkit-scrollbar{display:none}

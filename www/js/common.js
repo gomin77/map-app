@@ -256,8 +256,11 @@ async function showBannerAd() {
     await plugin.adLoad({ id: ADMOB_CONFIG.bannerId });
     await plugin.adShow({ id: ADMOB_CONFIG.bannerId });
     document.body.classList.add('admob-banner-top-visible');
+    document.body.classList.remove('admob-banner-failed');
   } catch (error) {
     console.error('AdMob banner failed:', error);
+    document.body.classList.remove('admob-banner-top-visible');
+    document.body.classList.add('admob-banner-failed');
   }
 }
 
