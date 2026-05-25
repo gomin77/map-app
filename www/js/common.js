@@ -252,11 +252,22 @@ async function showBannerAd() {
         position: admobBannerPosition
       });
       admobBannerCreated = true;
+
+      // 광고 실제 로드 성공 시에만 표시
+      plugin.addListener('admob.banner.Loaded', () => {
+        plugin.adShow({ id: ADMOB_CONFIG.bannerId });
+        document.body.classList.add('admob-banner-top-visible');
+        document.body.classList.remove('admob-banner-failed');
+      });
+
+      // 광고 로드 실패 시 숨기기
+      plugin.addListener('admob.banner.FailedToLoad', () => {
+        document.body.classList.remove('admob-banner-top-visible');
+        document.body.classList.add('admob-banner-failed');
+        plugin.adHide({ id: ADMOB_CONFIG.bannerId }).catch(()=>{});
+      });
     }
     await plugin.adLoad({ id: ADMOB_CONFIG.bannerId });
-    await plugin.adShow({ id: ADMOB_CONFIG.bannerId });
-    document.body.classList.add('admob-banner-top-visible');
-    document.body.classList.remove('admob-banner-failed');
   } catch (error) {
     console.error('AdMob banner failed:', error);
     document.body.classList.remove('admob-banner-top-visible');
