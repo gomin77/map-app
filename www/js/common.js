@@ -122,11 +122,14 @@ let isDrag = false, startX = 0, startY = 0;
 let lastTap = 0, backOnce = false;
 let recentViews = [];   // 최근 본 지역 ID 배열 (최대 10개)
 let notiSettings = {travel:true, notice:true, weekly:false}; // 알림 설정
+// ── AdMob 상태 ──────────────────────────────────────────────
 let admobReady = false;
-let admobBannerCreated = false;
+let admobBannerLoaded = false;
+let admobCurrentTab = null;
+let admobBannerInitPromise = null; // 동시 초기화 방지용 Promise 캐시
+
 const ADMOB_CONFIG = {
   enabledTabs: ['my'],
-  isTest: false,
   bannerId: 10001,
   units: {
     banner: {
@@ -135,11 +138,9 @@ const ADMOB_CONFIG = {
     }
   }
 };
-let admobBannerPosition = 'top';
+
 const APP_CONFIG = {
-  ads: {
-    mode: 'production'
-  }
+  ads: { mode: 'production' }
 };
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -201,6 +202,7 @@ function showToast(msg){
   t._t=setTimeout(()=>t.classList.remove('show'),2300);
 }
 
+// ── AdMob 헬퍼 ──────────────────────────────────────────────
 function getAdMobPlugin() {
   return window.Capacitor?.Plugins?.AdMobPlus || null;
 }
@@ -211,96 +213,96 @@ function getAdMode() {
   return APP_CONFIG.ads.mode;
 }
 
-function isProductionAdMode() {
-  return getAdMode() === 'production';
-}
-
 function getBannerAdUnitId() {
-  return isProductionAdMode() ? ADMOB_CONFIG.units.banner.production : ADMOB_CONFIG.units.banner.test;
+  const prod = ADMOB_CONFIG.units.banner.production;
+  if (getAdMode() === 'production' && !prod.includes('xxxxxxxx')) return prod;
+  return ADMOB_CONFIG.units.banner.test;
 }
 
-function validateAdMobConfig() {
-  if (isProductionAdMode() && ADMOB_CONFIG.units.banner.production.includes('xxxxxxxx')) {
-    console.warn('AdMob production banner unit id is not configured. Falling back to test ads.');
-    return false;
-  }
-  return true;
-}
+// 배너 생성+로드 최초 1회 실행 (동시 호출 시 같은 Promise 반환)
+function initBannerOnce() {
+  if (admobBannerLoaded) return Promise.resolve(true);
+  if (admobBannerInitPromise) return admobBannerInitPromise;
 
-async function ensureAdMobReady() {
-  const plugin = getAdMobPlugin();
-  if (!plugin || admobReady) return plugin;
-  try {
-    await plugin.start();
-    admobReady = true;
-  } catch (error) {
-    console.error('AdMob start failed:', error);
-  }
-  return plugin;
-}
-
-async function showBannerAd() {
-  const plugin = await ensureAdMobReady();
-  if (!plugin) return;
-  try {
-    const adUnitId = validateAdMobConfig() ? getBannerAdUnitId() : ADMOB_CONFIG.units.banner.test;
-    if (!admobBannerCreated) {
+  admobBannerInitPromise = (async () => {
+    const plugin = getAdMobPlugin();
+    if (!plugin) return false;
+    try {
+      if (!admobReady) {
+        await plugin.start();
+        admobReady = true;
+      }
       await plugin.adCreate({
         id: ADMOB_CONFIG.bannerId,
-        adUnitId,
+        adUnitId: getBannerAdUnitId(),
         cls: 'BannerAd',
-        position: admobBannerPosition
+        position: 'top'
       });
-      admobBannerCreated = true;
-
-      // 광고 실제 로드 성공 시에만 표시
-      plugin.addListener('admob.banner.Loaded', () => {
-        plugin.adShow({ id: ADMOB_CONFIG.bannerId });
-        document.body.classList.add('admob-banner-top-visible');
-        document.body.classList.remove('admob-banner-failed');
-      });
-
-      // 광고 로드 실패 시 숨기기
-      plugin.addListener('admob.banner.FailedToLoad', () => {
-        document.body.classList.remove('admob-banner-top-visible');
-        document.body.classList.add('admob-banner-failed');
-        plugin.adHide({ id: ADMOB_CONFIG.bannerId }).catch(()=>{});
-      });
+      await plugin.adLoad({ id: ADMOB_CONFIG.bannerId });
+      admobBannerLoaded = true;
+      return true;
+    } catch (e) {
+      admobBannerInitPromise = null; // 실패 시 재시도 허용
+      return false;
     }
-    await plugin.adLoad({ id: ADMOB_CONFIG.bannerId });
-  } catch (error) {
-    console.error('AdMob banner failed:', error);
+  })();
+
+  return admobBannerInitPromise;
+}
+
+// 탭 전환 시 호출
+async function updateBannerForTab(tab) {
+  admobCurrentTab = tab;
+
+  if (!ADMOB_CONFIG.enabledTabs.includes(tab)) {
+    // MY 탭이 아닌 경우: CSS 제거 + 배너 숨김
+    document.body.classList.remove('admob-banner-top-visible');
+    document.body.classList.remove('admob-banner-failed');
+    if (admobBannerLoaded) {
+      const plugin = getAdMobPlugin();
+      if (plugin) try { await plugin.adHide({ id: ADMOB_CONFIG.bannerId }); } catch (e) {}
+    }
+    return;
+  }
+
+  // MY 탭: 배너 초기화(최초 1회) 후 표시
+  const ready = await initBannerOnce();
+  if (!ready) {
+    document.body.classList.add('admob-banner-failed');
+    return;
+  }
+
+  // 비동기 대기 중 다른 탭으로 이동한 경우 표시 안 함
+  if (admobCurrentTab !== 'my') return;
+
+  const plugin = getAdMobPlugin();
+  if (!plugin) return;
+  try {
+    await plugin.adShow({ id: ADMOB_CONFIG.bannerId });
+    document.body.classList.add('admob-banner-top-visible');
+    document.body.classList.remove('admob-banner-failed');
+  } catch (e) {
     document.body.classList.remove('admob-banner-top-visible');
     document.body.classList.add('admob-banner-failed');
   }
 }
 
-async function hideBannerAd() {
-  const plugin = getAdMobPlugin();
-  document.body.classList.remove('admob-banner-top-visible');
-  if (!plugin || !admobBannerCreated) return;
-  try {
-    await plugin.adHide({ id: ADMOB_CONFIG.bannerId });
-  } catch (error) {
-    console.error('AdMob banner hide failed:', error);
-  }
-}
-
-async function updateBannerForTab(tab) {
-  if (ADMOB_CONFIG.enabledTabs.includes(tab)) {
-    admobBannerPosition = 'top';
-    showBannerAd();
-    return;
-  }
-  hideBannerAd();
-}
-
+// 테스트↔실광고 전환 (MY탭에서만 의미 있음)
 function setAdMobMode(mode) {
   if (mode !== 'test' && mode !== 'production') return;
   localStorage.setItem('admob_mode', mode);
-  if (admobBannerCreated) {
-    admobBannerCreated = false;
-    hideBannerAd().finally(() => updateBannerForTab(document.querySelector('.tab-page.active')?.id?.replace('tab-','') || 'recommend'));
+  // 배너 리셋 후 현재 탭 기준으로 재초기화
+  const plugin = getAdMobPlugin();
+  const currentTab = document.querySelector('.tab-page.active')?.id?.replace('tab-', '') || 'recommend';
+  const doReset = () => {
+    admobBannerLoaded = false;
+    admobBannerInitPromise = null;
+    updateBannerForTab(currentTab);
+  };
+  if (admobBannerLoaded && plugin) {
+    plugin.adHide({ id: ADMOB_CONFIG.bannerId }).catch(() => {}).finally(doReset);
+  } else {
+    doReset();
   }
 }
 

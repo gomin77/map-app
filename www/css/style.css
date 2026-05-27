@@ -54,7 +54,8 @@ button{cursor:pointer;font-family:inherit}
 
 /* ?? ???섏씠吏 ?? */
 .tab-page{display:none;flex:1;min-height:0;flex-direction:column;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--tab-h) + var(--safe-b) + 16px)}
-.tab-page.active{display:flex}
+.tab-page.active{display:flex;animation:tabFadeIn .2s ease}
+@keyframes tabFadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 .page-hd{background:var(--surface);padding:calc(var(--safe-t) + 14px) 20px 13px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
 .page-hd h1{font-size:20px;font-weight:800}
 
@@ -260,7 +261,7 @@ button{cursor:pointer;font-family:inherit}
 .day-record-photos img{width:56px;height:56px;border-radius:8px;object-fit:cover;flex-shrink:0}
 .menu-item{padding:17px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--surface);cursor:pointer;font-size:15px}
 body.admob-banner-top-visible #tab-my{
-  padding-top: 4px;
+  --safe-t: 0px;
 }
 body.admob-banner-failed #tab-my{
   padding-top: 0;

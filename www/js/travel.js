@@ -420,7 +420,8 @@ function drawDonuts(){
   if(cc) cc.textContent = `${d.visited} / ${d.total}개 방문`;
 }
 function donut(id,c,t,color){
-  const ctx=document.getElementById(id).getContext('2d'); const pct=t>0?c/t:0;
+  const el=document.getElementById(id); if(!el) return;
+  const ctx=el.getContext('2d'); const pct=t>0?c/t:0;
   ctx.clearRect(0,0,100,100); ctx.lineWidth=10; ctx.lineCap='round';
   ctx.beginPath(); ctx.arc(50,50,38,0,Math.PI*2); ctx.strokeStyle='#eee'; ctx.stroke();
   if(pct>0){ ctx.beginPath(); ctx.arc(50,50,38,-Math.PI/2,-Math.PI/2+Math.PI*2*pct); ctx.strokeStyle=color; ctx.stroke(); }
