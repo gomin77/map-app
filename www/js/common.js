@@ -63,7 +63,7 @@ const REGIONS_KR = [
 const MAPS = {
   domestic: [
     {id:'kr', name:'한국 전체', icon:'🗺️', total:229, file:'assets/korea-map-detail.svg', prefix:'region_', avail:true},
-    {id:'jeju', name:'제주도', icon:'🏝️', total:0, prefix:'jeju_', avail:false},
+    {id:'jeju', name:'제주도', icon:'🏝️', total:2, file:'assets/jeju-map.svg', prefix:'jeju_', avail:true},
     {id:'seoul', name:'서울', icon:'🏙️', total:25, file:'assets/seoul-map.svg', prefix:'seoul_', avail:true},
   ],
   intl: [

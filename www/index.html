@@ -201,6 +201,7 @@ window.addEventListener('deviceready', ()=>{}, false);
         <div id="jp-box"    class="svg-box"></div>
         <div id="seoul-box" class="svg-box"></div>
         <div id="world-box" class="svg-box"></div>
+        <div id="jeju-box"  class="svg-box"></div>
       </div>
     </div>
     <div class="rec-section">
@@ -255,6 +256,8 @@ window.addEventListener('deviceready', ()=>{}, false);
         <div class="cal-grid" id="cal-grid"></div>
       </div>
     </div>
+    <div class="sec-title">여행 타임라인</div>
+    <div id="timeline-list" style="padding:0 16px 16px"></div>
   </div>
 
   <!-- ── MY 탭 ── -->
@@ -272,7 +275,7 @@ window.addEventListener('deviceready', ()=>{}, false);
     <div class="menu-item" onclick="exportData()"><span>데이터 백업 (JSON)</span><span>📤</span></div>
     <div class="menu-item" onclick="resetData()"><span>데이터 초기화</span><span style="color:#e74c3c">🗑️</span></div>
     <div class="menu-item" onclick="doLogout()"><span style="color:#e74c3c">로그아웃</span><span>🚪</span></div>
-    <div class="menu-item"><span>앱 버전</span><span style="color:#999">v1.2.4</span></div>
+    <div class="menu-item"><span>앱 버전</span><span style="color:#999">v1.2.8</span></div>
     <div class="sec-title">커뮤니티</div>
     <div class="menu-item" onclick="openNoticeModal()"><span>공지사항</span><span>📢</span></div>
     <div class="menu-item" onclick="openNotiSettings()"><span>알림 설정</span><span>🔔</span></div>
@@ -374,6 +377,17 @@ window.addEventListener('deviceready', ()=>{}, false);
         <div style="font-size:13px;color:var(--text);line-height:1.6">• 229개 시·군·구 지도 + 일본 지도<br>• 사진 최대 5장, 마스킹 기능<br>• 버킷리스트, 태그, 기록 삭제</div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ════════════ 달성 배지 모달 ════════════ -->
+<div class="modal-bg" id="badge-modal" onclick="closeBadgeModal()">
+  <div class="modal" onclick="event.stopPropagation()" style="text-align:center;padding:32px 24px">
+    <div id="badge-emoji" style="font-size:64px;line-height:1.2;margin-bottom:12px"></div>
+    <div id="badge-title" style="font-size:22px;font-weight:800;color:var(--primary);margin-bottom:6px"></div>
+    <div id="badge-desc" style="font-size:14px;color:var(--muted);margin-bottom:8px"></div>
+    <div style="font-size:36px;font-weight:900;color:var(--primary);margin-bottom:20px" id="badge-pct"></div>
+    <button class="btn-primary" onclick="closeBadgeModal()">확인</button>
   </div>
 </div>
 

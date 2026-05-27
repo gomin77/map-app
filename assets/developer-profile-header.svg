@@ -1,0 +1,101 @@
+<svg width="4096" height="2304" viewBox="0 0 4096 2304" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="bg" x1="320" y1="220" x2="3776" y2="2084" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#0F172A"/>
+    <stop offset="0.45" stop-color="#111C3A"/>
+    <stop offset="1" stop-color="#1E1B4B"/>
+  </linearGradient>
+  <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+    <stop stop-color="#1E293B" stop-opacity="0.92"/>
+    <stop offset="1" stop-color="#0F172A" stop-opacity="0.82"/>
+  </linearGradient>
+  <linearGradient id="accent" x1="642" y1="515" x2="1577" y2="1270" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#60A5FA"/>
+    <stop offset="1" stop-color="#A78BFA"/>
+  </linearGradient>
+  <linearGradient id="accent2" x1="0" y1="0" x2="1" y2="1">
+    <stop stop-color="#38BDF8"/>
+    <stop offset="1" stop-color="#22C55E"/>
+  </linearGradient>
+  <filter id="blur1" x="0" y="0" width="4096" height="2304" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+    <feGaussianBlur stdDeviation="90"/>
+  </filter>
+  <filter id="shadow" x="508" y="355" width="3140" height="1594" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+    <feOffset dy="40"/>
+    <feGaussianBlur stdDeviation="50"/>
+    <feColorMatrix type="matrix" values="0 0 0 0 0.0196078 0 0 0 0 0.0941176 0 0 0 0 0.243137 0 0 0 0.32 0"/>
+    <feBlend in2="SourceGraphic" result="shape"/>
+  </filter>
+</defs>
+
+<rect width="4096" height="2304" fill="url(#bg)"/>
+
+<g filter="url(#blur1)" opacity="0.65">
+  <circle cx="744" cy="466" r="290" fill="#38BDF8"/>
+  <circle cx="3460" cy="420" r="260" fill="#8B5CF6"/>
+  <circle cx="3310" cy="1790" r="360" fill="#2563EB"/>
+  <circle cx="1080" cy="1910" r="320" fill="#22C55E"/>
+</g>
+
+<circle cx="3510" cy="520" r="6" fill="#E2E8F0" opacity="0.7"/>
+<circle cx="3590" cy="650" r="8" fill="#BFDBFE" opacity="0.8"/>
+<circle cx="3340" cy="720" r="5" fill="#E9D5FF" opacity="0.6"/>
+<circle cx="3180" cy="520" r="4" fill="#F8FAFC" opacity="0.5"/>
+<circle cx="560" cy="1640" r="7" fill="#E0F2FE" opacity="0.7"/>
+<circle cx="670" cy="1760" r="5" fill="#DCFCE7" opacity="0.7"/>
+
+<g filter="url(#shadow)">
+  <rect x="658" y="465" width="2780" height="1234" rx="48" fill="url(#card)" stroke="rgba(255,255,255,0.10)"/>
+</g>
+
+<rect x="770" y="577" width="656" height="1010" rx="42" fill="#0B1226" stroke="rgba(255,255,255,0.08)"/>
+<rect x="826" y="665" width="544" height="862" rx="34" fill="url(#accent)"/>
+<rect x="862" y="743" width="472" height="598" rx="28" fill="#EAF2FF" opacity="0.96"/>
+<path d="M943 982C943 926.771 987.771 882 1043 882H1154C1209.23 882 1254 926.771 1254 982V1088C1254 1143.23 1209.23 1188 1154 1188H1043C987.771 1188 943 1143.23 943 1088V982Z" fill="#DBEAFE"/>
+<path d="M1014 1009C1014 975.311 1041.31 948 1075 948H1122C1155.69 948 1183 975.311 1183 1009V1061C1183 1094.69 1155.69 1122 1122 1122H1075C1041.31 1122 1014 1094.69 1014 1061V1009Z" fill="#60A5FA"/>
+<rect x="943" y="1233" width="311" height="28" rx="14" fill="#BFDBFE"/>
+<rect x="943" y="1283" width="256" height="24" rx="12" fill="#CBD5E1"/>
+<rect x="943" y="1350" width="176" height="82" rx="24" fill="#2563EB"/>
+<rect x="1141" y="1350" width="113" height="82" rx="24" fill="#E2E8F0"/>
+
+<rect x="1574" y="666" width="118" height="40" rx="20" fill="#DBEAFE" opacity="0.95"/>
+<text x="1574" y="1162" fill="#F8FAFC" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, sans-serif" font-size="212" font-weight="800">여정</text>
+<text x="1574" y="1332" fill="#BFDBFE" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, sans-serif" font-size="84" font-weight="700">여행 발자취를 지도에 기록하세요</text>
+
+<text x="1574" y="1498" fill="#E2E8F0" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, sans-serif" font-size="62" font-weight="500">한국 · 서울 · 일본 · 세계 지도로 나만의 여행 기록</text>
+<text x="1574" y="1598" fill="#E2E8F0" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, sans-serif" font-size="62" font-weight="500">방문 지역 · 사진 · 메모 · 태그 · 캘린더 · 통계</text>
+
+<g>
+  <rect x="1574" y="847" width="248" height="76" rx="38" fill="#1D4ED8"/>
+  <text x="1637" y="898" fill="#F8FAFC" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, sans-serif" font-size="38" font-weight="700">TRAVEL MAP</text>
+</g>
+
+<g>
+  <rect x="2812" y="738" width="404" height="152" rx="34" fill="#111827" opacity="0.92" stroke="rgba(255,255,255,0.08)"/>
+  <circle cx="2910" cy="814" r="34" fill="url(#accent2)"/>
+  <text x="2980" y="798" fill="#F8FAFC" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, sans-serif" font-size="46" font-weight="700">방문 달성률</text>
+  <text x="2980" y="850" fill="#93C5FD" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, sans-serif" font-size="40" font-weight="600">지도로 보는 여행 기록</text>
+</g>
+
+<g>
+  <rect x="2704" y="962" width="622" height="188" rx="40" fill="#0F172A" opacity="0.9" stroke="rgba(255,255,255,0.08)"/>
+  <rect x="2758" y="1023" width="192" height="66" rx="33" fill="#172554"/>
+  <text x="2815" y="1067" fill="#BFDBFE" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, sans-serif" font-size="38" font-weight="700">스토리 탭</text>
+  <text x="2988" y="1046" fill="#F8FAFC" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, sans-serif" font-size="42" font-weight="700">캘린더와 통계로</text>
+  <text x="2988" y="1100" fill="#E2E8F0" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, sans-serif" font-size="38" font-weight="500">추억을 한눈에 확인</text>
+</g>
+
+<g>
+  <rect x="2622" y="1228" width="704" height="202" rx="40" fill="#0F172A" opacity="0.9" stroke="rgba(255,255,255,0.08)"/>
+  <rect x="2680" y="1294" width="210" height="66" rx="33" fill="#14532D"/>
+  <text x="2736" y="1338" fill="#DCFCE7" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, sans-serif" font-size="38" font-weight="700">추천 탭</text>
+  <text x="2926" y="1318" fill="#F8FAFC" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, sans-serif" font-size="42" font-weight="700">관광지 추천과 즐겨찾기</text>
+  <text x="2926" y="1372" fill="#E2E8F0" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, sans-serif" font-size="38" font-weight="500">다음 여행까지 이어지는 기록</text>
+</g>
+
+<g opacity="0.95">
+  <rect x="1574" y="1778" width="828" height="104" rx="52" fill="#F8FAFC"/>
+  <circle cx="1640" cy="1830" r="18" fill="#2563EB"/>
+  <text x="1682" y="1848" fill="#0F172A" font-family="Apple SD Gothic Neo, Pretendard, Noto Sans KR, sans-serif" font-size="42" font-weight="700">여행을 기록하고, 다시 꺼내보는 가장 쉬운 방법</text>
+</g>
+</svg>

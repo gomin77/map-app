@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" style="width:100%;height:100%">
+  <!-- 제주시 (북부) -->
+  <path id="jeju_jeju" class="region" data-name="제주시"
+    d="M 48,132 C 60,98 90,68 128,54 C 158,43 180,40 200,40 C 220,40 242,43 272,54 C 310,68 340,98 352,132 C 300,126 254,122 200,122 C 146,122 100,126 48,132 Z"
+    fill="#e8dcc8" stroke="#a07850" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- 서귀포시 (남부) -->
+  <path id="jeju_seogwipo" class="region" data-name="서귀포시"
+    d="M 48,132 C 100,126 146,122 200,122 C 254,122 300,126 352,132 C 340,172 312,200 278,216 C 252,228 226,234 200,234 C 174,234 148,228 122,216 C 88,200 60,172 48,132 Z"
+    fill="#e8dcc8" stroke="#a07850" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- 한라산 -->
+  <circle cx="200" cy="130" r="7" fill="#8b5e3c" opacity="0.25" pointer-events="none"/>
+  <text x="148" y="88" text-anchor="middle" font-size="14" fill="#8b5e3c" opacity="0.45" pointer-events="none" font-family="-apple-system,sans-serif" font-weight="500">제주시</text>
+  <text x="252" y="188" text-anchor="middle" font-size="14" fill="#8b5e3c" opacity="0.45" pointer-events="none" font-family="-apple-system,sans-serif" font-weight="500">서귀포시</text>
+</svg>

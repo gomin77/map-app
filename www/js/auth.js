@@ -102,6 +102,9 @@ async function doLogout() {
     // UID 초기화
     setCurrentUserId(null);
 
+    // 배너 광고 숨기고 reload (네이티브 뷰 잔존 방지)
+    if (typeof hideBannerAd === 'function') await hideBannerAd();
+
     showToast('로그아웃 되었습니다.');
     location.reload();
   } catch (e) {

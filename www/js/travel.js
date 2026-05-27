@@ -20,7 +20,7 @@ function switchTab(tab){
   document.getElementById('nav-'+tab).classList.add('active');
   updateBannerForTab(tab);
   if(tab==='travel') renderTravel();
-  if(tab==='stats'){ renderRecentViews(); drawDonuts(); renderCalendar(); }
+  if(tab==='stats'){ renderRecentViews(); drawDonuts(); renderCalendar(); renderTimeline(); }
 }
 
 /* ── 지도 렌더링 ── */
@@ -285,6 +285,8 @@ function selectMap(id){
   if(seoulBox) seoulBox.classList.toggle('active',id==='seoul');
   const worldBox=document.getElementById('world-box');
   if(worldBox) worldBox.classList.toggle('active',id==='world');
+  const jejuBox=document.getElementById('jeju-box');
+  if(jejuBox) jejuBox.classList.toggle('active',id==='jeju');
   closeMapPicker(); resetZoom(); showAll=false; renderTravel();
 }
 
@@ -327,9 +329,43 @@ function addPhotos(inp){
 }
 function delPhoto(i){ tempPhotos.splice(i,1); renderGallery(); }
 function saveRecord(){
+  const prevStatus = (visits[activeRegion]||{}).status;
   visits[activeRegion]={ status:tempStatus, photos:tempPhotos, photo:tempPhotos[0]||null, date:document.getElementById('rec-date').value, tags:document.getElementById('rec-tags').value, memo:document.getElementById('rec-memo').value };
   saveVisits(); closeRecModal(); renderTravel(); drawDonuts(); renderCalendar(); showToast('저장되었습니다 ✓');
+  if(tempStatus==='visited' && prevStatus!=='visited') checkBadge();
 }
+
+/* ── 달성 배지 ── */
+const BADGE_MILESTONES = [25,50,75,100];
+const BADGE_KEY = 'badge_achieved';
+const BADGE_INFO = {
+  25:  {emoji:'🥉', title:'탐험 시작!', desc:'한국 25% 달성'},
+  50:  {emoji:'🥈', title:'절반 달성!', desc:'한국 50% 달성'},
+  75:  {emoji:'🥇', title:'대탐험가!', desc:'한국 75% 달성'},
+  100: {emoji:'🏆', title:'완전정복!', desc:'한국 전체 229개 달성'},
+};
+function checkBadge(){
+  const cfg = getMap('kr'); if(!cfg) return;
+  const visited = Object.keys(visits).filter(id=>id.startsWith('region_')&&visits[id].status==='visited').length;
+  const pct = Math.round(visited/cfg.total*100);
+  const achieved = JSON.parse(localStorage.getItem(BADGE_KEY)||'[]');
+  for(const ms of BADGE_MILESTONES){
+    if(pct>=ms && !achieved.includes(ms)){
+      achieved.push(ms);
+      localStorage.setItem(BADGE_KEY, JSON.stringify(achieved));
+      showBadgeModal(BADGE_INFO[ms], pct);
+      break;
+    }
+  }
+}
+function showBadgeModal(info, pct){
+  document.getElementById('badge-emoji').textContent = info.emoji;
+  document.getElementById('badge-title').textContent = info.title;
+  document.getElementById('badge-desc').textContent = info.desc;
+  document.getElementById('badge-pct').textContent = pct+'%';
+  document.getElementById('badge-modal').classList.add('open');
+}
+function closeBadgeModal(){ document.getElementById('badge-modal').classList.remove('open'); }
 function deleteRecord(){
   if(!confirm('이 기록을 삭제할까요?')) return;
   delete visits[activeRegion]; saveVisits(); closeRecModal(); renderTravel(); drawDonuts(); renderCalendar(); showToast('삭제되었습니다.');
@@ -481,6 +517,54 @@ function shareMap(){
 function exportData(){
   try{ const url=URL.createObjectURL(new Blob([JSON.stringify(visits,null,2)],{type:'application/json'})); const a=document.createElement('a'); a.href=url; a.download='yeojeong_backup.json'; a.click(); URL.revokeObjectURL(url); showToast('백업 파일을 저장했습니다.'); }
   catch(e){ showToast('저장 실패: '+e.message); }
+}
+
+/* ── 타임라인 ── */
+function renderTimeline(){
+  const el = document.getElementById('timeline-list'); if(!el) return;
+  const all = Object.entries(visits)
+    .filter(([,d])=>d.status==='visited' && d.date)
+    .sort((a,b)=>b[1].date.localeCompare(a[1].date));
+  if(!all.length){
+    el.innerHTML='<div style="text-align:center;color:var(--muted);padding:24px 0;font-size:14px">아직 방문한 지역이 없어요</div>';
+    return;
+  }
+  // 날짜별 그룹화
+  const grouped = {};
+  all.forEach(([id,d])=>{
+    if(!grouped[d.date]) grouped[d.date]=[];
+    grouped[d.date].push({id,d});
+  });
+  el.innerHTML = Object.entries(grouped).sort((a,b)=>b[0].localeCompare(a[0])).map(([date, items])=>{
+    const [y,mo,day] = date.split('-');
+    const dateStr = `${y}년 ${parseInt(mo)}월 ${parseInt(day)}일`;
+    const itemsHtml = items.map(({id,d})=>{
+      const name = getRegionName(id);
+      const photo = d.photos?.[0] || d.photo || null;
+      const thumb = photo
+        ? `<img src="${photo}" style="width:44px;height:44px;border-radius:10px;object-fit:cover;flex-shrink:0">`
+        : `<div style="width:44px;height:44px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">📍</div>`;
+      const mapCfg = allMaps().find(m=>id.startsWith(m.prefix));
+      const mapLabel = mapCfg ? `<span style="font-size:10px;color:var(--muted);background:var(--bg);border-radius:6px;padding:1px 6px">${mapCfg.icon} ${mapCfg.name}</span>` : '';
+      const tags = d.tags ? `<div style="font-size:11px;color:var(--muted);margin-top:2px">${d.tags}</div>` : '';
+      return `<div onclick="switchTab('travel');setTimeout(()=>openRecModal('${id}'),300)"
+        style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer">
+        ${thumb}
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px">
+            <span style="font-size:15px;font-weight:700;color:var(--text)">${name}</span>
+            ${mapLabel}
+          </div>
+          ${d.memo ? `<div style="font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.memo}</div>` : ''}
+          ${tags}
+        </div>
+      </div>`;
+    }).join('');
+    return `<div style="margin-bottom:8px">
+      <div style="font-size:12px;font-weight:700;color:var(--primary);padding:8px 0 4px">${dateStr}</div>
+      ${itemsHtml}
+    </div>`;
+  }).join('');
 }
 function resetData(){
   if(!confirm('모든 여행 기록이 삭제됩니다. 계속할까요?')) return;
