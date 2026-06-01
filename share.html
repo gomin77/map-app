@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>여정 - 공유된 여행 지도</title>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<style>
+  :root{ --primary:#8b5e3c; --text:#3d2b1f; --muted:#9e8e7e; --bg:#f5f0ea; --surface:#fff; --border:#e8e0d6; }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+  .wrap{max-width:480px;margin:0 auto;padding:16px}
+  .hd{text-align:center;padding:16px 0 8px}
+  .hd .nick{font-size:18px;font-weight:800;color:var(--primary)}
+  .hd .sub{font-size:13px;color:var(--muted);margin-top:4px}
+  .hd .pct{font-size:28px;font-weight:900;color:var(--primary);margin-top:8px}
+  .map-wrap{background:var(--surface);border-radius:16px;border:1px solid var(--border);overflow:hidden;margin:12px 0;position:relative}
+  .map-wrap svg{width:100%;height:auto;display:block}
+  .legend{display:flex;justify-content:center;gap:16px;font-size:12px;color:var(--muted);padding:8px 0}
+  .legend span{display:flex;align-items:center;gap:4px}
+  .dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+  .dot.visited{background:rgba(139,94,60,.5)}
+  .dot.wish{background:transparent;border:1.5px dashed #2980b9}
+  .stats{text-align:center;font-size:14px;color:var(--muted);padding:8px 0 16px}
+  .cta{display:flex;gap:10px;padding:16px 0 24px}
+  .cta a{flex:1;text-align:center;padding:14px 0;border-radius:14px;font-size:15px;font-weight:700;text-decoration:none}
+  .btn-primary{background:var(--primary);color:#fff}
+  .btn-secondary{background:var(--surface);color:var(--primary);border:1.5px solid var(--border)}
+  .loading{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+  .error{text-align:center;padding:60px 20px;color:#e74c3c;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+  <div class="loading">지도를 불러오는 중...</div>
+</div>
+
+<script>
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyCivnI_Tx2S_zrAvj3I6VIcLZi3gtPaShc",
+  authDomain: "journey-6e8a0.firebaseapp.com",
+  projectId: "journey-6e8a0",
+  storageBucket: "journey-6e8a0.firebasestorage.app",
+  messagingSenderId: "669464241658",
+  appId: "1:669464241658:web:226cbf47523f4f4e91f043"
+};
+firebase.initializeApp(FIREBASE_CONFIG);
+const db = firebase.firestore();
+
+const params = new URLSearchParams(location.search);
+const shareId = params.get('id');
+const app = document.getElementById('app');
+
+if (!shareId) {
+  app.innerHTML = '<div class="error">잘못된 링크입니다.<br>공유 ID가 없습니다.</div>';
+}
+
+const MAP_CFG = {
+  kr:    { file: 'www/assets/korea-map-detail.svg', total: 229 },
+  seoul: { file: 'www/assets/seoul-map.svg', total: 25 },
+  jp:    { file: 'www/assets/japan-map.svg', total: 47 },
+  world: { file: 'www/assets/world-map.svg', total: 195 },
+  jeju:  { file: 'www/assets/jeju-map.svg', total: 2 },
+};
+
+async function init() {
+  try {
+    const doc = await db.collection('shares').doc(shareId).get();
+    if (!doc.exists) {
+      app.innerHTML = '<div class="error">링크가 만료되었거나<br>존재하지 않는 공유입니다.</div>';
+      return;
+    }
+    const data = doc.data();
+    const cfg = MAP_CFG[data.mapId];
+    if (!cfg) {
+      app.innerHTML = '<div class="error">지원하지 않는 지도입니다.</div>';
+      return;
+    }
+
+    const pct = cfg.total > 0 ? Math.round(data.visitedCount / cfg.total * 100) : 0;
+
+    // SVG 로드
+    const svgText = await fetch(cfg.file).then(r => r.text());
+
+    app.innerHTML = `
+      <div class="hd">
+        <div class="nick">@${data.profile?.nickname || '여정객'}님의 여행 지도</div>
+        <div class="sub">${data.mapName} • ${pct}% 달성</div>
+        <div class="pct">${data.visitedCount} / ${cfg.total}</div>
+      </div>
+      <div class="map-wrap" id="map-wrap">${svgText}</div>
+      <div class="legend">
+        <span><span class="dot visited"></span> 방문</span>
+        <span><span class="dot wish"></span> 가고 싶어요</span>
+      </div>
+      <div class="stats">방문 ${data.visitedCount}개 / 전체 ${cfg.total}개 지역</div>
+      <div class="cta">
+        <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.travelmap.app" target="_blank">여정 앱 다운로드</a>
+        <a class="btn-secondary" href="https://gomin77.github.io/map-app/" target="_blank">앱 홈페이지</a>
+      </div>
+    `;
+
+    // SVG 스타일 적용
+    const svg = app.querySelector('svg');
+    if (svg) {
+      svg.setAttribute('width', '100%');
+      svg.setAttribute('height', '100%');
+      svg.querySelectorAll('.region').forEach(p => {
+        const v = data.visits[p.id];
+        if (v && v.status === 'visited') {
+          p.style.fill = 'rgba(139,94,60,.5)';
+          p.style.stroke = '#8b5e3c';
+          p.style.strokeWidth = p.id.startsWith('seoul_') ? '2' : '0.5';
+        } else if (v && v.status === 'wish') {
+          p.style.fill = 'transparent';
+          p.style.stroke = '#2980b9';
+          p.style.strokeWidth = p.id.startsWith('seoul_') ? '2' : '1.5';
+          p.style.strokeDasharray = '3,2';
+        } else {
+          p.style.fill = '#e8dcc8';
+          p.style.stroke = '#b0a090';
+          p.style.strokeWidth = p.id.startsWith('seoul_') ? '1' : '0.3';
+        }
+      });
+      // 일본/세계 지역 ID 보정
+      if (data.mapId === 'jp') {
+        svg.querySelectorAll('.land').forEach(p => {
+          p.classList.add('region');
+          if (!p.getAttribute('data-name') && p.getAttribute('title'))
+            p.setAttribute('data-name', p.getAttribute('title'));
+        });
+      }
+      if (data.mapId === 'world') {
+        svg.querySelectorAll('.land').forEach(p => {
+          p.classList.add('region');
+          const iso = p.getAttribute('id') || '';
+          p.setAttribute('id', 'wld_' + iso);
+          if (!p.getAttribute('data-name') && p.getAttribute('title'))
+            p.setAttribute('data-name', p.getAttribute('title'));
+        });
+      }
+    }
+  } catch (e) {
+    console.error(e);
+    app.innerHTML = '<div class="error">지도를 불러오지 못했습니다.<br>잠시 후 다시 시도해주세요.</div>';
+  }
+}
+init();
+</script>
+</body>
+</html>
