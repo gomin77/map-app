@@ -336,13 +336,21 @@ function saveRecord(){
 }
 
 /* ── 달성 배지 ── */
-const BADGE_MILESTONES = [25,50,75,100];
+const BADGE_MILESTONES = [10,25,50,75,100];
 const BADGE_KEY = 'badge_achieved';
 const BADGE_INFO = {
-  25:  {emoji:'🥉', title:'탐험 시작!', desc:'한국 25% 달성'},
-  50:  {emoji:'🥈', title:'절반 달성!', desc:'한국 50% 달성'},
-  75:  {emoji:'🥇', title:'대탐험가!', desc:'한국 75% 달성'},
-  100: {emoji:'🏆', title:'완전정복!', desc:'한국 전체 229개 달성'},
+  10:  {emoji:'🥉', title:'브론즈 여행가', desc:'한국 10% 달성 — 여행의 시작!', tier:'bronze'},
+  25:  {emoji:'🥈', title:'실버 탐험가', desc:'한국 25% 달성 — 본격적인 탐험!', tier:'silver'},
+  50:  {emoji:'🥇', title:'골드 모험가', desc:'한국 50% 달성 — 절반을 정복하다!', tier:'gold'},
+  75:  {emoji:'💎', title:'다이아몬드 정복자', desc:'한국 75% 달성 — 거의 다 왔어요!', tier:'diamond'},
+  100: {emoji:'👑', title:'챌린저 완전정복', desc:'한국 100% 달성 — 전설의 여행자!', tier:'challenger'},
+};
+const BADGE_TIER_STYLES = {
+  bronze:     {bg:'#cd7f32', shadow:'0 4px 12px rgba(205,127,50,0.3)', glow:'0 0 20px rgba(205,127,50,0.2)'},
+  silver:     {bg:'#a0a0a0', shadow:'0 4px 12px rgba(160,160,160,0.3)', glow:'0 0 20px rgba(160,160,160,0.2)'},
+  gold:       {bg:'#daa520', shadow:'0 4px 12px rgba(218,165,32,0.3)', glow:'0 0 20px rgba(218,165,32,0.2)'},
+  diamond:    {bg:'#00bfff', shadow:'0 4px 12px rgba(0,191,255,0.3)', glow:'0 0 20px rgba(0,191,255,0.2)'},
+  challenger: {bg:'#ff4757', shadow:'0 4px 12px rgba(255,71,87,0.3)', glow:'0 0 20px rgba(255,71,87,0.2)'},
 };
 function checkBadge(){
   const cfg = getMap('kr'); if(!cfg) return;
@@ -359,13 +367,58 @@ function checkBadge(){
   }
 }
 function showBadgeModal(info, pct){
+  const style = BADGE_TIER_STYLES[info.tier] || BADGE_TIER_STYLES.bronze;
   document.getElementById('badge-emoji').textContent = info.emoji;
   document.getElementById('badge-title').textContent = info.title;
   document.getElementById('badge-desc').textContent = info.desc;
   document.getElementById('badge-pct').textContent = pct+'%';
+  document.getElementById('badge-tier-label').textContent = info.tier.toUpperCase();
+  document.getElementById('badge-tier-label').style.background = style.bg;
+  document.getElementById('badge-modal-content').style.boxShadow = style.glow;
   document.getElementById('badge-modal').classList.add('open');
 }
 function closeBadgeModal(){ document.getElementById('badge-modal').classList.remove('open'); }
+
+/* ── 배지 모음 ── */
+function openBadgeModal(){
+  const achieved = JSON.parse(localStorage.getItem(BADGE_KEY)||'[]');
+  const cfg = getMap('kr');
+  const visited = cfg ? Object.keys(visits).filter(id=>id.startsWith('region_')&&visits[id].status==='visited').length : 0;
+  const pct = cfg && cfg.total > 0 ? Math.round(visited/cfg.total*100) : 0;
+  
+  let html = '';
+  BADGE_MILESTONES.forEach(ms=>{
+    const info = BADGE_INFO[ms];
+    const got = achieved.includes(ms);
+    const style = BADGE_TIER_STYLES[info.tier];
+    html += `
+      <div style="display:flex;align-items:center;gap:14px;padding:16px;background:${got?style.bg+'15':'#f5f0ea'};border:2px solid ${got?style.bg:'#e0d8cc'};border-radius:16px;margin-bottom:12px;opacity:${got?1:0.6};box-shadow:${got?style.shadow:'none'}">
+        <div style="width:56px;height:56px;border-radius:50%;background:${got?style.bg:'#d0c8bc'};display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;box-shadow:${got?style.glow:'none'};border:3px solid ${got?style.bg:'#c0b8ac'}"
+        >${got?info.emoji:'🔒'}</div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
+            <span style="font-size:10px;font-weight:800;color:#fff;background:${got?style.bg:'#c0b8ac'};padding:2px 8px;border-radius:10px;letter-spacing:0.5px">${info.tier.toUpperCase()}</span>
+            <span style="font-weight:800;font-size:15px;color:${got?style.bg:'var(--muted)'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${info.title}</span>
+          </div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.4">${info.desc}</div>
+          ${!got ? `<div style="margin-top:8px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px">
+              <span style="font-size:11px;color:var(--muted);font-weight:700">진행률</span>
+              <span style="font-size:11px;color:var(--primary);font-weight:700">${pct}% / ${ms}%</span>
+            </div>
+            <div style="height:8px;background:#e0d8cc;border-radius:4px;overflow:hidden">
+              <div style="height:100%;width:${Math.min(100, (pct/ms)*100)}%;background:${style.bg};border-radius:4px;transition:width 0.5s ease"></div>
+            </div>
+            <div style="font-size:11px;color:var(--muted);margin-top:3px;text-align:right">${Math.max(0, ms-pct)}% 남음</div>
+          </div>` : '<div style="font-size:12px;color:'+style.bg+';margin-top:4px;font-weight:800">✓ 획득 완료</div>'}
+        </div>
+      </div>`;
+  });
+  
+  document.getElementById('badge-list').innerHTML = html;
+  document.getElementById('badge-collection-modal').classList.add('open');
+}
+function closeBadgeCollectionModal(){ document.getElementById('badge-collection-modal').classList.remove('open'); }
 function deleteRecord(){
   if(!confirm('이 기록을 삭제할까요?')) return;
   delete visits[activeRegion]; saveVisits(); closeRecModal(); renderTravel(); drawDonuts(); renderCalendar(); showToast('삭제되었습니다.');

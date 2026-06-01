@@ -271,11 +271,13 @@ window.addEventListener('deviceready', ()=>{}, false);
         <div style="font-size:12px;color:var(--muted);margin-top:2px">프로필 수정하기 →</div>
       </div>
     </div>
+    <div class="sec-title">내 배지</div>
+    <div class="menu-item" onclick="openBadgeModal()"><span>달성 배지 모음</span><span>🏆</span></div>
     <div class="sec-title">설정</div>
     <div class="menu-item" onclick="exportData()"><span>데이터 백업 (JSON)</span><span>📤</span></div>
     <div class="menu-item" onclick="resetData()"><span>데이터 초기화</span><span style="color:#e74c3c">🗑️</span></div>
     <div class="menu-item" onclick="doLogout()"><span style="color:#e74c3c">로그아웃</span><span>🚪</span></div>
-    <div class="menu-item"><span>앱 버전</span><span style="color:#999">v1.2.8</span></div>
+    <div class="menu-item"><span>앱 버전</span><span style="color:#999">v1.2.9</span></div>
     <div class="sec-title">커뮤니티</div>
     <div class="menu-item" onclick="openNoticeModal()"><span>공지사항</span><span>📢</span></div>
     <div class="menu-item" onclick="openNotiSettings()"><span>알림 설정</span><span>🔔</span></div>
@@ -382,12 +384,21 @@ window.addEventListener('deviceready', ()=>{}, false);
 
 <!-- ════════════ 달성 배지 모달 ════════════ -->
 <div class="modal-bg" id="badge-modal" onclick="closeBadgeModal()">
-  <div class="modal" onclick="event.stopPropagation()" style="text-align:center;padding:32px 24px">
-    <div id="badge-emoji" style="font-size:64px;line-height:1.2;margin-bottom:12px"></div>
-    <div id="badge-title" style="font-size:22px;font-weight:800;color:var(--primary);margin-bottom:6px"></div>
-    <div id="badge-desc" style="font-size:14px;color:var(--muted);margin-bottom:8px"></div>
-    <div style="font-size:36px;font-weight:900;color:var(--primary);margin-bottom:20px" id="badge-pct"></div>
-    <button class="btn-primary" onclick="closeBadgeModal()">확인</button>
+  <div class="modal" id="badge-modal-content" onclick="event.stopPropagation()" style="text-align:center;padding:32px 24px;border-radius:24px">
+    <div id="badge-tier-label" style="display:inline-block;font-size:11px;font-weight:800;color:#fff;padding:4px 14px;border-radius:12px;margin-bottom:16px;letter-spacing:1px">TIER</div>
+    <div id="badge-emoji" style="font-size:72px;line-height:1;margin-bottom:16px"></div>
+    <div id="badge-title" style="font-size:24px;font-weight:800;color:var(--primary);margin-bottom:6px"></div>
+    <div id="badge-desc" style="font-size:14px;color:var(--muted);margin-bottom:12px"></div>
+    <div style="font-size:42px;font-weight:900;color:var(--primary);margin-bottom:24px" id="badge-pct"></div>
+    <button class="btn-primary" onclick="closeBadgeModal()" style="min-width:140px">확인</button>
+  </div>
+</div>
+
+<!-- ════════════ 배지 모음 모달 ════════════ -->
+<div class="modal-bg" id="badge-collection-modal" onclick="closeBadgeCollectionModal()">
+  <div class="modal" onclick="event.stopPropagation()" style="max-height:80vh;overflow:hidden;display:flex;flex-direction:column">
+    <div class="modal-hd"><h2>🏆 달성 배지</h2><button class="btn-x" onclick="closeBadgeCollectionModal()">&#215;</button></div>
+    <div style="flex:1;overflow-y:auto;padding:8px 16px 16px" id="badge-list"></div>
   </div>
 </div>
 
