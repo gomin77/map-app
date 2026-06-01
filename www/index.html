@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>여정</title>
 <link rel="stylesheet" href="css/style.css">
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js" defer></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js" defer></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js" defer></script>
 <script>
@@ -189,7 +189,7 @@ window.addEventListener('deviceready', ()=>{}, false);
         <div class="map-hd-label">현재 지도</div>
         <div class="map-hd-name" id="map-hd-name">한국 전체 ▾</div>
       </div>
-      <button class="btn-share" onclick="openShareSheet()">📤</button>
+      <button class="btn-share" onclick="shareLink()">📤</button>
     </div>
     <div class="stats-row">
       <div class="stats-top"><span>방문 달성률</span><span class="stats-pct" id="stat-pct">0%</span></div>
@@ -451,32 +451,6 @@ window.addEventListener('deviceready', ()=>{}, false);
   </div>
 </div>
 
-<!-- ══ 공유 선택 바텀시트 ══ -->
-<div class="bottom-sheet-bg" id="share-sheet-bg" onclick="closeShareSheet()"></div>
-<div class="bottom-sheet" id="share-sheet">
-  <div class="bs-handle"></div>
-  <div class="bs-title">
-    <span class="bs-title-text">📤 공유하기</span>
-    <button class="bs-close-btn" onclick="closeShareSheet()">✕</button>
-  </div>
-  <div class="bs-scroll" style="padding:8px 16px 24px">
-    <button class="share-opt" onclick="shareMap()">
-      <span style="font-size:22px">📸</span>
-      <div style="text-align:left">
-        <div style="font-weight:700">지도 이미지로 공유</div>
-        <div style="font-size:12px;color:var(--muted)">캡처한 지도 사진을 공유합니다</div>
-      </div>
-    </button>
-    <button class="share-opt" onclick="shareLink()">
-      <span style="font-size:22px">🔗</span>
-      <div style="text-align:left">
-        <div style="font-weight:700">링크로 공유하기</div>
-        <div style="font-size:12px;color:var(--muted)">상대방이 링크로 지도를 조회할 수 있습니다</div>
-      </div>
-    </button>
-  </div>
-</div>
-
 <!-- ════════════ 크롭 모달 ════════════ -->
 <div id="crop-modal">
   <div class="crop-hint">드래그로 원하는 영역을 선택하세요</div>
@@ -527,6 +501,53 @@ window.addEventListener('deviceready', ()=>{}, false);
 <script src="js/travel.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/recommend.js"></script>
+<script>
+// shareMap 인라인 버전 (디버깅용)
+function shareMap(){
+  alert('shareMap called! html2canvas=' + typeof html2canvas);
+  
+  if(typeof html2canvas === 'undefined' || !html2canvas){
+    showToast('공유 기능 로딩 중...');
+    return;
+  }
+  
+  showToast('지도를 캡처하는 중...');
+  
+  const activeBox = document.querySelector('#zoom-layer .svg-box.active');
+  
+  if(!activeBox){ 
+    showToast('캡처할 지도가 없습니다'); 
+    return; 
+  }
+  
+  html2canvas(activeBox, {useCORS:true, logging:true, backgroundColor:'#f5f0ea', scale:2}).then(canvas => {
+    canvas.toBlob(blob => {
+      if(!blob) {
+        showToast('이미지 생성 실패');
+        return;
+      }
+      const file = new File([blob], 'my_map.png', {type: 'image/png'});
+      const cfg = getMap(currentMap);
+      const visited = Object.keys(visits).filter(id => id.startsWith(cfg.prefix) && visits[id].status === 'visited').length;
+      const txt = `나의 ${cfg.name} 여행 ${visited}/${cfg.total} 완료! #여정앱`;
+      if(navigator.share) { 
+        navigator.share({files:[file], title:'나의 여행 지도', text:txt}).catch(e => {
+          console.log('share error:', e);
+        }); 
+      } else { 
+        const a = document.createElement('a'); 
+        a.href = canvas.toDataURL(); 
+        a.download = 'my_map.png'; 
+        a.click(); 
+        showToast('이미지가 저장되었습니다.'); 
+      }
+    });
+  }).catch(err => {
+    console.error('html2canvas ERROR:', err);
+    showToast('지도 캡처에 실패했습니다: ' + err.message);
+  });
+}
+</script>
 
 </body>
 </html>

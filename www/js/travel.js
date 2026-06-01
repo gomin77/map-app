@@ -499,38 +499,14 @@ function showDayVisits(ds){
   showToast('📍 '+found.map(([id])=>getRegionName(id)).join(', '));
 }
 
-/* ── 기타 ── */
-function shareMap(){
-  if(typeof html2canvas==='undefined'){ showToast('공유 기능 로딩 중...'); return; }
-  showToast('지도를 캡처하는 중...');
-  html2canvas(mapArea,{useCORS:true,logging:false}).then(canvas=>{
-    canvas.toBlob(blob=>{
-      const file=new File([blob],'my_map.png',{type:'image/png'});
-      const cfg=getMap(currentMap);
-      const visited=Object.keys(visits).filter(id=>id.startsWith(cfg.prefix)&&visits[id].status==='visited').length;
-      const txt=`나의 ${cfg.name} 여행 ${visited}/${cfg.total} 완료! #여정앱`;
-      if(navigator.share){ navigator.share({files:[file],title:'나의 여행 지도',text:txt}).catch(()=>{}); }
-      else { const a=document.createElement('a'); a.href=canvas.toDataURL(); a.download='my_map.png'; a.click(); showToast('이미지가 저장되었습니다.'); }
-    });
-  });
-}
-
 /* ── 링크 공유 ── */
-function openShareSheet(){
-  document.getElementById('share-sheet-bg').classList.add('open');
-  document.getElementById('share-sheet').classList.add('open');
-}
-function closeShareSheet(){
-  document.getElementById('share-sheet-bg').classList.remove('open');
-  document.getElementById('share-sheet').classList.remove('open');
-}
 async function shareLink(){
-  closeShareSheet();
   const cfg = getMap(currentMap);
   if(!cfg){ showToast('지도를 선택해주세요'); return; }
   showToast('링크를 생성하는 중...');
   try{
     const result = await createShare(currentMap, visits, profile);
+    showToast('링크로 공유합니다!');
     const txt = `${profile.nickname||'여정객'}님의 ${cfg.name} 지도를 공유합니다!`;
     if(navigator.share){
       await navigator.share({ title:'나의 여행 지도', text:txt, url:result.url });
