@@ -89,6 +89,8 @@ button{cursor:pointer;font-family:inherit}
 .bottom-sheet.open{display:flex}
 /* 諛뷀??쒗듃 ?대? ?ㅽ겕濡??곸뿭 */
 .bs-scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding-bottom:40px}
+.share-opt{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;background:var(--bg);border:1px solid var(--border);border-radius:14px;margin-bottom:10px;font-size:15px;color:var(--text);cursor:pointer}
+.share-opt:active{background:var(--border)}
 .bs-handle{width:36px;height:4px;border-radius:2px;background:var(--border);margin:12px auto 4px}
 .bs-title{display:flex;align-items:center;justify-content:space-between;font-size:16px;font-weight:800;padding:8px 16px 12px;border-bottom:1px solid var(--border)}
 .bs-title-text{flex:1}

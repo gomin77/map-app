@@ -150,3 +150,47 @@ function autoSyncToCloud() {
     .catch(console.error)
     .finally(() => { _isSyncing = false; });
 }
+
+/* ── 공유 기능 ── */
+function genShareId() {
+  return Math.random().toString(36).slice(2, 10);
+}
+
+async function createShare(mapId, visitsData, profileData) {
+  if (!initCloud()) throw new Error('Firebase 초기화 실패');
+  const cfg = allMaps().find(m => m.id === mapId);
+  const prefix = cfg ? cfg.prefix : '';
+  const filtered = {};
+  Object.entries(visitsData || {}).forEach(([id, data]) => {
+    if (!id.startsWith(prefix)) return;
+    filtered[id] = {
+      status: data.status,
+      date: data.date || '',
+      memo: data.memo || '',
+      tags: data.tags || ''
+    };
+  });
+  const visitedCount = Object.values(filtered).filter(v => v.status === 'visited').length;
+  const totalCount = cfg ? cfg.total : 0;
+  const shareId = genShareId();
+  await db.collection('shares').doc(shareId).set({
+    mapId,
+    mapName: cfg ? cfg.name : mapId,
+    visits: filtered,
+    profile: { nickname: profileData?.nickname || '여정객' },
+    visitedCount,
+    totalCount,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  });
+  return {
+    shareId,
+    url: 'https://gomin77.github.io/map-app/share.html?id=' + shareId
+  };
+}
+
+async function loadShare(shareId) {
+  if (!initCloud()) throw new Error('Firebase 초기화 실패');
+  const doc = await db.collection('shares').doc(shareId).get();
+  if (!doc.exists) return null;
+  return doc.data();
+}

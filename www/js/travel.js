@@ -514,6 +514,35 @@ function shareMap(){
     });
   });
 }
+
+/* ── 링크 공유 ── */
+function openShareSheet(){
+  document.getElementById('share-sheet-bg').classList.add('open');
+  document.getElementById('share-sheet').classList.add('open');
+}
+function closeShareSheet(){
+  document.getElementById('share-sheet-bg').classList.remove('open');
+  document.getElementById('share-sheet').classList.remove('open');
+}
+async function shareLink(){
+  closeShareSheet();
+  const cfg = getMap(currentMap);
+  if(!cfg){ showToast('지도를 선택해주세요'); return; }
+  showToast('링크를 생성하는 중...');
+  try{
+    const result = await createShare(currentMap, visits, profile);
+    const txt = `${profile.nickname||'여정객'}님의 ${cfg.name} 지도를 공유합니다!`;
+    if(navigator.share){
+      await navigator.share({ title:'나의 여행 지도', text:txt, url:result.url });
+    } else {
+      await navigator.clipboard.writeText(result.url);
+      showToast('링크가 복사되었습니다 ✓');
+    }
+  } catch(e){
+    console.error(e);
+    showToast('링크 생성 실패: '+e.message);
+  }
+}
 function exportData(){
   try{ const url=URL.createObjectURL(new Blob([JSON.stringify(visits,null,2)],{type:'application/json'})); const a=document.createElement('a'); a.href=url; a.download='yeojeong_backup.json'; a.click(); URL.revokeObjectURL(url); showToast('백업 파일을 저장했습니다.'); }
   catch(e){ showToast('저장 실패: '+e.message); }
