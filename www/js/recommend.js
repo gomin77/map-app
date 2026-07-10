@@ -85,7 +85,7 @@ function shuffleRecs(){
   const pool = TOUR_AREAS.slice(1);
   const picked = pool[Math.floor(Math.random() * pool.length)];
   currentAreaCode = picked.code;
-  document.getElementById('area-selector-label').textContent = `📍 ${picked.label}`;
+  document.getElementById('area-selector-label').textContent = `${picked.label}`;
   loadRecommendations(picked.code);
 }
 
@@ -170,7 +170,7 @@ async function retryProvince(code) {
 
 function selectSigungu(areaCode, sigunguCode, displayName) {
   currentAreaCode = areaCode;
-  document.getElementById('area-selector-label').textContent = `📍 ${displayName}`;
+  document.getElementById('area-selector-label').textContent = `${displayName}`;
   closeAreaSelector();
   loadRecommendations(areaCode, sigunguCode, displayName);
 }
@@ -182,7 +182,7 @@ function closeAreaSelector() {
 
 function selectArea(code, label) {
   currentAreaCode = code;
-  document.getElementById('area-selector-label').textContent = `📍 ${label}`;
+  document.getElementById('area-selector-label').textContent = `${label}`;
   closeAreaSelector();
   loadRecommendations(code, '', label);
 }

@@ -7,7 +7,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <style>
-  :root{ --primary:#8b5e3c; --text:#3d2b1f; --muted:#9e8e7e; --bg:#f5f0ea; --surface:#fff; --border:#e8e0d6; }
+  :root{ --primary:#0288d1; --text:#14324d; --muted:#6b93a8; --bg:#ffffff; --surface:#fff; --border:#cde8f6; }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
   .wrap{max-width:480px;margin:0 auto;padding:16px}
@@ -20,8 +20,8 @@
   .legend{display:flex;justify-content:center;gap:16px;font-size:12px;color:var(--muted);padding:8px 0}
   .legend span{display:flex;align-items:center;gap:4px}
   .dot{width:10px;height:10px;border-radius:3px;display:inline-block}
-  .dot.visited{background:rgba(139,94,60,.5)}
-  .dot.wish{background:transparent;border:1.5px dashed #2980b9}
+  .dot.visited{background:rgba(41,182,246,.5)}
+  .dot.wish{background:transparent;border:1.5px dashed #1565c0}
   .stats{text-align:center;font-size:14px;color:var(--muted);padding:8px 0 16px}
   .cta{display:flex;gap:10px;padding:16px 0 24px}
   .cta a{flex:1;text-align:center;padding:14px 0;border-radius:14px;font-size:15px;font-weight:700;text-decoration:none}
@@ -109,17 +109,17 @@ async function init() {
       svg.querySelectorAll('.region').forEach(p => {
         const v = data.visits[p.id];
         if (v && v.status === 'visited') {
-          p.style.fill = 'rgba(139,94,60,.5)';
-          p.style.stroke = '#8b5e3c';
+          p.style.fill = 'rgba(41,182,246,.5)';
+          p.style.stroke = '#29b6f6';
           p.style.strokeWidth = p.id.startsWith('seoul_') ? '2' : '0.5';
         } else if (v && v.status === 'wish') {
           p.style.fill = 'transparent';
-          p.style.stroke = '#2980b9';
+          p.style.stroke = '#1565c0';
           p.style.strokeWidth = p.id.startsWith('seoul_') ? '2' : '1.5';
           p.style.strokeDasharray = '3,2';
         } else {
-          p.style.fill = '#e8dcc8';
-          p.style.stroke = '#b0a090';
+          p.style.fill = '#ffffff';
+          p.style.stroke = '#8ecbe8';
           p.style.strokeWidth = p.id.startsWith('seoul_') ? '1' : '0.3';
         }
       });

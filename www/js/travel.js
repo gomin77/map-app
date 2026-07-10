@@ -20,7 +20,19 @@ function switchTab(tab){
   document.getElementById('nav-'+tab).classList.add('active');
   updateBannerForTab(tab);
   if(tab==='travel') renderTravel();
-  if(tab==='stats'){ renderRecentViews(); drawDonuts(); renderCalendar(); renderTimeline(); }
+  if(tab==='stats'){ renderRecentViews(); renderCalendar(); renderTimeline(); }
+  if(tab==='report'){ drawDonuts(); renderBadgeList(); }
+}
+
+/* ── ⚙️ 설정 패널 ── */
+function openSettings(){
+  document.getElementById('settings-panel').classList.add('open');
+  updateBannerForTab('settings');
+}
+function closeSettings(){
+  document.getElementById('settings-panel').classList.remove('open');
+  const activeTab = document.querySelector('.tab-page.active')?.id?.replace('tab-', '') || 'recommend';
+  updateBannerForTab(activeTab);
 }
 
 /* ── 지도 렌더링 ── */
@@ -166,13 +178,13 @@ function updateColors(svg){
         img.setAttribute('clip-path','url(#'+cid+')');
         img.style.pointerEvents='none';
         svg.appendChild(img);
-        p.style.fill='rgba(139,94,60,.15)';
-      } else { p.style.fill='rgba(139,94,60,.5)'; }
-      p.style.stroke='#8b5e3c'; p.style.strokeWidth=p.id.startsWith('seoul_')?'2':'0.5';
+        p.style.fill='rgba(41,182,246,.15)';
+      } else { p.style.fill='rgba(41,182,246,.5)'; }
+      p.style.stroke='#29b6f6'; p.style.strokeWidth=p.id.startsWith('seoul_')?'2':'0.5';
     } else if(d && d.status==='wish'){
-      p.style.fill='transparent'; p.style.stroke='#2980b9'; p.style.strokeWidth=p.id.startsWith('seoul_')?'2':'1.5'; p.style.strokeDasharray='3,2';
+      p.style.fill='transparent'; p.style.stroke='#1565c0'; p.style.strokeWidth=p.id.startsWith('seoul_')?'2':'1.5'; p.style.strokeDasharray='3,2';
     } else {
-      p.style.fill='#e8dcc8'; p.style.stroke='#b0a090'; p.style.strokeWidth=p.id.startsWith('seoul_')?'1':'0.3';
+      p.style.fill='#ffffff'; p.style.stroke='#8ecbe8'; p.style.strokeWidth=p.id.startsWith('seoul_')?'1':'0.3';
     }
   });
 }
@@ -379,46 +391,27 @@ function showBadgeModal(info, pct){
 }
 function closeBadgeModal(){ document.getElementById('badge-modal').classList.remove('open'); }
 
-/* ── 배지 모음 ── */
-function openBadgeModal(){
+/* ── 배지 모음 (통계 탭 인라인 렌더) ── */
+function renderBadgeList(){
   const achieved = JSON.parse(localStorage.getItem(BADGE_KEY)||'[]');
   const cfg = getMap('kr');
   const visited = cfg ? Object.keys(visits).filter(id=>id.startsWith('region_')&&visits[id].status==='visited').length : 0;
   const pct = cfg && cfg.total > 0 ? Math.round(visited/cfg.total*100) : 0;
-  
-  let html = '';
+
+  let html = '<div class="badge-wall">';
   BADGE_MILESTONES.forEach(ms=>{
     const info = BADGE_INFO[ms];
     const got = achieved.includes(ms);
-    const style = BADGE_TIER_STYLES[info.tier];
+    const cls = got ? info.tier : info.tier + ' locked';
     html += `
-      <div style="display:flex;align-items:center;gap:14px;padding:16px;background:${got?style.bg+'15':'#f5f0ea'};border:2px solid ${got?style.bg:'#e0d8cc'};border-radius:16px;margin-bottom:12px;opacity:${got?1:0.6};box-shadow:${got?style.shadow:'none'}">
-        <div style="width:56px;height:56px;border-radius:50%;background:${got?style.bg:'#d0c8bc'};display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;box-shadow:${got?style.glow:'none'};border:3px solid ${got?style.bg:'#c0b8ac'}"
-        >${got?info.emoji:'🔒'}</div>
-        <div style="flex:1;min-width:0">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
-            <span style="font-size:10px;font-weight:800;color:#fff;background:${got?style.bg:'#c0b8ac'};padding:2px 8px;border-radius:10px;letter-spacing:0.5px">${info.tier.toUpperCase()}</span>
-            <span style="font-weight:800;font-size:15px;color:${got?style.bg:'var(--muted)'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${info.title}</span>
-          </div>
-          <div style="font-size:12px;color:var(--muted);line-height:1.4">${info.desc}</div>
-          ${!got ? `<div style="margin-top:8px">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px">
-              <span style="font-size:11px;color:var(--muted);font-weight:700">진행률</span>
-              <span style="font-size:11px;color:var(--primary);font-weight:700">${pct}% / ${ms}%</span>
-            </div>
-            <div style="height:8px;background:#e0d8cc;border-radius:4px;overflow:hidden">
-              <div style="height:100%;width:${Math.min(100, (pct/ms)*100)}%;background:${style.bg};border-radius:4px;transition:width 0.5s ease"></div>
-            </div>
-            <div style="font-size:11px;color:var(--muted);margin-top:3px;text-align:right">${Math.max(0, ms-pct)}% 남음</div>
-          </div>` : '<div style="font-size:12px;color:'+style.bg+';margin-top:4px;font-weight:800">✓ 획득 완료</div>'}
-        </div>
+      <div class="achievement" title="${info.desc}\n진행률: ${pct}% / ${ms}%">
+        <div class="badge-hex ${cls}">${got ? info.emoji : '🔒'}</div>
+        <span class="badge-title ${got ? 'earned' : ''}">${info.title}</span>
       </div>`;
   });
-  
-  document.getElementById('badge-list').innerHTML = html;
-  document.getElementById('badge-collection-modal').classList.add('open');
+  html += '</div>';
+  document.getElementById('badge-list-inline').innerHTML = html;
 }
-function closeBadgeCollectionModal(){ document.getElementById('badge-collection-modal').classList.remove('open'); }
 function deleteRecord(){
   if(!confirm('이 기록을 삭제할까요?')) return;
   delete visits[activeRegion]; saveVisits(); closeRecModal(); renderTravel(); drawDonuts(); renderCalendar(); showToast('삭제되었습니다.');
@@ -459,7 +452,11 @@ function renderRecentViews(){
     const name = typeof item === 'string' ? getRegionName(id) : (item.name || getRegionName(id));
     const d = visits[id]; const photos = d?.photos || (d?.photo?[d.photo]:[]);
     const imgTag = photos.length ? `<img class="recent-tile-img" src="${photos[0]}">` : '';
-    return `<div class="recent-chip" onclick="switchTab('travel');setTimeout(()=>openRecModal('${id}'),100)"><div class="recent-tile">${imgTag}<span class="recent-tile-name">${name}</span></div></div>`;
+    return `<div class="recent-chip" onclick="switchTab('travel');setTimeout(()=>openRecModal('${id}'),100)">
+      <div class="recent-tile" style="height:45px;min-height:45px;width:80px;min-width:80px">
+        ${imgTag}<span class="recent-tile-name">${name}</span>
+      </div>
+    </div>`;
   }).join('');
 }
 function closeModal(id, e){ if(!e || e.target.id===id) document.getElementById(id).classList.remove('open'); }
@@ -490,10 +487,10 @@ function switchStatsFilter(id){
 
 function drawDonuts(){
   const data = {
-    kr:    { visited: Object.keys(visits).filter(id=>id.startsWith('region_')&&visits[id].status==='visited').length, total:229,  color:'#8b5e3c' },
+    kr:    { visited: Object.keys(visits).filter(id=>id.startsWith('region_')&&visits[id].status==='visited').length, total:229,  color:'#29b6f6' },
     seoul: { visited: Object.keys(visits).filter(id=>id.startsWith('seoul_') &&visits[id].status==='visited').length, total:25,   color:'#5b8c5a' },
-    jp:    { visited: Object.keys(visits).filter(id=>id.startsWith('JP-')    &&visits[id].status==='visited').length, total:47,   color:'#c19a6b' },
-    world: { visited: Object.keys(visits).filter(id=>id.startsWith('wld_')   &&visits[id].status==='visited').length, total:195,  color:'#4a7fb5' },
+    jp:    { visited: Object.keys(visits).filter(id=>id.startsWith('JP-')    &&visits[id].status==='visited').length, total:47,   color:'#00acc1' },
+    world: { visited: Object.keys(visits).filter(id=>id.startsWith('wld_')   &&visits[id].status==='visited').length, total:195,  color:'#1565c0' },
   };
   // 스토리탭 카드 통계 업데이트
   Object.entries(data).forEach(([k, d]) => {
@@ -514,7 +511,7 @@ function donut(id,c,t,color){
   ctx.clearRect(0,0,100,100); ctx.lineWidth=10; ctx.lineCap='round';
   ctx.beginPath(); ctx.arc(50,50,38,0,Math.PI*2); ctx.strokeStyle='#eee'; ctx.stroke();
   if(pct>0){ ctx.beginPath(); ctx.arc(50,50,38,-Math.PI/2,-Math.PI/2+Math.PI*2*pct); ctx.strokeStyle=color; ctx.stroke(); }
-  ctx.textAlign='center'; ctx.font='bold 15px -apple-system,sans-serif'; ctx.fillStyle='#3d2b1f'; ctx.fillText(Math.round(pct*100)+'%',50,55);
+  ctx.textAlign='center'; ctx.font='bold 15px -apple-system,sans-serif'; ctx.fillStyle='#14324d'; ctx.fillText(Math.round(pct*100)+'%',50,55);
 }
 
 /* ── 캘린더 ── */
@@ -531,7 +528,10 @@ function renderCalendar(){
     }
   });
   const first=new Date(y,m,1).getDay(); const days=new Date(y,m+1,0).getDate();
-  const today=new Date().toISOString().split('T')[0]; const dows=['일','월','화','수','목','금','토'];
+  const now=new Date();
+  const localToday=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+  const today=localToday;
+  const dows=['일','월','화','수','목','금','토'];
   let html=dows.map(d=>`<div class="cal-dow">${d}</div>`).join('');
   for(let i=0;i<first;i++) html+='<div></div>';
   for(let d=1;d<=days;d++){
@@ -593,35 +593,36 @@ function renderTimeline(){
     if(!grouped[d.date]) grouped[d.date]=[];
     grouped[d.date].push({id,d});
   });
-  el.innerHTML = Object.entries(grouped).sort((a,b)=>b[0].localeCompare(a[0])).map(([date, items])=>{
+  el.innerHTML = Object.entries(grouped).sort((a,b)=>b[0].localeCompare(a[0])).map(([date, items], idx, arr)=>{
     const [y,mo,day] = date.split('-');
     const dateStr = `${y}년 ${parseInt(mo)}월 ${parseInt(day)}일`;
     const itemsHtml = items.map(({id,d})=>{
       const name = getRegionName(id);
       const photo = d.photos?.[0] || d.photo || null;
-      const thumb = photo
-        ? `<img src="${photo}" style="width:44px;height:44px;border-radius:10px;object-fit:cover;flex-shrink:0">`
-        : `<div style="width:44px;height:44px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">📍</div>`;
       const mapCfg = allMaps().find(m=>id.startsWith(m.prefix));
-      const mapLabel = mapCfg ? `<span style="font-size:10px;color:var(--muted);background:var(--bg);border-radius:6px;padding:1px 6px">${mapCfg.icon} ${mapCfg.name}</span>` : '';
-      const tags = d.tags ? `<div style="font-size:11px;color:var(--muted);margin-top:2px">${d.tags}</div>` : '';
-      return `<div onclick="switchTab('travel');setTimeout(()=>openRecModal('${id}'),300)"
-        style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer">
-        ${thumb}
-        <div style="flex:1;min-width:0">
-          <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px">
-            <span style="font-size:15px;font-weight:700;color:var(--text)">${name}</span>
-            ${mapLabel}
-          </div>
-          ${d.memo ? `<div style="font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.memo}</div>` : ''}
-          ${tags}
+      const mapLabel = mapCfg ? `<span class="badge">${mapCfg.icon} ${mapCfg.name}</span>` : '';
+      const tags = d.tags ? `<span class="badge">${d.tags}</span>` : '';
+      return `
+        <div class="timeline-card" onclick="switchTab('travel');setTimeout(()=>openRecModal('${id}'),300)" style="cursor:pointer">
+          ${photo ? `<img src="${photo}" alt="${name}">` : ''}
+          <div class="timeline-badges">${mapLabel}${tags}</div>
+          <div class="timeline-title">${name}</div>
+          ${d.memo ? `<div class="timeline-memo">${d.memo}</div>` : ''}
+        </div>`;
+    }).join('');
+    const isLast = idx === arr.length - 1;
+    return `
+      <div class="timeline-item" style="margin-bottom:${isLast?'0':'24px'}">
+        <div class="timeline-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div class="timeline-content">
+          <div style="font-size:13px;font-weight:900;color:var(--primary);margin-bottom:8px">${dateStr}</div>
+          ${itemsHtml}
         </div>
       </div>`;
-    }).join('');
-    return `<div style="margin-bottom:8px">
-      <div style="font-size:12px;font-weight:700;color:var(--primary);padding:8px 0 4px">${dateStr}</div>
-      ${itemsHtml}
-    </div>`;
   }).join('');
 }
 function resetData(){

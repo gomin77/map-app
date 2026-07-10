@@ -129,7 +129,7 @@ let admobCurrentTab = null;
 let admobBannerInitPromise = null; // 동시 초기화 방지용 Promise 캐시
 
 const ADMOB_CONFIG = {
-  enabledTabs: ['my'],
+  enabledTabs: ['settings'],
   bannerId: 10001,
   units: {
     banner: {
@@ -166,6 +166,10 @@ function saveNoti(){ localStorage.setItem('noti_settings', JSON.stringify(notiSe
    뒤로가기 종료 확인
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function handleBack(){
+  if(document.getElementById('settings-panel')?.classList.contains('open')){
+    closeSettings();
+    return;
+  }
   if(document.querySelector('.modal-bg.open')){
     document.querySelectorAll('.modal-bg').forEach(m=>m.classList.remove('open'));
     return;
@@ -255,7 +259,7 @@ async function updateBannerForTab(tab) {
   admobCurrentTab = tab;
 
   if (!ADMOB_CONFIG.enabledTabs.includes(tab)) {
-    // MY 탭이 아닌 경우: CSS 제거 + 배너 숨김
+    // 설정 패널이 아닌 경우: CSS 제거 + 배너 숨김
     document.body.classList.remove('admob-banner-top-visible');
     document.body.classList.remove('admob-banner-failed');
     if (admobBannerLoaded) {
@@ -265,7 +269,7 @@ async function updateBannerForTab(tab) {
     return;
   }
 
-  // MY 탭: 배너 초기화(최초 1회) 후 표시
+  // 설정 패널: 배너 초기화(최초 1회) 후 표시
   const ready = await initBannerOnce();
   if (!ready) {
     document.body.classList.add('admob-banner-failed');
@@ -273,7 +277,7 @@ async function updateBannerForTab(tab) {
   }
 
   // 비동기 대기 중 다른 탭으로 이동한 경우 표시 안 함
-  if (admobCurrentTab !== 'my') return;
+  if (!ADMOB_CONFIG.enabledTabs.includes(admobCurrentTab)) return;
 
   const plugin = getAdMobPlugin();
   if (!plugin) return;
@@ -287,13 +291,14 @@ async function updateBannerForTab(tab) {
   }
 }
 
-// 테스트↔실광고 전환 (MY탭에서만 의미 있음)
+// 테스트↔실광고 전환 (설정 패널에서만 의미 있음)
 function setAdMobMode(mode) {
   if (mode !== 'test' && mode !== 'production') return;
   localStorage.setItem('admob_mode', mode);
   // 배너 리셋 후 현재 탭 기준으로 재초기화
   const plugin = getAdMobPlugin();
-  const currentTab = document.querySelector('.tab-page.active')?.id?.replace('tab-', '') || 'recommend';
+  const settingsOpen = document.getElementById('settings-panel')?.classList.contains('open');
+  const currentTab = settingsOpen ? 'settings' : (document.querySelector('.tab-page.active')?.id?.replace('tab-', '') || 'recommend');
   const doReset = () => {
     admobBannerLoaded = false;
     admobBannerInitPromise = null;
@@ -584,7 +589,14 @@ const TOUR_STEPS = [
     tab: 'travel',
     icon: '📊',
     title: '스토리 탭',
-    desc: '<b>스토리 탭</b>에서 방문 통계와\n도넛 차트, 여행 캘린더를 확인해요.\n날짜를 탭하면 그날 기록을 바로 조회해요.'
+    desc: '<b>스토리 탭</b>에서 여행 캘린더와\n최근 본 지역, 여행 기록을 확인해요.\n날짜를 탭하면 그날 기록을 바로 조회해요.'
+  },
+  {
+    selector: '#nav-report',
+    tab: 'travel',
+    icon: '🏆',
+    title: '통계 탭',
+    desc: '<b>통계 탭</b>에서 방문 통계와\n도넛 차트, 달성 배지 모음을 확인해요.'
   },
   {
     selector: '#nav-recommend',
@@ -594,18 +606,18 @@ const TOUR_STEPS = [
     desc: '<b>추천 탭</b>에서 지역별 관광지를\n추천받고 즐겨찾기할 수 있어요.\n🔀 버튼으로 새 목록을 랜덤으로 불러와요.'
   },
   {
-    selector: '#nav-my',
+    selector: '#tab-travel .btn-settings',
     tab: 'travel',
-    icon: '👤',
-    title: 'MY 탭',
-    desc: '<b>MY 탭</b>에서 프로필을 수정하고\n데이터 백업 및 초기화를 할 수 있어요.\n소셜 로그인으로 기기 간 동기화도 돼요.'
+    icon: '⚙️',
+    title: '설정 버튼',
+    desc: '각 탭 우측 상단 <b>⚙️ 설정 버튼</b>으로\n프로필 수정, 데이터 백업 및 초기화를 할 수 있어요.\n소셜 로그인으로 기기 간 동기화도 돼요.'
   },
   {
     selector: '#main-tab-bar',
     tab: 'travel',
     icon: '✅',
     title: '준비 완료!',
-    desc: '하단 <b>탭 바</b>로 언제든 화면을 전환해요.\n여행 · 스토리 · 추천 · MY\n이제 여정을 시작해보세요!'
+    desc: '하단 <b>탭 바</b>로 언제든 화면을 전환해요.\n추천 · 여행 · 스토리 · 통계\n이제 여정을 시작해보세요!'
   }
 ];
 let tourIdx = 0;
