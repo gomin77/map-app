@@ -187,6 +187,7 @@ window.addEventListener('deviceready', ()=>{}, false);
         <div class="map-hd-name" id="map-hd-name">한국 전체 ▾</div>
       </div>
       <div style="display:flex;gap:8px;align-items:center">
+        <button class="btn-share" onclick="openMapSearch()" title="지역 검색">🔍</button>
         <button class="btn-share" onclick="shareLink()">📤</button>
         <button class="btn-settings" onclick="openSettings()" title="설정">⚙️</button>
       </div>
@@ -347,13 +348,55 @@ window.addEventListener('deviceready', ()=>{}, false);
       <button class="sts-btn" id="sb-v" onclick="setStatus('visited')">✅ 방문 완료</button>
       <button class="sts-btn" id="sb-w" onclick="setStatus('wish')">🔖 가고 싶어요</button>
     </div>
-    <div class="photo-gallery" id="photo-gallery"></div>
-    <input type="file" id="photo-inp" accept="image/*" multiple hidden onchange="addPhotos(this)">
-    <input type="date" id="rec-date" class="form-input">
-    <input type="text" id="rec-tags" class="form-input" placeholder="태그 (예: #바다 #맛집)">
-    <textarea id="rec-memo" class="form-input" rows="3" placeholder="메모..." style="resize:none"></textarea>
-    <button class="btn-primary" onclick="saveRecord()">저장하기</button>
-    <button class="btn-delete-rec" id="btn-del-rec" onclick="deleteRecord()">이 기록 삭제하기</button>
+
+    <div id="wish-form">
+      <div class="photo-gallery" id="photo-gallery"></div>
+      <input type="file" id="photo-inp" accept="image/*" multiple hidden onchange="addPhotos(this)">
+      <input type="date" id="rec-date" class="form-input">
+      <input type="text" id="rec-tags" class="form-input" placeholder="태그 (예: #바다 #맛집)">
+      <textarea id="rec-memo" class="form-input" rows="3" placeholder="메모..." style="resize:none"></textarea>
+      <button class="btn-primary" onclick="saveRecord()">저장하기</button>
+    </div>
+
+    <div id="records-section" style="display:none">
+      <div id="records-list"></div>
+      <button class="btn-add-record" onclick="openRecordForm()">+ 새 방문 기록 추가</button>
+    </div>
+
+    <button class="btn-delete-rec" id="btn-del-rec" onclick="deleteRecord()">이 지역 기록 전체 삭제</button>
+  </div>
+</div>
+
+<!-- ════════════ 방문 기록 작성/수정 모달 ════════════ -->
+<div class="modal-bg" id="record-form-modal" onclick="closeRecordForm(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-hd">
+      <h2 id="record-form-title">방문 기록</h2>
+      <button class="btn-x" onclick="closeRecordForm()">&#215;</button>
+    </div>
+    <div class="photo-gallery" id="rf-photo-gallery"></div>
+    <input type="file" id="rf-photo-inp" accept="image/*" multiple hidden onchange="addRecordFormPhotos(this)">
+    <div class="date-range-row">
+      <input type="date" id="rf-start-date" class="form-input" onchange="syncRecordFormEndMin()">
+      <span class="date-range-sep">~</span>
+      <input type="date" id="rf-end-date" class="form-input">
+    </div>
+    <input type="text" id="rf-tags" class="form-input" placeholder="태그 (예: #바다 #맛집)">
+    <textarea id="rf-memo" class="form-input" rows="3" placeholder="메모..." style="resize:none"></textarea>
+    <button class="btn-primary" onclick="saveRecordForm()">저장하기</button>
+    <button class="btn-delete-rec" id="rf-btn-delete" onclick="deleteRecordForm()">이 기록 삭제하기</button>
+  </div>
+</div>
+
+<!-- ════════════ 지도 지명 검색 모달 ════════════ -->
+<div class="modal-bg" id="search-modal" onclick="closeMapSearch(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-hd">
+      <h2>지역 검색</h2>
+      <button class="btn-x" onclick="closeMapSearch()">&#215;</button>
+    </div>
+    <input type="text" id="search-input" class="form-input" placeholder="지역명을 입력하세요 (예: 통영)" oninput="renderSearchResults(this.value)" autocomplete="off">
+    <div id="search-results"></div>
   </div>
 </div>
 

@@ -342,6 +342,23 @@ button{cursor:pointer;font-family:inherit}
 .photo-add-label{width:80px;height:80px;border-radius:var(--radius-sm);background:var(--sky-blue-bg);border:2px dashed var(--border);display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--primary);flex-shrink:0;cursor:pointer}
 .btn-delete-rec{width:100%;padding:14px;background:none;color:#e74c3c;border:none;font-size:14px;margin-top:6px;cursor:pointer;font-weight:700}
 
+/* 방문 기록 목록(다중) & 기간 입력 */
+.btn-add-record{width:100%;padding:14px;background:var(--sky-blue-bg);color:var(--primary);border:1.5px dashed var(--primary);border-radius:var(--radius-md);font-weight:800;font-size:14px;margin-bottom:14px;cursor:pointer}
+.date-range-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.date-range-row .form-input{margin-bottom:0;flex:1;min-width:0}
+.date-range-sep{color:var(--text-sub);font-weight:700;flex-shrink:0}
+
+/* 지도 지명 검색 */
+.search-result-row{display:flex;align-items:center;gap:12px;padding:14px 4px;border-bottom:1px solid var(--border);cursor:pointer}
+.search-result-row:last-child{border-bottom:none}
+.search-result-row:active{background:var(--sky-blue-bg)}
+.search-result-icon{font-size:18px;flex-shrink:0;width:24px;text-align:center}
+.search-result-name{font-size:15px;font-weight:700;color:var(--text-main)}
+.search-empty{text-align:center;color:var(--text-sub);padding:32px 0;font-size:14px}
+#search-results{max-height:50vh;overflow-y:auto}
+.region-pulse{animation:regionPulse .6s ease-in-out 3}
+@keyframes regionPulse{0%,100%{filter:drop-shadow(0 0 0 rgba(0,163,255,0))}50%{filter:drop-shadow(0 0 14px rgba(0,163,255,.95))}}
+
 /* 지도 선택 모달 */
 .mp-label{font-size:12px;font-weight:800;letter-spacing:.5px;color:var(--text-sub);margin:10px 0 8px}
 .mp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}

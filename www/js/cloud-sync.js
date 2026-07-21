@@ -48,14 +48,28 @@ async function uploadData(uid, visitsData, profileData) {
     // 사진은 용량 문제로 제외하고 메타데이터만 저장
     const visitsForCloud = {};
     Object.entries(visitsData || {}).forEach(([id, data]) => {
-      visitsForCloud[id] = {
-        status: data.status,
-        date: data.date,
-        memo: data.memo || '',
-        tags: data.tags || '',
-        photoCount: (data.photos || (data.photo ? [data.photo] : [])).length,
-        // 사진 자체는 저장하지 않음 (로컬에만 유지)
-      };
+      if (data.status === 'visited') {
+        visitsForCloud[id] = {
+          status: 'visited',
+          records: (data.records || []).map(r => ({
+            id: r.id,
+            startDate: r.startDate || '',
+            endDate: r.endDate || r.startDate || '',
+            tags: r.tags || '',
+            memo: r.memo || '',
+            photoCount: (r.photos || []).length
+            // 사진 자체는 저장하지 않음 (로컬에만 유지)
+          }))
+        };
+      } else {
+        visitsForCloud[id] = {
+          status: data.status,
+          date: data.date || '',
+          memo: data.memo || '',
+          tags: data.tags || '',
+          photoCount: (data.photos || (data.photo ? [data.photo] : [])).length
+        };
+      }
     });
 
     const docData = {
@@ -117,7 +131,24 @@ async function syncFromCloud(uid) {
   let hasChanges = false;
   Object.entries(cloudData.visits || {}).forEach(([id, cloudVisit]) => {
     const localVisit = visits[id];
-    if (!localVisit || (cloudVisit.date && (!localVisit.date || cloudVisit.date > localVisit.date))) {
+    if (cloudVisit.status === 'visited') {
+      // records[]는 id 기준 합집합 병합: 로컬에 없는 클라우드 record만 추가(사진 없는 상태)
+      if (!localVisit || localVisit.status !== 'visited') {
+        const records = (cloudVisit.records || []).map(r => ({ ...r, photos: [] }));
+        if (records.length) {
+          visits[id] = { status: 'visited', records };
+          hasChanges = true;
+        }
+      } else {
+        const localIds = new Set((localVisit.records || []).map(r => r.id));
+        const missing = (cloudVisit.records || []).filter(r => r.id && !localIds.has(r.id));
+        if (missing.length) {
+          if (!localVisit.records) localVisit.records = [];
+          missing.forEach(r => localVisit.records.push({ ...r, photos: [] }));
+          hasChanges = true;
+        }
+      }
+    } else if (!localVisit || (cloudVisit.date && (!localVisit.date || cloudVisit.date > localVisit.date))) {
       visits[id] = {
         ...cloudVisit,
         photos: localVisit?.photos || [],

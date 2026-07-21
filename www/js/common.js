@@ -111,6 +111,8 @@ let currentMap = 'kr';
 let currentAreaCode = '';
 let tempPhotos = [];
 let tempStatus = 'visited';
+let editingRecordId = null; // record-form-modal에서 수정 중인 record id (신규면 null)
+let rfPhotos = [];          // record-form-modal 임시 사진 배열
 let showAll = false;
 let recFilter = '';
 let openProvince = null; // 아코디언 열린 도/시
@@ -151,7 +153,66 @@ function loadAll(){
   try{ profile = JSON.parse(localStorage.getItem('user_profile')||'{"nickname":"여정객","avatar":null}'); }catch{}
   try{ recentViews = JSON.parse(localStorage.getItem('recent_views')||'[]'); }catch{ recentViews=[]; }
   try{ notiSettings = JSON.parse(localStorage.getItem('noti_settings')||'{"travel":true,"notice":true,"weekly":false}'); }catch{}
+  migrateVisitsToRecords();
   if (typeof updateProfileUI === 'function') updateProfileUI();
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   방문 기록 다중화 (지역당 여러 개의 기록 + 기간 지원)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function genRecordId(){
+  return 'r_' + Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+}
+// 구버전(지역당 단일 기록) 데이터를 records[] 배열 구조로 1회 변환 (멱등)
+function migrateVisitsToRecords(){
+  Object.keys(visits).forEach(id=>{
+    const d = visits[id];
+    if(d && d.status==='visited' && !d.records){
+      const photos = d.photos || (d.photo ? [d.photo] : []);
+      d.records = [{
+        id: genRecordId(),
+        startDate: d.date || '',
+        endDate: d.date || '',
+        tags: d.tags || '',
+        memo: d.memo || '',
+        photos
+      }];
+      delete d.photos; delete d.photo; delete d.date; delete d.tags; delete d.memo;
+    }
+  });
+}
+function getRegionRecords(d){
+  return (d && d.status==='visited') ? (d.records||[]) : [];
+}
+// 지역(visits[id]) 전체에서 표시 가능한 사진들을 모두 모아서 반환 (지도 마스킹/썸네일용)
+function getRegionPhotos(d){
+  if(!d) return [];
+  if(d.status==='visited') return (d.records||[]).flatMap(r=>r.photos||[]);
+  return d.photos || (d.photo ? [d.photo] : []);
+}
+function getLatestRecord(d){
+  const recs = getRegionRecords(d);
+  if(!recs.length) return null;
+  return recs.slice().sort((a,b)=>(b.startDate||'').localeCompare(a.startDate||''))[0];
+}
+// 대표 썸네일 사진 1장 (최근 기록 우선)
+function getRegionThumb(d){
+  const latest = getLatestRecord(d);
+  if(latest && latest.photos && latest.photos.length) return latest.photos[0];
+  const all = getRegionPhotos(d);
+  return all[0] || null;
+}
+function formatDateShort(ds){
+  if(!ds) return '';
+  const parts = ds.split('-');
+  if(parts.length<3) return ds;
+  return `${parseInt(parts[1])}.${parseInt(parts[2])}`;
+}
+// record의 기간을 "5.3" 또는 "5.3 - 5.5" 형태로 라벨링
+function getRecordDateLabel(r){
+  if(!r || !r.startDate) return '';
+  if(!r.endDate || r.endDate===r.startDate) return formatDateShort(r.startDate);
+  return `${formatDateShort(r.startDate)} - ${formatDateShort(r.endDate)}`;
 }
 function saveVisits(){ 
   localStorage.setItem('travel_v2', JSON.stringify(visits)); 

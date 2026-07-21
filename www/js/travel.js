@@ -160,8 +160,8 @@ function updateColors(svg){
     const d = visits[p.id];
     p.style.strokeDasharray = 'none';
     if(d && d.status==='visited'){
-      const photos = d.photos || (d.photo ? [d.photo] : []);
-      if(photos.length > 0){
+      const thumb = getRegionThumb(d);
+      if(thumb){
         const cid = 'c-'+p.id.replace(/[^a-z0-9]/gi,'-');
         const cp = document.createElementNS('http://www.w3.org/2000/svg','clipPath');
         cp.setAttribute('id', cid);
@@ -171,7 +171,7 @@ function updateColors(svg){
         const b = p.getBBox();
         const img = document.createElementNS('http://www.w3.org/2000/svg','image');
         img.setAttribute('class','mask-img');
-        img.setAttribute('href', photos[0]);
+        img.setAttribute('href', thumb);
         img.setAttribute('x',b.x); img.setAttribute('y',b.y);
         img.setAttribute('width',b.width); img.setAttribute('height',b.height);
         img.setAttribute('preserveAspectRatio','xMidYMid slice');
@@ -203,25 +203,40 @@ function renderTravel(){
 function renderRecordList(){
   const cfg = getMap(currentMap);
   if(!cfg) return;
-  const all = Object.entries(visits).filter(([id])=>id.startsWith(cfg.prefix)).sort((a,b)=>(b[1].date||'').localeCompare(a[1].date||''));
-  const show = showAll ? all : all.slice(0,5);
-  const extra = all.length - 5;
+  const flat = [];
+  Object.entries(visits).filter(([id])=>id.startsWith(cfg.prefix)).forEach(([id,d])=>{
+    if(d.status==='visited'){
+      (d.records||[]).forEach(r=>flat.push({id, d, r}));
+    } else if(d.status==='wish'){
+      flat.push({id, d, r:null});
+    }
+  });
+  flat.sort((a,b)=>{
+    const da = a.r ? (a.r.startDate||'') : (a.d.date||'');
+    const db = b.r ? (b.r.startDate||'') : (b.d.date||'');
+    return db.localeCompare(da);
+  });
+  const show = showAll ? flat : flat.slice(0,5);
+  const extra = flat.length - 5;
   const btnMore = document.getElementById('btn-more');
-  btnMore.style.display = all.length > 5 ? 'block' : 'none';
+  btnMore.style.display = flat.length > 5 ? 'block' : 'none';
   btnMore.textContent = showAll ? '접기' : `더보기 (${extra}개)`;
-  document.getElementById('record-list').innerHTML = show.map(([id,d])=>{
+  document.getElementById('record-list').innerHTML = show.map(({id,d,r})=>{
     const name = getRegionName(id);
-    const photos = d.photos || (d.photo ? [d.photo] : []);
+    const photos = r ? (r.photos||[]) : (d.photos || (d.photo ? [d.photo] : []));
     const thumb = photos.length ? `<img class="rec-thumb" src="${photos[0]}">` : `<div class="rec-thumb-empty">${d.status==='wish'?'🔖':'📍'}</div>`;
     const tag = d.status==='wish' ? '<span style="font-size:11px;color:var(--wish);font-weight:700;">[가고 싶어요]</span>' : '';
+    const dateLabel = r ? getRecordDateLabel(r) : (d.date||'');
+    const tags = r ? r.tags : d.tags;
+    const memo = r ? r.memo : d.memo;
     return `<div class="rec-row" onclick="openRecModal('${id}')">${thumb}
       <div class="rec-info-row">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:4px">
-          <span class="name">${name}</span><span class="date">${d.date||''}</span>
+          <span class="name">${name}</span><span class="date">${dateLabel}</span>
         </div>
         ${tag}
-        ${d.tags ? `<div style="font-size:11px;color:var(--primary);margin-top:2px">${d.tags}</div>` : ''}
-        ${d.memo ? `<div class="memo">${d.memo}</div>` : ''}
+        ${tags ? `<div style="font-size:11px;color:var(--primary);margin-top:2px">${tags}</div>` : ''}
+        ${memo ? `<div class="memo">${memo}</div>` : ''}
       </div></div>`;
   }).join('');
 }
@@ -302,25 +317,128 @@ function selectMap(id){
   closeMapPicker(); resetZoom(); showAll=false; renderTravel();
 }
 
+/* ── 지도 지명 검색 (현재 보고 있는 지도 내부로 한정) ── */
+function openMapSearch(){
+  const input = document.getElementById('search-input');
+  input.value = '';
+  renderSearchResults('');
+  document.getElementById('search-modal').classList.add('open');
+  setTimeout(()=>input.focus(), 150);
+}
+function closeMapSearch(e){
+  if(!e || e.target.id==='search-modal') document.getElementById('search-modal').classList.remove('open');
+}
+function renderSearchResults(query){
+  const resultsEl = document.getElementById('search-results');
+  const cfg = getMap(currentMap);
+  const box = cfg && document.getElementById(cfg.id+'-box');
+  const svg = box && box.querySelector('svg');
+  if(!svg){
+    resultsEl.innerHTML = '<div class="search-empty">지도를 불러오는 중입니다. 잠시 후 다시 시도해주세요.</div>';
+    return;
+  }
+  const q = (query||'').trim();
+  let regions = Array.from(svg.querySelectorAll('.region')).map(el=>({ id:el.id, name:getRegionName(el.id) }));
+  if(q){
+    regions = regions.filter(r=>r.name.includes(q));
+    regions.sort((a,b)=>{
+      const as = a.name.startsWith(q) ? 0 : 1, bs = b.name.startsWith(q) ? 0 : 1;
+      if(as!==bs) return as-bs;
+      return a.name.localeCompare(b.name,'ko');
+    });
+  } else {
+    regions.sort((a,b)=>a.name.localeCompare(b.name,'ko'));
+  }
+  if(!regions.length){
+    resultsEl.innerHTML = '<div class="search-empty">검색 결과가 없습니다.</div>';
+    return;
+  }
+  resultsEl.innerHTML = regions.slice(0,50).map(r=>{
+    const d = visits[r.id];
+    const icon = d?.status==='visited' ? '✅' : d?.status==='wish' ? '🔖' : '📍';
+    return `<div class="search-result-row" onclick="focusRegion('${r.id}')"><span class="search-result-icon">${icon}</span><span class="search-result-name">${r.name}</span></div>`;
+  }).join('');
+}
+function focusRegion(id){
+  closeMapSearch();
+  const el = document.getElementById(id);
+  const svg = document.querySelector('#zoom-layer .svg-box.active svg');
+  if(!el || !svg){ showToast('지역을 찾을 수 없습니다'); return; }
+  const rect = mapArea.getBoundingClientRect();
+  const vb = svg.viewBox.baseVal;
+  const b = el.getBBox();
+  // letterboxing 보정 (svg는 preserveAspectRatio 기본값 xMidYMid meet)
+  const svgScale = Math.min(rect.width/vb.width, rect.height/vb.height);
+  const letterboxX = (rect.width - vb.width*svgScale) / 2;
+  const letterboxY = (rect.height - vb.height*svgScale) / 2;
+  const cx = b.x + b.width/2, cy = b.y + b.height/2;
+  const screenCx = letterboxX + cx*svgScale;
+  const screenCy = letterboxY + cy*svgScale;
+  const targetZoom = Math.min(Math.max(300/Math.max(b.width*svgScale, b.height*svgScale), 3), 8);
+  zoom = targetZoom;
+  offX = rect.width/2 - screenCx*targetZoom;
+  offY = rect.height/2 - screenCy*targetZoom;
+  applyTransform();
+  el.classList.remove('region-pulse');
+  void el.offsetWidth; // reflow로 애니메이션 재시작
+  el.classList.add('region-pulse');
+  setTimeout(()=>el.classList.remove('region-pulse'), 1900);
+  showToast(getRegionName(id)+' 위치로 이동했습니다');
+}
+
 /* ── 기록 관리 ── */
 function openRecModal(id){
-  activeRegion=id; const d=visits[id]||{status:'visited',photos:[],date:new Date().toISOString().split('T')[0],memo:'',tags:''};
-  tempPhotos = d.photos ? [...d.photos] : (d.photo ? [d.photo] : []);
-  tempStatus = d.status||'visited';
+  activeRegion=id;
+  const d=visits[id];
+  const status = d ? d.status : 'visited';
+  tempStatus = status;
   document.getElementById('rec-title').textContent=getRegionName(id);
-  document.getElementById('rec-date').value=d.date||'';
-  document.getElementById('rec-tags').value=d.tags||'';
-  document.getElementById('rec-memo').value=d.memo||'';
-  document.getElementById('btn-del-rec').style.display=visits[id]?'block':'none';
-  setStatus(tempStatus); renderGallery(); document.getElementById('rec-modal').classList.add('open');
+  document.getElementById('btn-del-rec').style.display=d?'block':'none';
+  document.getElementById('sb-v').className='sts-btn'+(status==='visited'?' on-v':'');
+  document.getElementById('sb-w').className='sts-btn'+(status==='wish'?' on-w':'');
+  showStatusSection(status);
+  if(status==='wish'){
+    loadWishFormFields();
+  } else {
+    renderRecordsInModal(id);
+  }
+  document.getElementById('rec-modal').classList.add('open');
   const regionName = getRegionName(id);
   recentViews = [{id, name: regionName}, ...recentViews.filter(v=>(typeof v==='string'?v:v.id)!==id)].slice(0,10);
   saveRecent();
 }
+function showStatusSection(s){
+  document.getElementById('wish-form').style.display = s==='wish' ? 'block' : 'none';
+  document.getElementById('records-section').style.display = s==='visited' ? 'block' : 'none';
+}
+function loadWishFormFields(){
+  const d = visits[activeRegion] || {};
+  tempPhotos = d.photos ? [...d.photos] : (d.photo ? [d.photo] : []);
+  document.getElementById('rec-date').value = d.date||'';
+  document.getElementById('rec-tags').value = d.tags||'';
+  document.getElementById('rec-memo').value = d.memo||'';
+  renderGallery();
+}
+// ✅/🔖 버튼 클릭 시 즉시 상태를 저장 (매번 "저장하기"를 누를 필요 없음)
 function setStatus(s){
   tempStatus=s;
   document.getElementById('sb-v').className='sts-btn'+(s==='visited'?' on-v':'');
   document.getElementById('sb-w').className='sts-btn'+(s==='wish'?' on-w':'');
+  showStatusSection(s);
+
+  const prevStatus = visits[activeRegion] ? visits[activeRegion].status : null;
+  if(prevStatus===s){
+    if(s==='wish') loadWishFormFields(); else renderRecordsInModal(activeRegion);
+    return;
+  }
+  if(!visits[activeRegion]) visits[activeRegion]={};
+  visits[activeRegion].status = s;
+  if(s==='visited' && !visits[activeRegion].records) visits[activeRegion].records=[];
+  saveVisits();
+  document.getElementById('btn-del-rec').style.display='block';
+  renderTravel(); drawDonuts(); renderCalendar();
+  if(s==='wish') loadWishFormFields(); else renderRecordsInModal(activeRegion);
+  if(s==='visited' && prevStatus!=='visited') checkBadge();
 }
 function renderGallery(){
   const g=document.getElementById('photo-gallery');
@@ -340,11 +458,117 @@ function addPhotos(inp){
   processNext(0);
 }
 function delPhoto(i){ tempPhotos.splice(i,1); renderGallery(); }
+// 가고 싶어요(wish) 상태 전용 저장 (단일 메모)
 function saveRecord(){
-  const prevStatus = (visits[activeRegion]||{}).status;
-  visits[activeRegion]={ status:tempStatus, photos:tempPhotos, photo:tempPhotos[0]||null, date:document.getElementById('rec-date').value, tags:document.getElementById('rec-tags').value, memo:document.getElementById('rec-memo').value };
+  visits[activeRegion]={ status:'wish', photos:tempPhotos, photo:tempPhotos[0]||null, date:document.getElementById('rec-date').value, tags:document.getElementById('rec-tags').value, memo:document.getElementById('rec-memo').value };
   saveVisits(); closeRecModal(); renderTravel(); drawDonuts(); renderCalendar(); showToast('저장되었습니다 ✓');
-  if(tempStatus==='visited' && prevStatus!=='visited') checkBadge();
+}
+
+/* ── 방문 기록(records[]) 목록 렌더 & 작성/수정 모달 ── */
+function renderRecordsInModal(id){
+  const d = visits[id];
+  const records = getRegionRecords(d);
+  const list = document.getElementById('records-list');
+  if(!records.length){
+    list.innerHTML = '<div style="text-align:center;color:var(--text-sub);padding:20px 0;font-size:13px;line-height:1.6">아직 방문 기록이 없어요.<br>아래 버튼으로 첫 기록을 남겨보세요!</div>';
+    return;
+  }
+  const sorted = records.slice().sort((a,b)=>(b.startDate||'').localeCompare(a.startDate||''));
+  list.innerHTML = sorted.map(r=>{
+    const photos = r.photos||[];
+    const thumb = photos.length ? `<img class="rec-thumb" src="${photos[0]}">` : `<div class="rec-thumb-empty">📍</div>`;
+    return `<div class="rec-row" onclick="openRecordForm('${r.id}')">${thumb}
+      <div class="rec-info-row">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:4px">
+          <span class="date">${getRecordDateLabel(r)}</span>
+        </div>
+        ${r.tags ? `<div style="font-size:11px;color:var(--primary);margin-top:2px">${r.tags}</div>` : ''}
+        ${r.memo ? `<div class="memo">${r.memo}</div>` : ''}
+      </div></div>`;
+  }).join('');
+}
+function openRecordForm(recordId){
+  editingRecordId = recordId || null;
+  const d = visits[activeRegion];
+  const rec = editingRecordId ? (d?.records||[]).find(r=>r.id===editingRecordId) : null;
+  document.getElementById('record-form-title').textContent = rec ? '방문 기록 수정' : '새 방문 기록';
+  rfPhotos = rec && rec.photos ? [...rec.photos] : [];
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('rf-start-date').value = rec ? rec.startDate : today;
+  document.getElementById('rf-end-date').value = rec ? (rec.endDate||rec.startDate) : today;
+  document.getElementById('rf-end-date').min = document.getElementById('rf-start-date').value;
+  document.getElementById('rf-tags').value = rec ? (rec.tags||'') : '';
+  document.getElementById('rf-memo').value = rec ? (rec.memo||'') : '';
+  document.getElementById('rf-btn-delete').style.display = rec ? 'block' : 'none';
+  renderRfGallery();
+  document.getElementById('record-form-modal').classList.add('open');
+}
+function closeRecordForm(e){
+  if(!e || e.target.id==='record-form-modal') document.getElementById('record-form-modal').classList.remove('open');
+}
+function syncRecordFormEndMin(){
+  const start = document.getElementById('rf-start-date').value;
+  const endInput = document.getElementById('rf-end-date');
+  endInput.min = start;
+  if(endInput.value && endInput.value < start) endInput.value = start;
+}
+function renderRfGallery(){
+  const g = document.getElementById('rf-photo-gallery');
+  g.innerHTML = rfPhotos.map((p,i)=>`<div class="photo-item"><img src="${p}"><button class="photo-del" onclick="delRfPhoto(${i})">×</button></div>`).join('') + (rfPhotos.length<5 ? `<label class="photo-add-label" for="rf-photo-inp">+</label>` : '');
+}
+function addRecordFormPhotos(inp){
+  const rem = 5 - rfPhotos.length; if(rem<=0) return;
+  const files = Array.from(inp.files).slice(0, rem); inp.value='';
+  function processNext(idx){
+    if(idx>=files.length) return;
+    const r = new FileReader();
+    r.onload = e => openCropModal(e.target.result, cropped => {
+      resizeImg(cropped, res => { rfPhotos.push(res); renderRfGallery(); processNext(idx+1); });
+    }, () => processNext(idx+1));
+    r.readAsDataURL(files[idx]);
+  }
+  processNext(0);
+}
+function delRfPhoto(i){ rfPhotos.splice(i,1); renderRfGallery(); }
+function saveRecordForm(){
+  const startDate = document.getElementById('rf-start-date').value;
+  let endDate = document.getElementById('rf-end-date').value;
+  if(!startDate){ showToast('시작일을 입력해주세요'); return; }
+  if(!endDate || endDate < startDate) endDate = startDate;
+  const tags = document.getElementById('rf-tags').value;
+  const memo = document.getElementById('rf-memo').value;
+
+  const prevStatus = visits[activeRegion] ? visits[activeRegion].status : null;
+  if(!visits[activeRegion]) visits[activeRegion] = { status:'visited', records:[] };
+  visits[activeRegion].status = 'visited';
+  if(!visits[activeRegion].records) visits[activeRegion].records = [];
+
+  if(editingRecordId){
+    const idx = visits[activeRegion].records.findIndex(r=>r.id===editingRecordId);
+    if(idx>=0) visits[activeRegion].records[idx] = { id:editingRecordId, startDate, endDate, tags, memo, photos:rfPhotos };
+  } else {
+    visits[activeRegion].records.push({ id:genRecordId(), startDate, endDate, tags, memo, photos:rfPhotos });
+  }
+  saveVisits();
+  closeRecordForm();
+  document.getElementById('btn-del-rec').style.display='block';
+  renderRecordsInModal(activeRegion);
+  renderTravel(); drawDonuts(); renderCalendar();
+  showToast('저장되었습니다 ✓');
+  if(prevStatus!=='visited') checkBadge();
+}
+function deleteRecordForm(){
+  if(!editingRecordId) return;
+  if(!confirm('이 기록을 삭제할까요?')) return;
+  const d = visits[activeRegion];
+  d.records = (d.records||[]).filter(r=>r.id!==editingRecordId);
+  const regionRemoved = d.records.length===0;
+  if(regionRemoved) delete visits[activeRegion]; // 기록이 0개가 되면 방문 취소 처리
+  saveVisits();
+  closeRecordForm();
+  if(regionRemoved){ closeRecModal(); } else { renderRecordsInModal(activeRegion); }
+  renderTravel(); drawDonuts(); renderCalendar();
+  showToast('삭제되었습니다.');
 }
 
 /* ── 달성 배지 ── */
@@ -518,14 +742,27 @@ function donut(id,c,t,color){
 function renderCalendar(){
   const y=calMonth.getFullYear(), m=calMonth.getMonth();
   document.getElementById('cal-title').textContent=`${y}년 ${m+1}월`;
-  // 날짜별 방문 데이터 수집 (사진 포함)
+  // 날짜별 방문 데이터 수집 (기간 전체를 마킹, 사진 포함)
   const vDates={};
+  const MAX_RANGE_DAYS = 90; // 비정상적으로 긴 기간 방어용 상한선
   Object.values(visits).forEach(v=>{
-    if(v.date && v.status==='visited'){
-      if(!vDates[v.date]) vDates[v.date]={count:0, photo:null};
-      vDates[v.date].count++;
-      if(!vDates[v.date].photo && (v.photos?.[0] || v.photo)) vDates[v.date].photo = v.photos?.[0] || v.photo;
-    }
+    if(v.status!=='visited') return;
+    (v.records||[]).forEach(r=>{
+      if(!r.startDate) return;
+      const start = new Date(r.startDate+'T00:00:00');
+      const end = new Date((r.endDate||r.startDate)+'T00:00:00');
+      if(isNaN(start.getTime())||isNaN(end.getTime())) return;
+      let days = Math.round((end-start)/86400000)+1;
+      if(days<1) days=1;
+      if(days>MAX_RANGE_DAYS) days=MAX_RANGE_DAYS;
+      for(let i=0;i<days;i++){
+        const cur = new Date(start); cur.setDate(cur.getDate()+i);
+        const ds = `${cur.getFullYear()}-${String(cur.getMonth()+1).padStart(2,'0')}-${String(cur.getDate()).padStart(2,'0')}`;
+        if(!vDates[ds]) vDates[ds]={count:0, photo:null};
+        vDates[ds].count++;
+        if(!vDates[ds].photo && r.photos && r.photos[0]) vDates[ds].photo = r.photos[0];
+      }
+    });
   });
   const first=new Date(y,m,1).getDay(); const days=new Date(y,m+1,0).getDate();
   const now=new Date();
@@ -547,9 +784,39 @@ function renderCalendar(){
 function calPrev(){ calMonth.setMonth(calMonth.getMonth()-1); renderCalendar(); }
 function calNext(){ calMonth.setMonth(calMonth.getMonth()+1); renderCalendar(); }
 function showDayVisits(ds){
-  const found=Object.entries(visits).filter(([,v])=>v.date===ds&&v.status==='visited');
+  const found=[];
+  Object.entries(visits).forEach(([id,d])=>{
+    if(d.status!=='visited') return;
+    (d.records||[]).forEach(r=>{
+      if(!r.startDate) return;
+      const start=r.startDate, end=r.endDate||r.startDate;
+      if(ds>=start && ds<=end) found.push({id, r});
+    });
+  });
   if(!found.length){ showToast('이 날 방문 기록이 없어요'); return; }
-  showToast('📍 '+found.map(([id])=>getRegionName(id)).join(', '));
+  openDayModal(ds, found);
+}
+function openDayModal(ds, found){
+  const [y,mo,day] = ds.split('-');
+  document.getElementById('day-modal-title').textContent = `${parseInt(mo)}월 ${parseInt(day)}일 방문 기록`;
+  document.getElementById('day-modal-body').innerHTML = found.map(({id,r})=>{
+    const name = getRegionName(id);
+    const photos = r.photos||[];
+    const mainPhoto = photos[0] ? `<img class="day-record-photo" src="${photos[0]}">` : `<div class="day-record-photo-empty">📍</div>`;
+    return `<div class="day-record-item" onclick="closeDayModal();switchTab('travel');setTimeout(()=>openRecModal('${id}'),300)">
+        ${mainPhoto}
+        <div class="day-record-info">
+          <div class="day-record-name">${name}</div>
+          <div style="font-size:11px;color:var(--text-sub);margin-top:2px">${getRecordDateLabel(r)}</div>
+          ${r.tags ? `<div style="font-size:12px;color:var(--primary);margin-top:2px">${r.tags}</div>` : ''}
+          ${r.memo ? `<div class="day-record-memo">${r.memo}</div>` : ''}
+        </div>
+      </div>`;
+  }).join('');
+  document.getElementById('day-modal-bg').classList.add('open');
+}
+function closeDayModal(e){
+  if(!e || e.target.id==='day-modal-bg') document.getElementById('day-modal-bg').classList.remove('open');
 }
 
 /* ── 링크 공유 ── */
@@ -580,34 +847,39 @@ function exportData(){
 /* ── 타임라인 ── */
 function renderTimeline(){
   const el = document.getElementById('timeline-list'); if(!el) return;
-  const all = Object.entries(visits)
-    .filter(([,d])=>d.status==='visited' && d.date)
-    .sort((a,b)=>b[1].date.localeCompare(a[1].date));
-  if(!all.length){
+  const flat = [];
+  Object.entries(visits).forEach(([id,d])=>{
+    if(d.status!=='visited') return;
+    (d.records||[]).forEach(r=>{
+      if(r.startDate) flat.push({id, r});
+    });
+  });
+  if(!flat.length){
     el.innerHTML='<div style="text-align:center;color:var(--muted);padding:24px 0;font-size:14px">아직 방문한 지역이 없어요</div>';
     return;
   }
-  // 날짜별 그룹화
+  // 시작일 기준 그룹화
   const grouped = {};
-  all.forEach(([id,d])=>{
-    if(!grouped[d.date]) grouped[d.date]=[];
-    grouped[d.date].push({id,d});
+  flat.forEach(({id,r})=>{
+    if(!grouped[r.startDate]) grouped[r.startDate]=[];
+    grouped[r.startDate].push({id,r});
   });
   el.innerHTML = Object.entries(grouped).sort((a,b)=>b[0].localeCompare(a[0])).map(([date, items], idx, arr)=>{
     const [y,mo,day] = date.split('-');
     const dateStr = `${y}년 ${parseInt(mo)}월 ${parseInt(day)}일`;
-    const itemsHtml = items.map(({id,d})=>{
+    const itemsHtml = items.map(({id,r})=>{
       const name = getRegionName(id);
-      const photo = d.photos?.[0] || d.photo || null;
+      const photo = r.photos?.[0] || null;
       const mapCfg = allMaps().find(m=>id.startsWith(m.prefix));
       const mapLabel = mapCfg ? `<span class="badge">${mapCfg.icon} ${mapCfg.name}</span>` : '';
-      const tags = d.tags ? `<span class="badge">${d.tags}</span>` : '';
+      const tags = r.tags ? `<span class="badge">${r.tags}</span>` : '';
+      const rangeLabel = `<span class="badge">${getRecordDateLabel(r)}</span>`;
       return `
         <div class="timeline-card" onclick="switchTab('travel');setTimeout(()=>openRecModal('${id}'),300)" style="cursor:pointer">
           ${photo ? `<img src="${photo}" alt="${name}">` : ''}
-          <div class="timeline-badges">${mapLabel}${tags}</div>
+          <div class="timeline-badges">${mapLabel}${rangeLabel}${tags}</div>
           <div class="timeline-title">${name}</div>
-          ${d.memo ? `<div class="timeline-memo">${d.memo}</div>` : ''}
+          ${r.memo ? `<div class="timeline-memo">${r.memo}</div>` : ''}
         </div>`;
     }).join('');
     const isLast = idx === arr.length - 1;
