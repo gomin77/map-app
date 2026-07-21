@@ -21,7 +21,7 @@ function switchTab(tab){
   updateBannerForTab(tab);
   if(tab==='travel') renderTravel();
   if(tab==='stats'){ renderRecentViews(); renderCalendar(); renderTimeline(); }
-  if(tab==='report'){ drawDonuts(); renderBadgeList(); }
+  if(tab==='report'){ drawDonuts(); switchBadgeFilter(badgeFilter); }
 }
 
 /* ── ⚙️ 설정 패널 ── */
@@ -438,7 +438,7 @@ function setStatus(s){
   document.getElementById('btn-del-rec').style.display='block';
   renderTravel(); drawDonuts(); renderCalendar();
   if(s==='wish') loadWishFormFields(); else renderRecordsInModal(activeRegion);
-  if(s==='visited' && prevStatus!=='visited') checkBadge();
+  if(s==='visited' && prevStatus!=='visited') checkBadge(getMapIdByRegionId(activeRegion));
 }
 function renderGallery(){
   const g=document.getElementById('photo-gallery');
@@ -555,7 +555,7 @@ function saveRecordForm(){
   renderRecordsInModal(activeRegion);
   renderTravel(); drawDonuts(); renderCalendar();
   showToast('저장되었습니다 ✓');
-  if(prevStatus!=='visited') checkBadge();
+  if(prevStatus!=='visited') checkBadge(getMapIdByRegionId(activeRegion));
 }
 function deleteRecordForm(){
   if(!editingRecordId) return;
@@ -573,13 +573,35 @@ function deleteRecordForm(){
 
 /* ── 달성 배지 ── */
 const BADGE_MILESTONES = [10,25,50,75,100];
-const BADGE_KEY = 'badge_achieved';
 const BADGE_INFO = {
-  10:  {emoji:'🥉', title:'브론즈 여행가', desc:'한국 10% 달성 — 여행의 시작!', tier:'bronze'},
-  25:  {emoji:'🥈', title:'실버 탐험가', desc:'한국 25% 달성 — 본격적인 탐험!', tier:'silver'},
-  50:  {emoji:'🥇', title:'골드 모험가', desc:'한국 50% 달성 — 절반을 정복하다!', tier:'gold'},
-  75:  {emoji:'💎', title:'다이아몬드 정복자', desc:'한국 75% 달성 — 거의 다 왔어요!', tier:'diamond'},
-  100: {emoji:'👑', title:'챌린저 완전정복', desc:'한국 100% 달성 — 전설의 여행자!', tier:'challenger'},
+  kr: {
+    10:  {emoji:'🥉', title:'브론즈 여행가', desc:'한국 10% 달성 — 여행의 시작!', tier:'bronze'},
+    25:  {emoji:'🥈', title:'실버 탐험가', desc:'한국 25% 달성 — 본격적인 탐험!', tier:'silver'},
+    50:  {emoji:'🥇', title:'골드 모험가', desc:'한국 50% 달성 — 절반을 정복하다!', tier:'gold'},
+    75:  {emoji:'💎', title:'다이아몬드 정복자', desc:'한국 75% 달성 — 거의 다 왔어요!', tier:'diamond'},
+    100: {emoji:'👑', title:'챌린저 완전정복', desc:'한국 100% 달성 — 전설의 여행자!', tier:'challenger'},
+  },
+  seoul: {
+    10:  {emoji:'🥉', title:'브론즈 서울러', desc:'서울 10% 달성 — 도심 탐험 시작!', tier:'bronze'},
+    25:  {emoji:'🥈', title:'실버 서울러', desc:'서울 25% 달성 — 골목길 탐험가!', tier:'silver'},
+    50:  {emoji:'🥇', title:'골드 서울러', desc:'서울 50% 달성 — 한강 너머까지!', tier:'gold'},
+    75:  {emoji:'💎', title:'다이아몬드 서울러', desc:'서울 75% 달성 — 거의 다 왔어요!', tier:'diamond'},
+    100: {emoji:'👑', title:'챌린저 서울 마스터', desc:'서울 100% 달성 — 서울의 주인!', tier:'challenger'},
+  },
+  jp: {
+    10:  {emoji:'🥉', title:'브론즈 재패니즈', desc:'일본 10% 달성 — 일본 탐험 시작!', tier:'bronze'},
+    25:  {emoji:'🥈', title:'실버 재패니즈', desc:'일본 25% 달성 — 섬나라 탐험가!', tier:'silver'},
+    50:  {emoji:'🥇', title:'골드 재패니즈', desc:'일본 50% 달성 — 절반을 정복하다!', tier:'gold'},
+    75:  {emoji:'💎', title:'다이아몬드 재패니즈', desc:'일본 75% 달성 — 거의 다 왔어요!', tier:'diamond'},
+    100: {emoji:'👑', title:'챌린저 재팬 마스터', desc:'일본 100% 달성 — 일본 전역 정복!', tier:'challenger'},
+  },
+  world: {
+    10:  {emoji:'🥉', title:'브론즈 글로벌', desc:'세계 10% 달성 — 세계 탐험 시작!', tier:'bronze'},
+    25:  {emoji:'🥈', title:'실버 글로벌', desc:'세계 25% 달성 — 대륙 탐험가!', tier:'silver'},
+    50:  {emoji:'🥇', title:'골드 글로벌', desc:'세계 50% 달성 — 절반의 세계!', tier:'gold'},
+    75:  {emoji:'💎', title:'다이아몬드 글로벌', desc:'세계 75% 달성 — 거의 다 왔어요!', tier:'diamond'},
+    100: {emoji:'👑', title:'챌린저 월드 마스터', desc:'세계 100% 달성 — 전 세계 정복!', tier:'challenger'},
+  }
 };
 const BADGE_TIER_STYLES = {
   bronze:     {bg:'#cd7f32', shadow:'0 4px 12px rgba(205,127,50,0.3)', glow:'0 0 20px rgba(205,127,50,0.2)'},
@@ -588,16 +610,26 @@ const BADGE_TIER_STYLES = {
   diamond:    {bg:'#00bfff', shadow:'0 4px 12px rgba(0,191,255,0.3)', glow:'0 0 20px rgba(0,191,255,0.2)'},
   challenger: {bg:'#ff4757', shadow:'0 4px 12px rgba(255,71,87,0.3)', glow:'0 0 20px rgba(255,71,87,0.2)'},
 };
-function checkBadge(){
-  const cfg = getMap('kr'); if(!cfg) return;
-  const visited = Object.keys(visits).filter(id=>id.startsWith('region_')&&visits[id].status==='visited').length;
-  const pct = Math.round(visited/cfg.total*100);
-  const achieved = JSON.parse(localStorage.getItem(BADGE_KEY)||'[]');
+function badgeKey(mapId){ return 'badge_achieved_' + mapId; }
+function getMapIdByRegionId(id){
+  if(id.startsWith('region_')) return 'kr';
+  if(id.startsWith('seoul_')) return 'seoul';
+  if(id.startsWith('JP-')) return 'jp';
+  if(id.startsWith('wld_')) return 'world';
+  return 'kr';
+}
+function checkBadge(mapId){
+  const cfg = getMap(mapId); if(!cfg) return;
+  const visited = Object.keys(visits).filter(id=>id.startsWith(cfg.prefix)&&visits[id].status==='visited').length;
+  const pct = cfg.total > 0 ? Math.round(visited/cfg.total*100) : 0;
+  const key = badgeKey(mapId);
+  const achieved = JSON.parse(localStorage.getItem(key)||'[]');
+  const infoMap = BADGE_INFO[mapId] || BADGE_INFO.kr;
   for(const ms of BADGE_MILESTONES){
     if(pct>=ms && !achieved.includes(ms)){
       achieved.push(ms);
-      localStorage.setItem(BADGE_KEY, JSON.stringify(achieved));
-      showBadgeModal(BADGE_INFO[ms], pct);
+      localStorage.setItem(key, JSON.stringify(achieved));
+      showBadgeModal(infoMap[ms], pct);
       break;
     }
   }
@@ -616,15 +648,27 @@ function showBadgeModal(info, pct){
 function closeBadgeModal(){ document.getElementById('badge-modal').classList.remove('open'); }
 
 /* ── 배지 모음 (통계 탭 인라인 렌더) ── */
-function renderBadgeList(){
-  const achieved = JSON.parse(localStorage.getItem(BADGE_KEY)||'[]');
-  const cfg = getMap('kr');
-  const visited = cfg ? Object.keys(visits).filter(id=>id.startsWith('region_')&&visits[id].status==='visited').length : 0;
+let badgeFilter = 'kr';
+function switchBadgeFilter(mapId){
+  badgeFilter = mapId;
+  ['kr','seoul','jp','world'].forEach(k=>{
+    const btn = document.getElementById('bbf-'+k);
+    if(btn) btn.classList.toggle('active', k===mapId);
+  });
+  renderBadgeList(mapId);
+}
+function renderBadgeList(mapId){
+  mapId = mapId || badgeFilter || 'kr';
+  const cfg = getMap(mapId);
+  const key = badgeKey(mapId);
+  const achieved = JSON.parse(localStorage.getItem(key)||'[]');
+  const visited = cfg ? Object.keys(visits).filter(id=>id.startsWith(cfg.prefix)&&visits[id].status==='visited').length : 0;
   const pct = cfg && cfg.total > 0 ? Math.round(visited/cfg.total*100) : 0;
+  const infoMap = BADGE_INFO[mapId] || BADGE_INFO.kr;
 
   let html = '<div class="badge-wall">';
   BADGE_MILESTONES.forEach(ms=>{
-    const info = BADGE_INFO[ms];
+    const info = infoMap[ms];
     const got = achieved.includes(ms);
     const cls = got ? info.tier : info.tier + ' locked';
     html += `
@@ -638,6 +682,7 @@ function renderBadgeList(){
 }
 function deleteRecord(){
   if(!confirm('이 기록을 삭제할까요?')) return;
+  const mid = getMapIdByRegionId(activeRegion);
   delete visits[activeRegion]; saveVisits(); closeRecModal(); renderTravel(); drawDonuts(); renderCalendar(); showToast('삭제되었습니다.');
 }
 function closeRecModal(e){ if(!e||e.target.id==='rec-modal') document.getElementById('rec-modal').classList.remove('open'); }
@@ -737,6 +782,53 @@ function donut(id,c,t,color){
   if(pct>0){ ctx.beginPath(); ctx.arc(50,50,38,-Math.PI/2,-Math.PI/2+Math.PI*2*pct); ctx.strokeStyle=color; ctx.stroke(); }
   ctx.textAlign='center'; ctx.font='bold 15px -apple-system,sans-serif'; ctx.fillStyle='#14324d'; ctx.fillText(Math.round(pct*100)+'%',50,55);
 }
+
+/* ── 방문 통계 상세 모달 ── */
+function openStatsDetail(mapId){
+  const cfg = getMap(mapId); if(!cfg) return;
+  const entries = Object.entries(visits).filter(([id,d])=>id.startsWith(cfg.prefix)&&d.status==='visited');
+  const visited = entries.length;
+  const pct = cfg.total > 0 ? Math.round(visited/cfg.total*100) : 0;
+
+  document.getElementById('stats-detail-title').textContent = cfg.icon + ' ' + cfg.name + ' 방문 기록';
+  document.getElementById('stats-detail-pct').textContent = pct + '%';
+  document.getElementById('stats-detail-label').textContent = `${visited} / ${cfg.total}`;
+  document.getElementById('stats-detail-summary').innerHTML = `
+    <span>방문 지역</span><strong>${visited}개</strong>
+    <span>전체 지역</span><strong>${cfg.total}개</strong>
+    <span>달성률</span><strong>${pct}%</strong>`;
+
+  // 방문한 지역 리스트 (최신 기록 순)
+  const list = entries.map(([id,d])=>{
+    const records = (d.records||[]).slice().sort((a,b)=>(b.startDate||'').localeCompare(a.startDate||''));
+    const latest = records[0];
+    const photo = latest?.photos?.[0] || (d.photos?.[0]) || (d.photo);
+    const thumb = photo ? `<img class="sd-region-thumb" src="${photo}">` : `<div class="sd-region-thumb empty">📍</div>`;
+    const dateLabel = latest ? getRecordDateLabel(latest) : '';
+    const tags = latest?.tags ? `<span class="sd-tag">${latest.tags}</span>` : '';
+    return `<div class="sd-region-item" onclick="closeStatsDetail();switchTab('travel');setTimeout(()=>openRecModal('${id}'),300)">
+      ${thumb}
+      <div class="sd-region-info">
+        <div class="sd-region-name">${getRegionName(id)}</div>
+        <div class="sd-region-meta">${dateLabel}${tags}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('stats-detail-regions').innerHTML = list || '<div class="sd-empty">아직 방문한 지역이 없어요.</div>';
+
+  document.getElementById('stats-detail-bg').classList.add('open');
+  // canvas 사이즈 200x200에 맞춰 큰 도넛 그리기
+  const canvas = document.getElementById('ch-detail');
+  if(canvas){
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0,0,200,200);
+    ctx.lineWidth = 20; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.arc(100,100,76,0,Math.PI*2); ctx.strokeStyle='#eee'; ctx.stroke();
+    if(pct>0){ ctx.beginPath(); ctx.arc(100,100,76,-Math.PI/2,-Math.PI/2+Math.PI*2*(pct/100)); ctx.strokeStyle=cfg.color||'#29b6f6'; ctx.stroke(); }
+  }
+}
+function closeStatsDetail(e){ if(!e || e.target.id==='stats-detail-bg' || e.target===document.getElementById('stats-detail-bg')) document.getElementById('stats-detail-bg').classList.remove('open'); }
 
 /* ── 캘린더 ── */
 function renderCalendar(){

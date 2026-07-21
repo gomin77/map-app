@@ -293,6 +293,27 @@ button{cursor:pointer;font-family:inherit}
 @keyframes glow{0%{filter:drop-shadow(0 0 5px var(--primary))}50%{filter:drop-shadow(0 0 20px var(--primary))}100%{filter:drop-shadow(0 0 5px var(--primary))}}
 .badge-title{font-size:11px;font-weight:800;color:var(--text-sub);text-align:center}
 .badge-title.earned{color:var(--text-main)}
+.badge-filter-chips{display:flex;gap:8px;padding:0 24px 16px;overflow-x:auto}
+.badge-filter-chips::-webkit-scrollbar{display:none}
+
+/* 방문 통계 상세 모달 */
+.stats-donut-wrap{position:relative;width:160px;height:160px}
+#ch-detail{width:100%;height:100%}
+.stats-donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.stats-donut-pct{font-size:28px;font-weight:900;color:var(--primary)}
+.stats-donut-label{font-size:13px;color:var(--text-sub);font-weight:700}
+.stats-summary{display:flex;gap:8px 16px;flex-wrap:wrap;justify-content:center;font-size:13px;color:var(--text-sub)}
+.stats-summary strong{color:var(--text-main);margin-left:4px}
+.stats-region-list{margin-top:8px;max-height:38vh;overflow-y:auto}
+.sd-region-item{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);cursor:pointer}
+.sd-region-item:last-child{border-bottom:none}
+.sd-region-thumb{width:52px;height:52px;border-radius:var(--radius-sm);object-fit:cover;background:#fff;border:1px solid var(--border);flex-shrink:0}
+.sd-region-thumb.empty{display:flex;align-items:center;justify-content:center;font-size:22px;background:var(--sky-blue-bg);border:none}
+.sd-region-info{flex:1;min-width:0}
+.sd-region-name{font-size:15px;font-weight:800;color:var(--text-main);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sd-region-meta{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:12px;color:var(--text-sub);flex-wrap:wrap}
+.sd-tag{color:var(--primary);font-weight:700}
+.sd-empty{text-align:center;color:var(--text-sub);font-size:14px;padding:32px 0}
 
 /* 중앙 모달 */
 .center-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:900;display:none;align-items:center;justify-content:center;padding:24px}

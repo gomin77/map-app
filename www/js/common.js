@@ -154,6 +154,7 @@ function loadAll(){
   try{ recentViews = JSON.parse(localStorage.getItem('recent_views')||'[]'); }catch{ recentViews=[]; }
   try{ notiSettings = JSON.parse(localStorage.getItem('noti_settings')||'{"travel":true,"notice":true,"weekly":false}'); }catch{}
   migrateVisitsToRecords();
+  migrateLegacyBadges();
   if (typeof updateProfileUI === 'function') updateProfileUI();
 }
 
@@ -180,6 +181,16 @@ function migrateVisitsToRecords(){
       delete d.photos; delete d.photo; delete d.date; delete d.tags; delete d.memo;
     }
   });
+}
+function migrateLegacyBadges(){
+  const old = localStorage.getItem('badge_achieved');
+  if(old){
+    const key = 'badge_achieved_kr';
+    if(!localStorage.getItem(key)){
+      localStorage.setItem(key, old);
+    }
+    localStorage.removeItem('badge_achieved');
+  }
 }
 function getRegionRecords(d){
   return (d && d.status==='visited') ? (d.records||[]) : [];
