@@ -8,7 +8,21 @@ function goToMain(){
   renderTravel();
   shuffleRecs();
   updateBannerForTab('recommend');
+  if (typeof checkAndShowNotice === 'function') checkAndShowNotice();
   if (shouldShowOnboard()) showOnboard();
+}
+
+// 로그아웃 시 페이지 전체를 reload하지 않고 로그인 화면으로만 되돌린다.
+// (reload하면 네이티브 광고 배너가 파괴되지 않은 채 JS 상태만 리셋되어,
+//  다음 로그인 후 설정 화면 진입 시 광고 배너가 중복 생성되는 문제가 있었음)
+function goToLogin(){
+  document.getElementById('settings-panel')?.classList.remove('open');
+  document.querySelectorAll('.bottom-sheet').forEach(s=>s.classList.remove('open'));
+  document.querySelectorAll('.bottom-sheet-bg').forEach(s=>s.classList.remove('open'));
+  document.getElementById('screen-main').classList.remove('active');
+  document.getElementById('main-tab-bar').style.display = 'none';
+  document.getElementById('screen-splash').classList.add('active');
+  updateBannerForTab('login');
 }
 
 function switchTab(tab){
@@ -19,6 +33,7 @@ function switchTab(tab){
   document.getElementById('tab-'+tab).classList.add('active');
   document.getElementById('nav-'+tab).classList.add('active');
   updateBannerForTab(tab);
+  if(typeof trackScreen === 'function') trackScreen(tab);
   if(tab==='travel') renderTravel();
   if(tab==='stats'){ renderRecentViews(); renderCalendar(); renderTimeline(); }
   if(tab==='report'){ drawDonuts(); switchBadgeFilter(badgeFilter); }
@@ -178,13 +193,13 @@ function updateColors(svg){
         img.setAttribute('clip-path','url(#'+cid+')');
         img.style.pointerEvents='none';
         svg.appendChild(img);
-        p.style.fill='rgba(41,182,246,.15)';
-      } else { p.style.fill='rgba(41,182,246,.5)'; }
-      p.style.stroke='#29b6f6'; p.style.strokeWidth=p.id.startsWith('seoul_')?'2':'0.5';
+        p.style.fill='rgba(224,242,254,.55)';
+      } else { p.style.fill='rgba(0,163,255,.28)'; }
+      p.style.stroke='#00a3ff'; p.style.strokeWidth=p.id.startsWith('seoul_')?'2':'0.5';
     } else if(d && d.status==='wish'){
-      p.style.fill='transparent'; p.style.stroke='#1565c0'; p.style.strokeWidth=p.id.startsWith('seoul_')?'2':'1.5'; p.style.strokeDasharray='3,2';
+      p.style.fill='rgba(255,255,255,.7)'; p.style.stroke='#00a3ff'; p.style.strokeWidth=p.id.startsWith('seoul_')?'2':'1.5'; p.style.strokeDasharray='3,2';
     } else {
-      p.style.fill='#ffffff'; p.style.stroke='#8ecbe8'; p.style.strokeWidth=p.id.startsWith('seoul_')?'1':'0.3';
+      p.style.fill='#ffffff'; p.style.stroke='#8ec5e8'; p.style.strokeWidth=p.id.startsWith('seoul_')?'1':'0.3';
     }
   });
 }
@@ -476,7 +491,13 @@ function renderRecordsInModal(id){
   const sorted = records.slice().sort((a,b)=>(b.startDate||'').localeCompare(a.startDate||''));
   list.innerHTML = sorted.map(r=>{
     const photos = r.photos||[];
-    const thumb = photos.length ? `<img class="rec-thumb" src="${photos[0]}">` : `<div class="rec-thumb-empty">📍</div>`;
+    const isCover = photos.length && d.coverPhoto===photos[0];
+    const thumb = photos.length
+      ? `<div class="rec-thumb-wrap">
+           <img class="rec-thumb" src="${photos[0]}">
+           <button class="rec-cover-btn${isCover?' active':''}" onclick="event.stopPropagation();setCoverPhoto('${r.id}')" title="지도 대표사진으로 설정">${isCover?'★':'☆'}</button>
+         </div>`
+      : `<div class="rec-thumb-empty">📍</div>`;
     return `<div class="rec-row" onclick="openRecordForm('${r.id}')">${thumb}
       <div class="rec-info-row">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:4px">
@@ -486,6 +507,19 @@ function renderRecordsInModal(id){
         ${r.memo ? `<div class="memo">${r.memo}</div>` : ''}
       </div></div>`;
   }).join('');
+}
+// 지도에 표시되는 대표사진 지정/해제 (records-list의 ☆/★ 버튼)
+function setCoverPhoto(recordId){
+  const d = visits[activeRegion];
+  if(!d) return;
+  const rec = (d.records||[]).find(r=>r.id===recordId);
+  if(!rec || !rec.photos || !rec.photos.length) return;
+  const photo = rec.photos[0];
+  d.coverPhoto = (d.coverPhoto===photo) ? null : photo;
+  saveVisits();
+  renderRecordsInModal(activeRegion);
+  renderTravel();
+  showToast(d.coverPhoto ? '지도 대표사진으로 설정했어요 ⭐' : '대표사진 설정을 해제했어요');
 }
 function openRecordForm(recordId){
   editingRecordId = recordId || null;
@@ -555,7 +589,9 @@ function saveRecordForm(){
   renderRecordsInModal(activeRegion);
   renderTravel(); drawDonuts(); renderCalendar();
   showToast('저장되었습니다 ✓');
-  if(prevStatus!=='visited') checkBadge(getMapIdByRegionId(activeRegion));
+  const mapIdForRegion = getMapIdByRegionId(activeRegion);
+  if(typeof trackEvent === 'function') trackEvent('region_recorded', { region_id: activeRegion, map_id: mapIdForRegion, is_new_region: prevStatus!=='visited' });
+  if(prevStatus!=='visited') checkBadge(mapIdForRegion);
 }
 function deleteRecordForm(){
   if(!editingRecordId) return;
@@ -565,6 +601,8 @@ function deleteRecordForm(){
   const regionRemoved = d.records.length===0;
   if(regionRemoved) delete visits[activeRegion]; // 기록이 0개가 되면 방문 취소 처리
   saveVisits();
+  const uid = typeof getCurrentUserId === 'function' ? getCurrentUserId() : null;
+  if(uid && typeof deleteCloudPhotos === 'function') deleteCloudPhotos(uid, editingRecordId).catch(()=>{});
   closeRecordForm();
   if(regionRemoved){ closeRecModal(); } else { renderRecordsInModal(activeRegion); }
   renderTravel(); drawDonuts(); renderCalendar();
@@ -630,6 +668,7 @@ function checkBadge(mapId){
       achieved.push(ms);
       localStorage.setItem(key, JSON.stringify(achieved));
       showBadgeModal(infoMap[ms], pct);
+      if(typeof trackEvent === 'function') trackEvent('unlock_achievement', { achievement_id: infoMap[ms].title, map_id: mapId, tier: infoMap[ms].tier, pct });
       break;
     }
   }
@@ -646,15 +685,56 @@ function showBadgeModal(info, pct){
   document.getElementById('badge-modal').classList.add('open');
 }
 function closeBadgeModal(){ document.getElementById('badge-modal').classList.remove('open'); }
+function showBadgeInfoModal(mapId, ms){
+  const cfg = getMap(mapId);
+  const key = badgeKey(mapId);
+  const achieved = JSON.parse(localStorage.getItem(key)||'[]');
+  const visited = cfg ? Object.keys(visits).filter(id=>id.startsWith(cfg.prefix)&&visits[id].status==='visited').length : 0;
+  const pct = cfg && cfg.total > 0 ? Math.round(visited/cfg.total*100) : 0;
+  const info = (BADGE_INFO[mapId] || BADGE_INFO.kr)[ms];
+  const got = achieved.includes(ms);
+  const style = BADGE_TIER_STYLES[info.tier] || BADGE_TIER_STYLES.bronze;
+  document.getElementById('badge-emoji').textContent = got ? info.emoji : '🔒';
+  document.getElementById('badge-title').textContent = info.title;
+  document.getElementById('badge-tier-label').textContent = info.tier.toUpperCase();
+  document.getElementById('badge-tier-label').style.background = style.bg;
+  document.getElementById('badge-modal-content').style.boxShadow = style.glow;
+  const mapLabel = (BADGE_MAP_LABELS[mapId] || BADGE_MAP_LABELS.kr).replace(/^[^\s]+\s/, '');
+  if(got){
+    document.getElementById('badge-desc').textContent = info.desc;
+    document.getElementById('badge-pct').innerHTML = '달성 완료 🎉';
+  } else {
+    document.getElementById('badge-desc').textContent = `${mapLabel} 방문 달성률이 ${ms}%가 되면 잠금이 해제돼요.`;
+    document.getElementById('badge-pct').innerHTML = `${pct}<span style="font-size:16px;color:var(--muted);font-weight:600"> / ${ms}%</span>`;
+  }
+  document.getElementById('badge-modal').classList.add('open');
+}
 
 /* ── 배지 모음 (통계 탭 인라인 렌더) ── */
 let badgeFilter = 'kr';
+const BADGE_MAP_LABELS = { kr:'🇰🇷 한국', seoul:'🏙️ 서울', jp:'🇯🇵 일본', world:'🌍 세계' };
+function toggleBadgeMapMenu(e){
+  if(e) e.stopPropagation();
+  const menu = document.getElementById('badge-map-menu');
+  menu.classList.toggle('open');
+}
+document.addEventListener('click', (e)=>{
+  const sel = document.getElementById('badge-map-select');
+  const menu = document.getElementById('badge-map-menu');
+  if(menu && menu.classList.contains('open') && sel && !sel.contains(e.target)){
+    menu.classList.remove('open');
+  }
+});
 function switchBadgeFilter(mapId){
   badgeFilter = mapId;
   ['kr','seoul','jp','world'].forEach(k=>{
-    const btn = document.getElementById('bbf-'+k);
-    if(btn) btn.classList.toggle('active', k===mapId);
+    const item = document.getElementById('bmm-'+k);
+    if(item) item.classList.toggle('active', k===mapId);
   });
+  const label = document.getElementById('badge-map-select-label');
+  if(label) label.textContent = BADGE_MAP_LABELS[mapId] || BADGE_MAP_LABELS.kr;
+  const menu = document.getElementById('badge-map-menu');
+  if(menu) menu.classList.remove('open');
   renderBadgeList(mapId);
 }
 function renderBadgeList(mapId){
@@ -672,7 +752,7 @@ function renderBadgeList(mapId){
     const got = achieved.includes(ms);
     const cls = got ? info.tier : info.tier + ' locked';
     html += `
-      <div class="achievement" title="${info.desc}\n진행률: ${pct}% / ${ms}%">
+      <div class="achievement" onclick="showBadgeInfoModal('${mapId}',${ms})" title="${info.desc}\n진행률: ${pct}% / ${ms}%">
         <div class="badge-hex ${cls}">${got ? info.emoji : '🔒'}</div>
         <span class="badge-title ${got ? 'earned' : ''}">${info.title}</span>
       </div>`;
@@ -683,6 +763,15 @@ function renderBadgeList(mapId){
 function deleteRecord(){
   if(!confirm('이 기록을 삭제할까요?')) return;
   const mid = getMapIdByRegionId(activeRegion);
+  const d = visits[activeRegion];
+  const uid = typeof getCurrentUserId === 'function' ? getCurrentUserId() : null;
+  if(uid && typeof deleteCloudPhotos === 'function'){
+    if(d && d.status==='visited'){
+      (d.records||[]).forEach(r=>deleteCloudPhotos(uid, r.id).catch(()=>{}));
+    } else {
+      deleteCloudPhotos(uid, 'wish_'+activeRegion).catch(()=>{});
+    }
+  }
   delete visits[activeRegion]; saveVisits(); closeRecModal(); renderTravel(); drawDonuts(); renderCalendar(); showToast('삭제되었습니다.');
 }
 function closeRecModal(e){ if(!e||e.target.id==='rec-modal') document.getElementById('rec-modal').classList.remove('open'); }
@@ -719,8 +808,8 @@ function renderRecentViews(){
   el.innerHTML = recentViews.map(item=>{
     const id = typeof item === 'string' ? item : item.id;
     const name = typeof item === 'string' ? getRegionName(id) : (item.name || getRegionName(id));
-    const d = visits[id]; const photos = d?.photos || (d?.photo?[d.photo]:[]);
-    const imgTag = photos.length ? `<img class="recent-tile-img" src="${photos[0]}">` : '';
+    const d = visits[id]; const thumb = getRegionThumb(d);
+    const imgTag = thumb ? `<img class="recent-tile-img" src="${thumb}">` : '';
     return `<div class="recent-chip" onclick="switchTab('travel');setTimeout(()=>openRecModal('${id}'),100)">
       <div class="recent-tile" style="height:45px;min-height:45px;width:80px;min-width:80px">
         ${imgTag}<span class="recent-tile-name">${name}</span>
@@ -729,14 +818,26 @@ function renderRecentViews(){
   }).join('');
 }
 function closeModal(id, e){ if(!e || e.target.id===id) document.getElementById(id).classList.remove('open'); }
-function openNoticeModal(){ document.getElementById('notice-modal').classList.add('open'); }
+function openNoticeModal(){ if(typeof renderNoticeModal==='function') renderNoticeModal(); document.getElementById('notice-modal').classList.add('open'); }
 function openNotiSettings(){
   const NOTI_ITEMS = [{key:'travel', label:'여행 기록 알림', desc:'지역 방문 후 기록 유도 알림'},{key:'notice', label:'공지사항 알림', desc:'업데이트 및 중요 공지'},{key:'weekly', label:'주간 여행 리포트', desc:'매주 월요일 방문 통계 요약'}];
   document.getElementById('noti-list').innerHTML = NOTI_ITEMS.map(item=>`<div class="noti-row"><div><div style="font-size:14px;font-weight:700">${item.label}</div><div style="font-size:12px;color:var(--muted);margin-top:2px">${item.desc}</div></div><div class="toggle-track${notiSettings[item.key]?' on':''}" id="noti-${item.key}" onclick="toggleNoti('${item.key}')"><div class="toggle-thumb"></div></div></div>`).join('');
   document.getElementById('noti-modal').classList.add('open');
 }
 function toggleNoti(key){ notiSettings[key] = !notiSettings[key]; saveNoti(); document.getElementById('noti-'+key).classList.toggle('on', notiSettings[key]); }
-function rateApp(){ showToast('응원해 주셔서 감사합니다! 더 좋은 여정을 만들겠습니다 🙏'); }
+function rateApp(){
+  const pkg = 'com.travelmap.app';
+  const marketUrl = 'market://details?id=' + pkg;
+  const webUrl = 'https://play.google.com/store/apps/details?id=' + pkg;
+  let opened = false;
+  const onBlur = () => { opened = true; };
+  window.addEventListener('blur', onBlur, { once: true });
+  window.location.href = marketUrl;
+  setTimeout(() => {
+    window.removeEventListener('blur', onBlur);
+    if (!opened) window.location.href = webUrl;
+  }, 800);
+}
 function reportBug(){
   const body = encodeURIComponent('앱 버전: v3.0.1\n\n[버그 또는 개선사항을 적어주세요]\n\n');
   const link = `mailto:gomin7734@gmail.com?subject=${encodeURIComponent('[여정] 버그신고/개선요청')}&body=${body}`;
@@ -793,10 +894,6 @@ function openStatsDetail(mapId){
   document.getElementById('stats-detail-title').textContent = cfg.icon + ' ' + cfg.name + ' 방문 기록';
   document.getElementById('stats-detail-pct').textContent = pct + '%';
   document.getElementById('stats-detail-label').textContent = `${visited} / ${cfg.total}`;
-  document.getElementById('stats-detail-summary').innerHTML = `
-    <span>방문 지역</span><strong>${visited}개</strong>
-    <span>전체 지역</span><strong>${cfg.total}개</strong>
-    <span>달성률</span><strong>${pct}%</strong>`;
 
   // 방문한 지역 리스트 (최신 기록 순)
   const list = entries.map(([id,d])=>{
@@ -919,6 +1016,7 @@ async function shareLink(){
   try{
     const result = await createShare(currentMap, visits, profile);
     showToast('링크로 공유합니다!');
+    if(typeof trackEvent === 'function') trackEvent('share', { map_id: currentMap });
     const txt = `${profile.nickname||'여정객'}님의 ${cfg.name} 지도를 공유합니다!`;
     if(navigator.share){
       await navigator.share({ title:'나의 여행 지도', text:txt, url:result.url });
@@ -1001,4 +1099,18 @@ function resetData(){
 document.addEventListener('DOMContentLoaded', () => {
   loadAll();
   renderCalendar();
+  if (typeof initReengagementNotifications === 'function') initReengagementNotifications();
+  if (typeof checkLocationSuggestion === 'function') setTimeout(checkLocationSuggestion, 2000);
+  // 이전에 로그인한 기록이 있으면 자동으로 로그인 상태 복원
+  const savedUid = localStorage.getItem('auth_uid');
+  if (savedUid) {
+    setCurrentUserId(savedUid);
+    goToMain();
+    if (typeof syncFromCloud === 'function') {
+      (async () => {
+        if (typeof waitForFirebaseAuthReady === 'function') await waitForFirebaseAuthReady();
+        syncFromCloud(savedUid).catch(e => console.warn('자동 로그인 동기화 실패:', e));
+      })();
+    }
+  }
 });

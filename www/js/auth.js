@@ -14,6 +14,11 @@ async function doGoogleLogin() {
     // UID 설정 및 클라우드 동기화
     const uid = user.uid;
     setCurrentUserId(uid);
+    if (typeof setAnalyticsUser === 'function') setAnalyticsUser(uid);
+    if (typeof trackEvent === 'function') trackEvent('login', { method: 'google' });
+
+    // Firestore JS SDK도 실제로 인증되어야 보안 규칙을 통과함 (네이티브 로그인과 별개 세션)
+    await signInToFirestoreAuth(idToken);
 
     profile.nickname = user.displayName || '여정객';
     profile.avatar = user.photoURL || user.photoUrl || null;
@@ -49,10 +54,15 @@ async function doKakaoLogin() {
     const avatar    = result.profileImageUrl || null;
 
     setCurrentUserId(kakaoId);
+    if (typeof setAnalyticsUser === 'function') setAnalyticsUser(kakaoId);
+    if (typeof trackEvent === 'function') trackEvent('login', { method: 'kakao' });
     profile.nickname = nickname;
     profile.avatar   = avatar;
     saveProfile();
     if (typeof updateProfileUI === 'function') updateProfileUI();
+
+    // 카카오는 Firebase 정식 로그인 수단이 아니므로, 익명 인증으로 Firestore 접근 권한만 확보
+    await signInToFirestoreAuth(null);
 
     await syncFromCloud(kakaoId);
     showToast(`${profile.nickname}님, 환영합니다!`);
@@ -60,6 +70,27 @@ async function doKakaoLogin() {
   } catch (e) {
     console.error('Kakao Login Error:', JSON.stringify(e));
     showToast('카카오 오류: ' + (e.message || e.code || JSON.stringify(e)));
+  }
+}
+
+// Firestore 보안 규칙 통과를 위해 JS SDK(firebase.auth())에도 실제 인증 세션을 만든다.
+// - Google: 네이티브 로그인에서 받은 idToken으로 동일한 Firebase 계정에 로그인
+// - Kakao(idToken 없음): Firebase 정식 제공자가 아니므로 익명 로그인으로 "인증된 사용자" 조건만 충족
+async function signInToFirestoreAuth(idToken) {
+  try {
+    if (typeof firebase === 'undefined' || !firebase.auth) {
+      console.warn('firebase.auth 미로드 - Firestore 인증 스킵');
+      return;
+    }
+    if (idToken) {
+      const credential = firebase.auth.GoogleAuthProvider.credential(idToken);
+      await firebase.auth().signInWithCredential(credential);
+    } else if (!firebase.auth().currentUser) {
+      await firebase.auth().signInAnonymously();
+    }
+    console.log('Firestore auth ready:', firebase.auth().currentUser?.uid);
+  } catch (e) {
+    console.error('Firestore 인증 실패 (클라우드 동기화가 동작하지 않을 수 있음):', e.code || e.message);
   }
 }
 
@@ -85,29 +116,41 @@ async function sendTokenToServer(token, provider) {
 
 async function doLogout() {
   if (!confirm('로그아웃 하시겠습니까?')) return;
-  
+
   try {
     // 로그아웃 전 마지막 동기화
     const uid = getCurrentUserId();
     if (uid) {
-      await uploadData(uid, visits, profile);
+      try { await uploadData(uid, visits, profile); }
+      catch (e) { console.error('Logout - uploadData 실패:', e); }
     }
 
-    const auth = window.Capacitor.Plugins.FirebaseAuthentication;
-    if (auth) await auth.signOut();
-    
-    const KakaoLogin = window.Capacitor.Plugins.KakaoLogin;
-    if (KakaoLogin) await KakaoLogin.logout();
+    try {
+      const auth = window.Capacitor.Plugins.FirebaseAuthentication;
+      if (auth) await auth.signOut();
+    } catch (e) { console.error('Logout - FirebaseAuthentication.signOut 실패:', e); }
+
+    try {
+      if (typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser) {
+        await firebase.auth().signOut();
+      }
+    } catch (e) { console.error('Logout - firebase.auth().signOut 실패:', e); }
+
+    try {
+      const KakaoLogin = window.Capacitor.Plugins.KakaoLogin;
+      if (KakaoLogin) await KakaoLogin.logout();
+    } catch (e) { console.error('Logout - KakaoLogin.logout 실패:', e); }
 
     // UID 초기화
     setCurrentUserId(null);
-
-    // 배너 광고 숨기고 reload (네이티브 뷰 잔존 방지)
-    if (typeof hideBannerAd === 'function') await hideBannerAd();
+    if (typeof setAnalyticsUser === 'function') setAnalyticsUser(null);
 
     showToast('로그아웃 되었습니다.');
-    location.reload();
+    // reload 대신 로그인 화면으로만 전환 (네이티브 광고 배너 중복 생성 방지)
+    if (typeof goToLogin === 'function') goToLogin();
+    else location.reload();
   } catch (e) {
+    console.error('Logout Error:', e, e?.message, e?.code);
     showToast('로그아웃 중 오류가 발생했습니다.');
   }
 }

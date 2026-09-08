@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="css/style.css">
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js" defer></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js" defer></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js" defer></script>
 <script>
 // Capacitor 플러그인 초기화
@@ -171,6 +172,15 @@ window.addEventListener('deviceready', ()=>{}, false);
       </div>
     </div>
 
+    <div class="notice-banner" id="notice-banner" style="display:none">
+      <span id="notice-banner-text"></span>
+      <button class="notice-banner-close" onclick="dismissNotice()">✕</button>
+    </div>
+    <div class="notice-banner loc-suggest-banner" id="loc-suggest-banner" style="display:none">
+      <span id="loc-suggest-text"></span>
+      <button class="notice-banner-action" onclick="openLocationSuggestion()">기록하기</button>
+      <button class="notice-banner-close" onclick="dismissLocationSuggestion()">✕</button>
+    </div>
     <div class="filter-row" id="filter-row" style="display:none"></div>
     <div id="rec-banner-wrap"></div>
     <div class="rec-grid-label" id="rec-grid-label">주요 관광지</div>
@@ -263,12 +273,20 @@ window.addEventListener('deviceready', ()=>{}, false);
         <div class="smc-count" id="smc-count-world">0 / 195</div>
       </div>
     </div>
-    <div class="sec-title">달성 배지</div>
-    <div class="badge-filter-chips">
-      <div class="chip active" id="bbf-kr" onclick="switchBadgeFilter('kr')">한국</div>
-      <div class="chip" id="bbf-seoul" onclick="switchBadgeFilter('seoul')">서울</div>
-      <div class="chip" id="bbf-jp" onclick="switchBadgeFilter('jp')">일본</div>
-      <div class="chip" id="bbf-world" onclick="switchBadgeFilter('world')">세계</div>
+    <div class="sec-title badge-sec-title">
+      <span>달성 배지</span>
+      <div class="badge-map-select" id="badge-map-select">
+        <button type="button" class="badge-map-select-btn" onclick="toggleBadgeMapMenu(event)">
+          <span id="badge-map-select-label">🇰🇷 한국</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="badge-map-menu" id="badge-map-menu">
+          <div class="bmm-item active" id="bmm-kr" onclick="switchBadgeFilter('kr')">🇰🇷 한국</div>
+          <div class="bmm-item" id="bmm-seoul" onclick="switchBadgeFilter('seoul')">🏙️ 서울</div>
+          <div class="bmm-item" id="bmm-jp" onclick="switchBadgeFilter('jp')">🇯🇵 일본</div>
+          <div class="bmm-item" id="bmm-world" onclick="switchBadgeFilter('world')">🌍 세계</div>
+        </div>
+      </div>
     </div>
     <div id="badge-list-inline"></div>
   </div>
@@ -293,7 +311,7 @@ window.addEventListener('deviceready', ()=>{}, false);
     <div class="menu-item" onclick="exportData()"><span>데이터 백업 (JSON)</span><span>📤</span></div>
     <div class="menu-item" onclick="resetData()"><span>데이터 초기화</span><span style="color:#e74c3c">🗑️</span></div>
     <div class="menu-item" onclick="doLogout()"><span style="color:#e74c3c">로그아웃</span><span>🚪</span></div>
-    <div class="menu-item"><span>앱 버전</span><span style="color:#999">v1.2.9</span></div>
+    <div class="menu-item"><span>앱 버전</span><span style="color:#999">v1.4.2</span></div>
     <div class="sec-title">커뮤니티</div>
     <div class="menu-item" onclick="openNoticeModal()"><span>공지사항</span><span>📢</span></div>
     <div class="menu-item" onclick="openNotiSettings()"><span>알림 설정</span><span>🔔</span></div>
@@ -427,16 +445,7 @@ window.addEventListener('deviceready', ()=>{}, false);
 <div class="modal-bg" id="notice-modal" onclick="closeModal('notice-modal',event)">
   <div class="modal" onclick="event.stopPropagation()">
     <div class="modal-hd"><h2>공지사항 📢</h2><button class="btn-x" onclick="closeModal('notice-modal')">&#215;</button></div>
-    <div style="display:flex;flex-direction:column;gap:14px">
-      <div style="padding:14px;background:var(--bg);border-radius:12px">
-        <div style="font-size:13px;font-weight:700;color:var(--primary);margin-bottom:6px">2026.04.01 — v3.0.1 업데이트</div>
-        <div style="font-size:13px;color:var(--text);line-height:1.6">• 여행 탭 상단 레이아웃 개선<br>• 추천여행지 랜덤 기능 추가<br>• MY 탭 최근 본 지역, 알림설정 등 추가</div>
-      </div>
-      <div style="padding:14px;background:var(--bg);border-radius:12px">
-        <div style="font-size:13px;font-weight:700;color:var(--primary);margin-bottom:6px">2026.03 — v3.0 출시</div>
-        <div style="font-size:13px;color:var(--text);line-height:1.6">• 229개 시·군·구 지도 + 일본 지도<br>• 사진 최대 5장, 마스킹 기능<br>• 버킷리스트, 태그, 기록 삭제</div>
-      </div>
-    </div>
+    <div style="display:flex;flex-direction:column;gap:14px" id="notice-list"></div>
   </div>
 </div>
 
@@ -550,13 +559,15 @@ window.addEventListener('deviceready', ()=>{}, false);
           <div class="stats-donut-label" id="stats-detail-label"></div>
         </div>
       </div>
-      <div class="stats-summary" id="stats-detail-summary"></div>
     </div>
     <div class="stats-region-list" id="stats-detail-regions"></div>
   </div>
 </div>
 
 <!-- ════════════ 스크립트 로드 ════════════ -->
+<script src="js/analytics.js"></script>
+<script src="js/notifications.js"></script>
+<script src="js/location-suggest.js"></script>
 <script src="js/common.js"></script>
 <script src="js/cloud-sync.js"></script>
 <script src="js/travel.js"></script>

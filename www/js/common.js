@@ -131,7 +131,7 @@ let admobCurrentTab = null;
 let admobBannerInitPromise = null; // 동시 초기화 방지용 Promise 캐시
 
 const ADMOB_CONFIG = {
-  enabledTabs: ['settings'],
+  enabledTabs: ['recommend', 'travel', 'stats', 'report', 'settings'],
   bannerId: 10001,
   units: {
     banner: {
@@ -206,8 +206,10 @@ function getLatestRecord(d){
   if(!recs.length) return null;
   return recs.slice().sort((a,b)=>(b.startDate||'').localeCompare(a.startDate||''))[0];
 }
-// 대표 썸네일 사진 1장 (최근 기록 우선)
+// 대표 썸네일 사진 1장 (사용자가 지정한 대표사진 > 최근 기록 순)
 function getRegionThumb(d){
+  if(!d) return null;
+  if(d.coverPhoto && getRegionPhotos(d).includes(d.coverPhoto)) return d.coverPhoto;
   const latest = getLatestRecord(d);
   if(latest && latest.photos && latest.photos.length) return latest.photos[0];
   const all = getRegionPhotos(d);
@@ -763,4 +765,47 @@ function showGuideAgain() {
   _obRenderDots();
   _obMoveTo(0);
   initSwipeOnboard();
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   업데이트 공지 배너 (새 버전 배포 시 message/version만 갱신)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+// 배포할 때마다 맨 위에 새 항목 1개만 추가하면 됨 (상단 공지 배너 + 설정 > 공지사항에 자동 반영)
+const RELEASE_NOTES = [
+  { version: '1.4.2', date: '2026.09', message: '클라우드 백업/복원 및 로그인 관련 오류를 수정했어요.' },
+  { version: '1.4.0', date: '2026.09', message: '업데이트 공지 배너, 재방문 알림, 인근 지역 방문 제안 알림을 추가했어요.' },
+  { version: '1.3.1', date: '2026.08', message: '지도별(한국/서울/일본/세계) 방문 통계와 달성 배지를 분리했어요.' },
+  { version: '1.3.0', date: '2026.08', message: '여행 기간 설정, 지역별 다중 기록, 지도 지명 검색 기능을 추가했어요.' },
+];
+const NOTICE_SEEN_KEY = 'notice_seen_version';
+
+function checkAndShowNotice() {
+  const banner = document.getElementById('notice-banner');
+  const textEl = document.getElementById('notice-banner-text');
+  const latest = RELEASE_NOTES[0];
+  if (!banner || !textEl || !latest) return;
+  const seen = localStorage.getItem(NOTICE_SEEN_KEY);
+  if (seen === latest.version) {
+    banner.style.display = 'none';
+    return;
+  }
+  textEl.textContent = '📢 ' + latest.message;
+  banner.style.display = 'flex';
+}
+
+function dismissNotice() {
+  const latest = RELEASE_NOTES[0];
+  if (latest) localStorage.setItem(NOTICE_SEEN_KEY, latest.version);
+  const banner = document.getElementById('notice-banner');
+  if (banner) banner.style.display = 'none';
+}
+
+function renderNoticeModal() {
+  const wrap = document.getElementById('notice-list');
+  if (!wrap) return;
+  wrap.innerHTML = RELEASE_NOTES.map(n => `
+      <div style="padding:14px;background:var(--bg);border-radius:12px">
+        <div style="font-size:13px;font-weight:700;color:var(--primary);margin-bottom:6px">${n.date} — v${n.version}</div>
+        <div style="font-size:13px;color:var(--text);line-height:1.6">${n.message}</div>
+      </div>`).join('');
 }
