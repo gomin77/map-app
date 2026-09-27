@@ -2,20 +2,17 @@ package com.travelmap.app;
 
 import com.getcapacitor.BridgeActivity;
 import android.os.Bundle;
-import android.os.Handler;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.content.pm.SigningInfo;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.Toast;
 import java.security.MessageDigest;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 
 public class MainActivity extends BridgeActivity {
-    private boolean backPressedOnce = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,16 +21,12 @@ public class MainActivity extends BridgeActivity {
         super.onCreate(savedInstanceState);
         printKeyHash();
 
+        // 뒤로가기 처리는 전부 JS의 handleBack()에 위임한다.
+        // (깨끗한 지도 보기 / 설정 패널 / 모달 닫기 / 탭 전환 / 두 번 눌러 종료까지 전부 JS 쪽에서 일괄 처리)
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if (backPressedOnce) {
-                    finish();
-                    return;
-                }
-                backPressedOnce = true;
-                Toast.makeText(MainActivity.this, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
-                new Handler().postDelayed(() -> backPressedOnce = false, 2000);
+                getBridge().getWebView().evaluateJavascript("handleBack()", null);
             }
         });
     }

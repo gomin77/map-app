@@ -343,6 +343,33 @@ function openMapSearch(){
 function closeMapSearch(e){
   if(!e || e.target.id==='search-modal') document.getElementById('search-modal').classList.remove('open');
 }
+
+// 지도만 깨끗하게 보기 (광고/헤더/하단탭 없이 전체화면, 확대·축소는 기존 map-area 로직 그대로 재사용)
+function openCleanMapView(){
+  const cleanView = document.getElementById('clean-map-view');
+  const label = document.getElementById('clean-map-label');
+  const cfg = getMap(currentMap);
+  if(label) label.textContent = cfg ? cfg.name : '';
+  cleanView.appendChild(mapArea);
+  cleanView.classList.add('open');
+  updateBannerForTab('clean-map');
+}
+function closeCleanMapView(){
+  const recSection = document.querySelector('#tab-travel .rec-section');
+  if(recSection) recSection.parentNode.insertBefore(mapArea, recSection);
+  document.getElementById('clean-map-view').classList.remove('open');
+  const activeTab = document.querySelector('.tab-page.active')?.id?.replace('tab-','') || 'travel';
+  updateBannerForTab(activeTab);
+}
+function toggleCleanMapLabels(){
+  const cleanView = document.getElementById('clean-map-view');
+  const btn = document.getElementById('clean-map-toggle-label');
+  const hidden = cleanView.classList.toggle('hide-labels');
+  if(btn){
+    btn.classList.toggle('active', hidden);
+    btn.textContent = hidden ? '표시' : '지우기';
+  }
+}
 function renderSearchResults(query){
   const resultsEl = document.getElementById('search-results');
   const cfg = getMap(currentMap);

@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>여정</title>
 <link rel="stylesheet" href="css/style.css">
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js" defer></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js" defer></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js" defer></script>
@@ -198,7 +197,8 @@ window.addEventListener('deviceready', ()=>{}, false);
       </div>
       <div style="display:flex;gap:8px;align-items:center">
         <button class="btn-share" onclick="openMapSearch()" title="지역 검색">🔍</button>
-        <button class="btn-share" onclick="shareLink()">📤</button>
+        <button class="btn-share" onclick="shareMap()" title="지도 이미지 저장">💾</button>
+        <button class="btn-share" onclick="shareLink()" title="링크 공유">📤</button>
         <button class="btn-settings" onclick="openSettings()" title="설정">⚙️</button>
       </div>
     </div>
@@ -214,6 +214,7 @@ window.addEventListener('deviceready', ()=>{}, false);
         <div id="world-box" class="svg-box"></div>
         <div id="jeju-box"  class="svg-box"></div>
       </div>
+      <button class="map-clean-btn" onclick="openCleanMapView()" title="지도만 깨끗하게 보기">🖼️</button>
     </div>
     <div class="rec-section">
       <div class="rec-sec-hd">
@@ -311,7 +312,7 @@ window.addEventListener('deviceready', ()=>{}, false);
     <div class="menu-item" onclick="exportData()"><span>데이터 백업 (JSON)</span><span>📤</span></div>
     <div class="menu-item" onclick="resetData()"><span>데이터 초기화</span><span style="color:#e74c3c">🗑️</span></div>
     <div class="menu-item" onclick="doLogout()"><span style="color:#e74c3c">로그아웃</span><span>🚪</span></div>
-    <div class="menu-item"><span>앱 버전</span><span style="color:#999">v1.4.3</span></div>
+    <div class="menu-item"><span>앱 버전</span><span style="color:#999">v1.4.4</span></div>
     <div class="sec-title">커뮤니티</div>
     <div class="menu-item" onclick="openNoticeModal()"><span>공지사항</span><span>📢</span></div>
     <div class="menu-item" onclick="openNotiSettings()"><span>알림 설정</span><span>🔔</span></div>
@@ -422,6 +423,13 @@ window.addEventListener('deviceready', ()=>{}, false);
     <input type="text" id="search-input" class="form-input" placeholder="지역명을 입력하세요 (예: 통영)" oninput="renderSearchResults(this.value)" autocomplete="off">
     <div id="search-results"></div>
   </div>
+</div>
+
+<!-- ════════════ 지도만 깨끗하게 보기 (전체화면) ════════════ -->
+<div id="clean-map-view">
+  <button id="clean-map-close" onclick="closeCleanMapView()" title="닫기">&#10005;</button>
+  <button id="clean-map-toggle-label" onclick="toggleCleanMapLabels()" title="지역명 표시/숨기기">지우기</button>
+  <div class="clean-map-label" id="clean-map-label"></div>
 </div>
 
 <!-- ════════════ 프로필 수정 모달 ════════════ -->
@@ -574,51 +582,125 @@ window.addEventListener('deviceready', ()=>{}, false);
 <script src="js/auth.js"></script>
 <script src="js/recommend.js"></script>
 <script>
-// shareMap 인라인 버전 (디버깅용)
-function shareMap(){
-  alert('shareMap called! html2canvas=' + typeof html2canvas);
-  
-  if(typeof html2canvas === 'undefined' || !html2canvas){
-    showToast('공유 기능 로딩 중...');
-    return;
-  }
-  
-  showToast('지도를 캡처하는 중...');
-  
-  const activeBox = document.querySelector('#zoom-layer .svg-box.active');
-  
-  if(!activeBox){ 
-    showToast('캡처할 지도가 없습니다'); 
-    return; 
-  }
-  
-  html2canvas(activeBox, {useCORS:true, logging:true, backgroundColor:'#ffffff', scale:2}).then(canvas => {
-    canvas.toBlob(blob => {
-      if(!blob) {
-        showToast('이미지 생성 실패');
-        return;
-      }
-      const file = new File([blob], 'my_map.png', {type: 'image/png'});
-      const cfg = getMap(currentMap);
-      const visited = Object.keys(visits).filter(id => id.startsWith(cfg.prefix) && visits[id].status === 'visited').length;
-      const txt = `나의 ${cfg.name} 여행 ${visited}/${cfg.total} 완료! #여정앱`;
-      if(navigator.share) { 
-        navigator.share({files:[file], title:'나의 여행 지도', text:txt}).catch(e => {
-          console.log('share error:', e);
-        }); 
-      } else { 
-        const a = document.createElement('a'); 
-        a.href = canvas.toDataURL(); 
-        a.download = 'my_map.png'; 
-        a.click(); 
-        showToast('이미지가 저장되었습니다.'); 
-      }
-    });
-  }).catch(err => {
-    console.error('html2canvas ERROR:', err);
-    showToast('지도 캡처에 실패했습니다: ' + err.message);
+// Blob → base64 (data: 접두사 제거)
+function blobToBase64(blob){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(String(reader.result).split(',')[1] || '');
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
   });
 }
+
+// SVG 엘리먼트를 고해상도 PNG Blob으로 직접 렉스터화 (html2canvas 없이 벡터 원본 그대로 확대, 지역명 텍스트는 항상 제외)
+function svgToHighResPngBlob(svgEl, targetLongSide){
+  return new Promise((resolve, reject) => {
+    const clone = svgEl.cloneNode(true);
+    clone.querySelectorAll('text').forEach(t => t.remove());
+    let vw, vh;
+    const vb = clone.getAttribute('viewBox');
+    if(vb){
+      const parts = vb.trim().split(/\s+/).map(Number);
+      vw = parts[2]; vh = parts[3];
+    }
+    if(!vw || !vh){
+      const rect = svgEl.getBoundingClientRect();
+      vw = rect.width || 300; vh = rect.height || 300;
+    }
+    const ratio = vw / vh;
+    let targetW, targetH;
+    if(ratio >= 1){ targetW = targetLongSide; targetH = Math.round(targetLongSide / ratio); }
+    else { targetH = targetLongSide; targetW = Math.round(targetLongSide * ratio); }
+
+    clone.setAttribute('width', targetW);
+    clone.setAttribute('height', targetH);
+
+    const svgStr = new XMLSerializer().serializeToString(clone);
+    const svgBlob = new Blob([svgStr], {type:'image/svg+xml;charset=utf-8'});
+    const url = URL.createObjectURL(svgBlob);
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = targetW;
+      canvas.height = targetH;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, targetW, targetH);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(img, 0, 0, targetW, targetH);
+      URL.revokeObjectURL(url);
+      canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('이미지 변환 실패')), 'image/png');
+    };
+    img.onerror = (e) => { URL.revokeObjectURL(url); reject(new Error('SVG 렉더링 실패')); };
+    img.src = url;
+  });
+}
+
+// 지도 캡처 → 고해상도 이미지 저장/공유 (지역명 없이, 최대 해상도)
+function shareMap(){
+  const activeBox = document.querySelector('#zoom-layer .svg-box.active');
+  const svgEl = activeBox && activeBox.querySelector('svg');
+  if(!svgEl){
+    showToast('캡처할 지도가 없습니다');
+    return;
+  }
+
+  showToast('지도를 고해상도 이미지로 만드는 중...');
+
+  svgToHighResPngBlob(svgEl, 4000).then(async blob => {
+      const cfg = getMap(currentMap) || {name:'여행', prefix:'', total:0};
+      const visited = Object.keys(visits).filter(id => id.startsWith(cfg.prefix) && visits[id].status === 'visited').length;
+      const txt = `나의 ${cfg.name} 여행 ${visited}/${cfg.total} 완료! #여정앱`;
+      const fileName = `여정_${cfg.name}_지도_${Date.now()}.png`;
+
+      const plugins = window.Capacitor && window.Capacitor.Plugins;
+      const Filesystem = plugins && plugins.Filesystem;
+      const Share = plugins && plugins.Share;
+
+      // 앱(네이티브) 환경: Filesystem에 저장 후 Share 시트로 저장/공유 위임
+      if(Filesystem && Share){
+        try{
+          const base64 = await blobToBase64(blob);
+          await Filesystem.writeFile({ path: fileName, data: base64, directory: 'CACHE' });
+          const { uri } = await Filesystem.getUri({ path: fileName, directory: 'CACHE' });
+          await Share.share({ title:'나의 여행 지도', text: txt, url: uri, dialogTitle:'지도 이미지 저장/공유' });
+          return;
+        }catch(err){
+          console.error('Filesystem/Share error:', err);
+          showToast('이미지 저장에 실패했습니다: ' + (err && err.message ? err.message : err));
+          return;
+        }
+      }
+
+      // 웹(브라우저) 환경 fallback
+      const file = new File([blob], fileName, {type:'image/png'});
+      if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+        navigator.share({files:[file], title:'나의 여행 지도', text:txt})
+          .catch(e => console.log('share cancelled/error:', e));
+        return;
+      }
+
+      try{
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        showToast('지도 이미지가 저장되었습니다 ✓');
+      }catch(err){
+        console.error('download error:', err);
+        showToast('이미지 저장에 실패했습니다: ' + err.message);
+      }
+  }).catch(err => {
+    console.error('svg render ERROR:', err);
+    showToast('지도 캡처에 실패했습니다: ' + (err && err.message ? err.message : err));
+  });
+}
+
 </script>
 
 </body>

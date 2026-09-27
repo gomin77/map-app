@@ -240,6 +240,10 @@ function saveNoti(){ localStorage.setItem('noti_settings', JSON.stringify(notiSe
    뒤로가기 종료 확인
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function handleBack(){
+  if(document.getElementById('clean-map-view')?.classList.contains('open')){
+    closeCleanMapView();
+    return;
+  }
   if(document.getElementById('settings-panel')?.classList.contains('open')){
     closeSettings();
     return;
@@ -772,6 +776,7 @@ function showGuideAgain() {
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 // 배포할 때마다 맨 위에 새 항목 1개만 추가하면 됨 (상단 공지 배너 + 설정 > 공지사항에 자동 반영)
 const RELEASE_NOTES = [
+  { version: '1.4.4', date: '2026.09', message: '지도 이미지 저장 화질을 대폭 높이고, 광고 없이 지도만 깨끗하게 보는 화면(지역명 지우기 포함)을 추가했어요. 뒤로가기 버튼 오작동도 수정했어요.' },
   { version: '1.4.3', date: '2026.09', message: '공지사항에서 업데이트 내역을 확인할 수 있어요. 배지를 누르면 달성 방법을 안내해드리고, 앱 평가하기가 스토어로 바로 연결돼요.' },
   { version: '1.4.2', date: '2026.09', message: '클라우드 백업/복원 및 로그인 관련 오류를 수정했어요.' },
   { version: '1.4.0', date: '2026.09', message: '업데이트 공지 배너, 재방문 알림, 인근 지역 방문 제안 알림을 추가했어요.' },
