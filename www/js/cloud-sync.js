@@ -118,10 +118,11 @@ async function uploadData(uid, visitsData, profileData) {
             endDate: r.endDate || r.startDate || '',
             tags: r.tags || '',
             memo: r.memo || '',
-            photoCount: photos.length
+            photoCount: photos.length,
+            shared: r.shared !== false
           });
         }
-        visitsForCloud[id] = { status: 'visited', records };
+        visitsForCloud[id] = { status: 'visited', records, coverPhoto: data.coverPhoto || null };
       } else {
         const photosArr = data.photos || (data.photo ? [data.photo] : []);
         const wishKey = 'wish_' + id;
@@ -135,7 +136,8 @@ async function uploadData(uid, visitsData, profileData) {
           date: data.date || '',
           memo: data.memo || '',
           tags: data.tags || '',
-          photoCount: photosArr.length
+          photoCount: photosArr.length,
+          shared: data.shared !== false
         };
       }
     }
@@ -207,7 +209,7 @@ async function syncFromCloud(uid) {
       if (!localVisit || localVisit.status !== 'visited') {
         const records = (cloudVisit.records || []).map(r => ({ ...r, photos: photoMap[r.id] || [] }));
         if (records.length) {
-          visits[id] = { status: 'visited', records };
+          visits[id] = { status: 'visited', records, coverPhoto: cloudVisit.coverPhoto || null };
           hasChanges = true;
         }
       } else {
@@ -216,6 +218,10 @@ async function syncFromCloud(uid) {
         if (missing.length) {
           if (!localVisit.records) localVisit.records = [];
           missing.forEach(r => localVisit.records.push({ ...r, photos: photoMap[r.id] || [] }));
+          hasChanges = true;
+        }
+        if (!localVisit.coverPhoto && cloudVisit.coverPhoto) {
+          localVisit.coverPhoto = cloudVisit.coverPhoto;
           hasChanges = true;
         }
       }
@@ -295,4 +301,151 @@ async function loadShare(shareId) {
   const doc = await db.collection('shares').doc(shareId).get();
   if (!doc.exists) return null;
   return doc.data();
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   커플(애인) 지도 연동
+   - users 문서는 "자기 자신"만 write 가능해야 하므로(보안 규칙),
+     커플 관계는 users 문서가 아니라 별도의 pairs/{uidA_uidB} 공유 문서로 표현한다.
+   - pairs 문서는 둘 중 누구든 read/delete(연동 해제) 할 수 있어 비대칭(한쪽만 끊김) 문제가 없다.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function getPartnerUid() {
+  return localStorage.getItem('partner_uid') || null;
+}
+function getPartnerNickname() {
+  return localStorage.getItem('partner_nickname') || '애인';
+}
+
+// pairs 컬렉션에서 내 연동 정보를 조회해 로컬 캐시(localStorage)에 반영
+async function getPairInfo(myUid) {
+  if (!initCloud() || !myUid) return null;
+  try {
+    const [qa, qb] = await Promise.all([
+      db.collection('pairs').where('uidA', '==', myUid).limit(1).get(),
+      db.collection('pairs').where('uidB', '==', myUid).limit(1).get()
+    ]);
+    const doc = !qa.empty ? qa.docs[0] : (!qb.empty ? qb.docs[0] : null);
+    if (!doc) {
+      localStorage.removeItem('partner_uid');
+      localStorage.removeItem('partner_nickname');
+      return null;
+    }
+    const d = doc.data();
+    const partnerUid = d.uidA === myUid ? d.uidB : d.uidA;
+    const partnerNickname = (d.uidA === myUid ? d.nicknameB : d.nicknameA) || '애인';
+    localStorage.setItem('partner_uid', partnerUid);
+    localStorage.setItem('partner_nickname', partnerNickname);
+    return { partnerUid, partnerNickname, pairDocId: doc.id };
+  } catch (e) {
+    console.error('getPairInfo failed:', e);
+    return null;
+  }
+}
+
+// 로그인/설정 화면 진입 시 호출해 연동 상태를 최신화 (반환값: partnerUid 또는 null)
+async function refreshPartnerUid(uid) {
+  const info = await getPairInfo(uid);
+  return info ? info.partnerUid : null;
+}
+
+function genPairCode() {
+  return Math.random().toString(36).slice(2, 10).toUpperCase();
+}
+
+// A: 초대 코드 생성
+async function createPairInvite(uid, nickname) {
+  if (!initCloud() || !uid) throw new Error('Firebase 초기화 실패');
+  const code = genPairCode();
+  await db.collection('invites').doc(code).set({
+    fromUid: uid,
+    fromNickname: nickname || '여정객',
+    status: 'pending',
+    acceptedBy: null,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  });
+  return code;
+}
+
+// B: 코드 입력하여 수락 → 둘 다 읽고 지울 수 있는 공유 pairs 문서를 B가 생성
+async function acceptPairInvite(code, myUid, myNickname) {
+  if (!initCloud() || !myUid) throw new Error('Firebase 초기화 실패');
+  const normCode = (code || '').trim().toUpperCase();
+  if (!normCode) throw new Error('코드를 입력해주세요');
+  const ref = db.collection('invites').doc(normCode);
+  const snap = await ref.get();
+  if (!snap.exists) throw new Error('유효하지 않은 코드예요');
+  const inv = snap.data();
+  if (inv.status !== 'pending') throw new Error('이미 사용되었거나 만료된 코드예요');
+  if (inv.fromUid === myUid) throw new Error('자기 자신의 코드는 사용할 수 없어요');
+  const pairId = inv.fromUid + '_' + myUid;
+  await db.collection('pairs').doc(pairId).set({
+    uidA: inv.fromUid,
+    uidB: myUid,
+    nicknameA: inv.fromNickname || '여정객',
+    nicknameB: myNickname || '여정객',
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  });
+  await ref.update({ status: 'accepted', acceptedBy: myUid });
+  localStorage.setItem('partner_uid', inv.fromUid);
+  localStorage.setItem('partner_nickname', inv.fromNickname || '애인');
+  return inv.fromNickname || '애인';
+}
+
+// A: 코드 생성 후 상대방의 수락을 실시간으로 감지 (같은 자리에서 바로 연동되는 UX용)
+let _pairListenUnsub = null;
+function listenForPairAccept(code, myUid, onAccepted) {
+  if (!initCloud()) return;
+  stopListenForPairAccept();
+  _pairListenUnsub = db.collection('invites').doc(code).onSnapshot((snap) => {
+    if (!snap.exists) return;
+    const inv = snap.data();
+    if (inv.status === 'accepted' && inv.acceptedBy) {
+      stopListenForPairAccept();
+      getPairInfo(myUid).then(() => {
+        if (typeof onAccepted === 'function') onAccepted(inv.acceptedBy);
+      });
+    }
+  });
+}
+function stopListenForPairAccept() {
+  if (_pairListenUnsub) { _pairListenUnsub(); _pairListenUnsub = null; }
+}
+
+// 연동 해제: 공유 pairs 문서를 삭제 (둘 중 누구든 삭제 가능 → 양쪽 모두 즉시 접근 차단됨)
+async function unpairPartner(myUid) {
+  if (!initCloud() || !myUid) return;
+  const info = await getPairInfo(myUid);
+  if (info && info.pairDocId) {
+    await db.collection('pairs').doc(info.pairDocId).delete();
+  }
+  localStorage.removeItem('partner_uid');
+  localStorage.removeItem('partner_nickname');
+}
+
+// 애인의 visits/프로필을 읽기 전용으로 다운로드 (사진 서브컬렉션 포함)
+async function downloadPartnerData(partnerUid) {
+  if (!initCloud() || !partnerUid) return null;
+  try {
+    const doc = await db.collection('users').doc(partnerUid).get();
+    if (!doc.exists) return { visits: {}, profile: null };
+    const data = doc.data();
+    const photoMap = await loadAllCloudPhotos(partnerUid);
+    const result = {};
+    Object.entries(data.visits || {}).forEach(([id, v]) => {
+      if (v.status === 'visited') {
+        // 공유 설정된 기록만 애인에게 노출 (원하는 기록만 동기화)
+        const sharedRecords = (v.records || []).filter(r => r.shared !== false);
+        if (!sharedRecords.length) return;
+        const records = sharedRecords.map(r => ({ ...r, photos: photoMap[r.id] || [] }));
+        result[id] = { status: 'visited', records, coverPhoto: v.coverPhoto || null };
+      } else {
+        if (v.shared === false) return;
+        result[id] = { ...v, photos: photoMap['wish_' + id] || [] };
+      }
+    });
+    return { visits: result, profile: data.profile || null };
+  } catch (e) {
+    console.error('downloadPartnerData failed:', e);
+    return null;
+  }
 }

@@ -202,8 +202,12 @@ window.addEventListener('deviceready', ()=>{}, false);
         <button class="btn-settings" onclick="openSettings()" title="설정">⚙️</button>
       </div>
     </div>
+    <div class="couple-toggle" id="couple-toggle" style="display:none">
+      <button class="ct-btn active" id="ct-mine" onclick="switchMapOwner('mine')">내 지도</button>
+      <button class="ct-btn" id="ct-together" onclick="switchMapOwner('together')">함께 본 지도 🌍</button>
+    </div>
     <div class="stats-row">
-      <div class="stats-top"><span>방문 달성률</span><span class="stats-pct" id="stat-pct">0%</span></div>
+      <div class="stats-top"><span id="stat-pct-label">방문 달성률</span><span class="stats-pct" id="stat-pct">0%</span></div>
       <div class="prog-bar"><div id="prog-fill"></div></div>
     </div>
     <div class="map-area" id="map-area">
@@ -216,7 +220,7 @@ window.addEventListener('deviceready', ()=>{}, false);
       </div>
       <button class="map-clean-btn" onclick="openCleanMapView()" title="지도만 깨끗하게 보기">🖼️</button>
     </div>
-    <div class="rec-section">
+    <div class="rec-section" id="rec-section">
       <div class="rec-sec-hd">
         <h3>여행 기록</h3>
         <button class="btn-more" id="btn-more" onclick="toggleRecords()">더보기</button>
@@ -313,6 +317,12 @@ window.addEventListener('deviceready', ()=>{}, false);
     <div class="menu-item" onclick="resetData()"><span>데이터 초기화</span><span style="color:#e74c3c">🗑️</span></div>
     <div class="menu-item" onclick="doLogout()"><span style="color:#e74c3c">로그아웃</span><span>🚪</span></div>
     <div class="menu-item"><span>앱 버전</span><span style="color:#999">v1.4.4</span></div>
+    <div class="sec-title">커플 연동</div>
+    <div class="menu-item" id="couple-row-unlinked" onclick="openCoupleModal()"><span>애인과 지도 연동하기 💑</span><span>›</span></div>
+    <div class="menu-item" id="couple-row-linked" style="display:none">
+      <span>연동됨: <span id="couple-partner-name">애인</span> 💑</span>
+      <span style="color:#e74c3c;font-weight:800" onclick="confirmUnpair()">연동 끊기</span>
+    </div>
     <div class="sec-title">커뮤니티</div>
     <div class="menu-item" onclick="openNoticeModal()"><span>공지사항</span><span>📢</span></div>
     <div class="menu-item" onclick="openNotiSettings()"><span>알림 설정</span><span>🔔</span></div>
@@ -380,6 +390,10 @@ window.addEventListener('deviceready', ()=>{}, false);
       <input type="date" id="rec-date" class="form-input">
       <input type="text" id="rec-tags" class="form-input" placeholder="태그 (예: #바다 #맛집)">
       <textarea id="rec-memo" class="form-input" rows="3" placeholder="메모..." style="resize:none"></textarea>
+      <label class="share-toggle" id="rec-share-row" style="display:none">
+        <input type="checkbox" id="rec-share-chk" checked>
+        <span>💑 애인과 공유하기</span>
+      </label>
       <button class="btn-primary" onclick="saveRecord()">저장하기</button>
     </div>
 
@@ -408,6 +422,10 @@ window.addEventListener('deviceready', ()=>{}, false);
     </div>
     <input type="text" id="rf-tags" class="form-input" placeholder="태그 (예: #바다 #맛집)">
     <textarea id="rf-memo" class="form-input" rows="3" placeholder="메모..." style="resize:none"></textarea>
+    <label class="share-toggle" id="rf-share-row" style="display:none">
+      <input type="checkbox" id="rf-share-chk" checked>
+      <span>💑 애인과 공유하기</span>
+    </label>
     <button class="btn-primary" onclick="saveRecordForm()">저장하기</button>
     <button class="btn-delete-rec" id="rf-btn-delete" onclick="deleteRecordForm()">이 기록 삭제하기</button>
   </div>
@@ -422,6 +440,28 @@ window.addEventListener('deviceready', ()=>{}, false);
     </div>
     <input type="text" id="search-input" class="form-input" placeholder="지역명을 입력하세요 (예: 통영)" oninput="renderSearchResults(this.value)" autocomplete="off">
     <div id="search-results"></div>
+  </div>
+</div>
+
+<!-- ════════════ 커플 연동 모달 ════════════ -->
+<div class="modal-bg" id="couple-modal" onclick="closeCoupleModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-hd"><h2>애인과 지도 연동 💑</h2><button class="btn-x" onclick="closeCoupleModal()">&#215;</button></div>
+    <p style="font-size:13px;color:var(--muted);line-height:1.6;margin:-8px 0 16px">서로의 초대 코드를 주고받으면 애인의 여행 기록(지도·사진·메모)을 함께 볼 수 있어요.</p>
+    <div id="couple-main-actions">
+      <button class="btn-primary" style="margin-bottom:10px" onclick="startCoupleInvite()">초대 코드 만들기</button>
+      <button class="btn-outline" onclick="showCoupleCodeInput()">코드 입력하기</button>
+    </div>
+    <div id="couple-invite-box" style="display:none;margin-top:4px;text-align:center">
+      <div style="font-size:13px;color:var(--muted);margin-bottom:8px">아래 코드를 애인에게 공유해주세요</div>
+      <div style="font-size:30px;font-weight:900;letter-spacing:4px;color:var(--primary);margin-bottom:16px" id="couple-invite-code">--------</div>
+      <button class="btn-primary" onclick="shareCoupleCode()">코드 복사하기</button>
+      <div style="font-size:12px;color:var(--muted);margin-top:12px" id="couple-invite-status">상대방이 코드를 입력할 때까지 기다리는 중...</div>
+    </div>
+    <div id="couple-code-input-box" style="display:none;margin-top:4px">
+      <input type="text" id="couple-code-input" class="form-input" placeholder="8자리 코드 입력" maxlength="8" style="text-align:center;letter-spacing:3px;text-transform:uppercase">
+      <button class="btn-primary" onclick="submitCoupleCode()">연동하기</button>
+    </div>
   </div>
 </div>
 

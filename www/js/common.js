@@ -106,6 +106,11 @@ const BACKEND_URL = 'https://api.yourserver.com';
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 let visits = {};
 let profile = {nickname:'여정객', avatar:null};
+let partnerVisits = null;    // 애인의 visits 캐시 (읽기 전용)
+let partnerProfile = null;   // 애인의 프로필 캐시
+let togetherMode = false;    // true면 "함께 본 지도" (둘 다 방문한 지역, 읽기 전용)
+// 현재 화면에 보여줄 visits (호출부 호환 유지)
+function activeVisits(){ return visits; }
 let activeRegion = null;
 let currentMap = 'kr';
 let currentAreaCode = '';
@@ -194,6 +199,15 @@ function migrateLegacyBadges(){
 }
 function getRegionRecords(d){
   return (d && d.status==='visited') ? (d.records||[]) : [];
+}
+// visited(records[])/wish(단일 항목) 두 형태를 "함께 본 지도" 비교용으로 하나의 레코드 배열로 통일
+function toRecordList(d){
+  if(!d) return [];
+  if(d.status==='visited') return d.records||[];
+  if(d.status==='wish'){
+    return [{ id:'wish', startDate:d.date||'', endDate:d.date||'', tags:d.tags||'', memo:d.memo||'', photos:d.photos||(d.photo?[d.photo]:[]), shared:d.shared, wish:true }];
+  }
+  return [];
 }
 // 지역(visits[id]) 전체에서 표시 가능한 사진들을 모두 모아서 반환 (지도 마스킹/썸네일용)
 function getRegionPhotos(d){

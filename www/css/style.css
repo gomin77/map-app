@@ -366,6 +366,44 @@ button{cursor:pointer;font-family:inherit}
 .btn-x{border:none;background:none;font-size:26px;color:var(--text-sub);line-height:1;padding:0 4px}
 .form-input{width:100%;padding:14px;border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:10px;font-size:15px;outline:none;font-family:inherit;background:#FAFBFC}
 .btn-primary{width:100%;padding:16px;background:var(--primary);color:#fff;border:none;border-radius:var(--radius-md);font-weight:800;font-size:16px;box-shadow:0 4px 16px rgba(0,163,255,.25)}
+.btn-outline{width:100%;padding:15px;background:transparent;color:var(--primary);border:1.5px solid var(--primary);border-radius:var(--radius-md);font-weight:800;font-size:15px}
+
+/* 애인 지도 읽기 전용 모드 (기록 모달) */
+#rec-modal.readonly-view .status-bar,
+#rec-modal.readonly-view #btn-del-rec,
+#rec-modal.readonly-view .btn-add-record,
+#rec-modal.readonly-view #wish-form .btn-primary,
+#rec-modal.readonly-view .photo-add-label,
+#rec-modal.readonly-view .photo-del,
+#rec-modal.readonly-view .rec-cover-btn,
+#record-form-modal.readonly-view .photo-add-label,
+#record-form-modal.readonly-view .photo-del,
+#record-form-modal.readonly-view #rf-btn-delete,
+#record-form-modal.readonly-view .modal > .btn-primary{display:none!important}
+#rec-modal.readonly-view input,
+#rec-modal.readonly-view textarea,
+#record-form-modal.readonly-view input,
+#record-form-modal.readonly-view textarea{pointer-events:none;background:#F0F2F4;color:var(--text-sub)}
+
+/* 함께 본 지도 모드 (기록 모달) — 상태 변경/추가/삭제는 막되 ☆/★ 대표사진 선택은 허용 */
+#rec-modal.couple-view .status-bar,
+#rec-modal.couple-view #btn-del-rec,
+#rec-modal.couple-view .btn-add-record,
+#rec-modal.couple-view #wish-form .btn-primary,
+#rec-modal.couple-view .photo-add-label,
+#rec-modal.couple-view .photo-del{display:none!important}
+
+/* 내 지도 / 애인 지도 / 함께 본 지도 토글 */
+.couple-toggle{display:flex;gap:6px;padding:0 24px 12px;background:var(--surface)}
+.ct-btn{flex:1;padding:10px 2px;border-radius:12px;border:none;background:#F4F7F9;color:var(--text-sub);font-size:12.5px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
+.ct-btn.active{background:var(--primary);color:#fff;box-shadow:0 4px 12px rgba(0,163,255,.25)}
+.ct-btn.active#ct-together{background:#a855f7;box-shadow:0 4px 12px rgba(168,85,247,.3)}
+.share-toggle{display:flex;align-items:center;gap:8px;padding:12px 2px;font-size:13px;font-weight:700;color:var(--text-sub);cursor:pointer}
+.share-toggle input{width:18px;height:18px;accent-color:var(--primary)}
+.who-badge{font-size:11px;font-weight:800;padding:2px 7px;border-radius:8px;margin-right:6px}
+.who-mine{background:rgba(0,163,255,.12);color:#00a3ff}
+.who-partner{background:rgba(255,45,149,.12);color:#ff2d95}
+
 
 /* 기록 모달 */
 .status-bar{display:flex;gap:8px;margin-bottom:14px}

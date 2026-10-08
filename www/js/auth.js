@@ -27,11 +27,13 @@ async function doGoogleLogin() {
 
     // 클라우드에서 데이터 복원
     await syncFromCloud(uid);
+    if (typeof refreshPartnerUid === 'function') await refreshPartnerUid(uid).catch(()=>{});
 
     await sendTokenToServer(idToken, 'google');
     
     showToast(`${profile.nickname}님, 환영합니다!`);
     if (typeof goToMain === 'function') goToMain();
+    if (typeof updateCoupleToggleVisibility === 'function') updateCoupleToggleVisibility();
   } catch (e) {
     console.error('Google Login Error:', e);
     showToast('구글 로그인에 실패했습니다: ' + (e.message || ''));
@@ -53,20 +55,25 @@ async function doKakaoLogin() {
     const nickname  = result.nickname || '여정객';
     const avatar    = result.profileImageUrl || null;
 
-    setCurrentUserId(kakaoId);
-    if (typeof setAnalyticsUser === 'function') setAnalyticsUser(kakaoId);
+    // 카카오는 Firebase 정식 로그인 수단이 아니므로, 익명 인증으로 Firestore 접근 권한을 확보.
+    // 보안 규칙(request.auth.uid 일치 검사) 통과를 위해, 이후 모든 클라우드 작업은
+    // kakaoId가 아니라 이 익명 인증 uid를 "앱의 uid"로 그대로 사용한다.
+    const fbUid = await signInToFirestoreAuth(null, kakaoId);
+    const uid = fbUid || kakaoId; // firebase.auth 로드 실패 시에만 kakaoId로 폴백 (클라우드 동기화는 안 될 수 있음)
+
+    setCurrentUserId(uid);
+    if (typeof setAnalyticsUser === 'function') setAnalyticsUser(uid);
     if (typeof trackEvent === 'function') trackEvent('login', { method: 'kakao' });
     profile.nickname = nickname;
     profile.avatar   = avatar;
     saveProfile();
     if (typeof updateProfileUI === 'function') updateProfileUI();
 
-    // 카카오는 Firebase 정식 로그인 수단이 아니므로, 익명 인증으로 Firestore 접근 권한만 확보
-    await signInToFirestoreAuth(null);
-
-    await syncFromCloud(kakaoId);
+    await syncFromCloud(uid);
+    if (typeof refreshPartnerUid === 'function') await refreshPartnerUid(uid).catch(()=>{});
     showToast(`${profile.nickname}님, 환영합니다!`);
     if (typeof goToMain === 'function') goToMain();
+    if (typeof updateCoupleToggleVisibility === 'function') updateCoupleToggleVisibility();
   } catch (e) {
     console.error('Kakao Login Error:', JSON.stringify(e));
     showToast('카카오 오류: ' + (e.message || e.code || JSON.stringify(e)));
@@ -74,23 +81,40 @@ async function doKakaoLogin() {
 }
 
 // Firestore 보안 규칙 통과를 위해 JS SDK(firebase.auth())에도 실제 인증 세션을 만든다.
-// - Google: 네이티브 로그인에서 받은 idToken으로 동일한 Firebase 계정에 로그인
-// - Kakao(idToken 없음): Firebase 정식 제공자가 아니므로 익명 로그인으로 "인증된 사용자" 조건만 충족
-async function signInToFirestoreAuth(idToken) {
+// - Google: 네이티브 로그인에서 받은 idToken으로 동일한 Firebase 계정에 로그인 → uid가 그대로 일치
+// - Kakao(idToken 없음): Firebase 정식 제공자가 아니므로 익명 로그인으로 세션만 확보.
+//   단, 익명 로그인 uid는 매번 랜덤이라 앱이 쓰는 kakaoId와 다르면 보안 규칙(uid 일치 검사)을 통과 못 함.
+//   → 반환값(firebase 인증 uid)을 앱의 실제 uid로 그대로 사용해야 함 (아래 doKakaoLogin 참고)
+//   → 같은 카카오 계정이 재로그인할 때는 기존 익명 세션을 재사용해 클라우드 데이터 연속성을 유지하고,
+//     다른 카카오 계정으로 바뀌면 새 익명 세션을 만들어 계정 간 데이터가 섞이지 않게 한다.
+async function signInToFirestoreAuth(idToken, kakaoAccountId) {
   try {
     if (typeof firebase === 'undefined' || !firebase.auth) {
       console.warn('firebase.auth 미로드 - Firestore 인증 스킵');
-      return;
+      return null;
     }
     if (idToken) {
       const credential = firebase.auth.GoogleAuthProvider.credential(idToken);
-      await firebase.auth().signInWithCredential(credential);
-    } else if (!firebase.auth().currentUser) {
-      await firebase.auth().signInAnonymously();
+      const cred = await firebase.auth().signInWithCredential(credential);
+      return cred.user.uid;
     }
-    console.log('Firestore auth ready:', firebase.auth().currentUser?.uid);
+    if (kakaoAccountId) {
+      const lastKakaoId = localStorage.getItem('last_kakao_id');
+      const cur = firebase.auth().currentUser;
+      if (cur && cur.isAnonymous && lastKakaoId === kakaoAccountId) {
+        // 같은 카카오 계정 재로그인 → 기존 익명 세션(=클라우드 데이터) 재사용
+        return cur.uid;
+      }
+      // 다른 카카오 계정이거나 최초 로그인 → 새 익명 세션 생성 (계정 간 데이터 혼선 방지)
+      if (cur) { try { await firebase.auth().signOut(); } catch (e) {} }
+      const cred = await firebase.auth().signInAnonymously();
+      localStorage.setItem('last_kakao_id', kakaoAccountId);
+      return cred.user.uid;
+    }
+    return firebase.auth().currentUser?.uid || null;
   } catch (e) {
     console.error('Firestore 인증 실패 (클라우드 동기화가 동작하지 않을 수 있음):', e.code || e.message);
+    return null;
   }
 }
 
@@ -131,7 +155,10 @@ async function doLogout() {
     } catch (e) { console.error('Logout - FirebaseAuthentication.signOut 실패:', e); }
 
     try {
-      if (typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser) {
+      // 익명 세션(카카오)은 로그아웃해도 유지해야 같은 카카오 계정 재로그인 시
+      // 클라우드 데이터 연속성이 보존된다 (signInToFirestoreAuth의 재사용 로직 참고).
+      // Google 등 실제 계정으로 로그인된 세션만 명시적으로 로그아웃한다.
+      if (typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser && !firebase.auth().currentUser.isAnonymous) {
         await firebase.auth().signOut();
       }
     } catch (e) { console.error('Logout - firebase.auth().signOut 실패:', e); }
@@ -144,6 +171,11 @@ async function doLogout() {
     // UID 초기화
     setCurrentUserId(null);
     if (typeof setAnalyticsUser === 'function') setAnalyticsUser(null);
+    // 커플 연동 상태 초기화 (다음 로그인 사용자와 섞이지 않도록)
+    localStorage.removeItem('partner_uid');
+    localStorage.removeItem('partner_nickname');
+    togetherMode = false; partnerVisits = null; partnerProfile = null;
+    if (typeof stopListenForPairAccept === 'function') stopListenForPairAccept();
 
     showToast('로그아웃 되었습니다.');
     // reload 대신 로그인 화면으로만 전환 (네이티브 광고 배너 중복 생성 방지)

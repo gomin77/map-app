@@ -43,6 +43,7 @@ function switchTab(tab){
 function openSettings(){
   document.getElementById('settings-panel').classList.add('open');
   updateBannerForTab('settings');
+  if(typeof renderCoupleSettingsRow === 'function') renderCoupleSettingsRow();
 }
 function closeSettings(){
   document.getElementById('settings-panel').classList.remove('open');
@@ -171,8 +172,10 @@ function updateColors(svg){
   const defs = svg.querySelector('defs');
   defs.innerHTML = '';
   svg.querySelectorAll('.mask-img').forEach(i=>i.remove());
+  // "함께 본 지도"에서도 지도는 내 지도와 동일하게 표시 (사진+파란 테두리).
+  // 커플 통합 보기는 지역 클릭 시 기록 모달과 하단 기록 목록에서만 제공된다.
   svg.querySelectorAll('.region').forEach(p=>{
-    const d = visits[p.id];
+    const d = activeVisits()[p.id];
     p.style.strokeDasharray = 'none';
     if(d && d.status==='visited'){
       const thumb = getRegionThumb(d);
@@ -205,11 +208,23 @@ function updateColors(svg){
 }
 
 function renderTravel(){
+  updateCoupleToggleVisibility();
   const cfg = getMap(currentMap);
   if(!cfg) return;
   initMap(currentMap);
-  const visited = Object.keys(visits).filter(id=>id.startsWith(cfg.prefix)&&visits[id].status==='visited').length;
-  const pct = cfg.total > 0 ? Math.round(visited/cfg.total*100) : 0;
+  const label = document.getElementById('stat-pct-label');
+  let pct;
+  if(togetherMode){
+    const mineVisitedIds = new Set(Object.keys(visits).filter(id=>id.startsWith(cfg.prefix)&&visits[id].status==='visited'));
+    const bothIds = partnerVisits ? Object.keys(partnerVisits).filter(id=>id.startsWith(cfg.prefix)&&partnerVisits[id].status==='visited'&&mineVisitedIds.has(id)) : [];
+    pct = cfg.total > 0 ? Math.round(bothIds.length/cfg.total*100) : 0;
+    if(label) label.textContent = '둘 다 방문한 지역';
+  } else {
+    const av = activeVisits();
+    const visited = Object.keys(av).filter(id=>id.startsWith(cfg.prefix)&&av[id].status==='visited').length;
+    pct = cfg.total > 0 ? Math.round(visited/cfg.total*100) : 0;
+    if(label) label.textContent = '방문 달성률';
+  }
   document.getElementById('stat-pct').textContent = pct+'%';
   document.getElementById('prog-fill').style.width = pct+'%';
   renderRecordList();
@@ -218,8 +233,38 @@ function renderTravel(){
 function renderRecordList(){
   const cfg = getMap(currentMap);
   if(!cfg) return;
+  const btnMore = document.getElementById('btn-more');
+  const listEl = document.getElementById('record-list');
   const flat = [];
-  Object.entries(visits).filter(([id])=>id.startsWith(cfg.prefix)).forEach(([id,d])=>{
+  if(togetherMode){
+    // 둘 다 방문한 지역의 기록만 (나 + 애인 기록을 사진·날짜·메모 그대로 합쳐 표시)
+    const mineVisitedIds = new Set(Object.keys(visits).filter(id=>id.startsWith(cfg.prefix)&&visits[id].status==='visited'));
+    const bothIds = partnerVisits ? Object.keys(partnerVisits).filter(id=>id.startsWith(cfg.prefix)&&partnerVisits[id].status==='visited'&&mineVisitedIds.has(id)) : [];
+    bothIds.forEach(id=>{
+      toRecordList(visits[id]).forEach(r=>flat.push({id, who:'mine', r}));
+      toRecordList(partnerVisits[id]).forEach(r=>flat.push({id, who:'partner', r}));
+    });
+    flat.sort((a,b)=>(b.r.startDate||'').localeCompare(a.r.startDate||''));
+    const show = showAll ? flat : flat.slice(0,5);
+    const extra = flat.length - 5;
+    btnMore.style.display = flat.length > 5 ? 'block' : 'none';
+    btnMore.textContent = showAll ? '접기' : `더보기 (${extra}개)`;
+    listEl.innerHTML = flat.length ? show.map(({id,who,r})=>{
+      const photos = r.photos||[];
+      const thumb = photos.length ? `<img class="rec-thumb" src="${photos[0]}">` : `<div class="rec-thumb-empty">${r.wish?'🔖':'📍'}</div>`;
+      const badge = who==='mine' ? '<span class="who-badge who-mine">🔵 나</span>' : '<span class="who-badge who-partner">🩷 애인</span>';
+      return `<div class="rec-row" onclick="openRecModal('${id}')">${thumb}
+        <div class="rec-info-row">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:4px">
+            ${badge}<span class="name">${getRegionName(id)}</span><span class="date">${getRecordDateLabel(r)}</span>
+          </div>
+          ${r.tags ? `<div style="font-size:11px;color:var(--primary);margin-top:2px">${r.tags}</div>` : ''}
+          ${r.memo ? `<div class="memo">${r.memo}</div>` : ''}
+        </div></div>`;
+    }).join('') : '<div style="text-align:center;color:var(--text-sub);padding:20px 0;font-size:13px;line-height:1.6">아직 둘 다 방문한 지역이 없어요.</div>';
+    return;
+  }
+  Object.entries(activeVisits()).filter(([id])=>id.startsWith(cfg.prefix)).forEach(([id,d])=>{
     if(d.status==='visited'){
       (d.records||[]).forEach(r=>flat.push({id, d, r}));
     } else if(d.status==='wish'){
@@ -233,10 +278,9 @@ function renderRecordList(){
   });
   const show = showAll ? flat : flat.slice(0,5);
   const extra = flat.length - 5;
-  const btnMore = document.getElementById('btn-more');
   btnMore.style.display = flat.length > 5 ? 'block' : 'none';
   btnMore.textContent = showAll ? '접기' : `더보기 (${extra}개)`;
-  document.getElementById('record-list').innerHTML = show.map(({id,d,r})=>{
+  listEl.innerHTML = show.map(({id,d,r})=>{
     const name = getRegionName(id);
     const photos = r ? (r.photos||[]) : (d.photos || (d.photo ? [d.photo] : []));
     const thumb = photos.length ? `<img class="rec-thumb" src="${photos[0]}">` : `<div class="rec-thumb-empty">${d.status==='wish'?'🔖':'📍'}</div>`;
@@ -306,8 +350,9 @@ function resetZoom(){ zoom=1; offX=0; offY=0; applyTransform(); }
 /* ── 지도 선택 ── */
 function openMapPicker(){
   const mk = (maps, elId) => {
+    const av = activeVisits();
     document.getElementById(elId).innerHTML = maps.map(m=>{
-      const cnt = Object.keys(visits).filter(id=>id.startsWith(m.prefix)&&visits[id].status==='visited').length;
+      const cnt = Object.keys(av).filter(id=>id.startsWith(m.prefix)&&av[id].status==='visited').length;
       return `<div class="mp-card${m.id===currentMap?' sel':''}${!m.avail?' na':''}" onclick="${m.avail?`selectMap('${m.id}')`:"showToast('곧 추가됩니다 🙌')"}">
         <div class="mp-icon">${m.icon}</div><div class="mp-name">${m.name}</div>
         ${m.avail ? `<div class="mp-cnt">${cnt} / ${m.total}</div>` : '<span class="mp-badge">준비 중</span>'}
@@ -370,6 +415,120 @@ function toggleCleanMapLabels(){
     btn.textContent = hidden ? '표시' : '지우기';
   }
 }
+/* ── 커플(애인) 지도 연동 ── */
+// 여행 탭 상단 토글의 노출 여부를 결정 (연동되어 있을 때만 보여줌)
+function updateCoupleToggleVisibility(){
+  const toggle = document.getElementById('couple-toggle');
+  if(!toggle) return;
+  const partnerUid = typeof getPartnerUid === 'function' ? getPartnerUid() : null;
+  toggle.style.display = partnerUid ? 'flex' : 'none';
+  if(!partnerUid && togetherMode) togetherMode=false;
+  document.getElementById('ct-mine')?.classList.toggle('active', !togetherMode);
+  document.getElementById('ct-together')?.classList.toggle('active', togetherMode);
+}
+// 애인 데이터를 아직 못 불러왔으면 내려받는다 ("함께 본 지도" 전환 시)
+async function ensurePartnerVisits(btnEl, loadingText){
+  if(partnerVisits) return true;
+  const partnerUid = typeof getPartnerUid === 'function' ? getPartnerUid() : null;
+  if(!partnerUid){ showToast('연동된 애인이 없어요. 설정에서 연동해주세요.'); return false; }
+  const prevText = btnEl ? btnEl.textContent : null;
+  if(btnEl) btnEl.textContent = loadingText;
+  const data = typeof downloadPartnerData === 'function' ? await downloadPartnerData(partnerUid) : null;
+  if(btnEl) btnEl.textContent = prevText;
+  if(!data){ showToast('애인의 데이터를 불러오지 못했어요'); return false; }
+  partnerVisits = data.visits || {};
+  partnerProfile = data.profile || null;
+  return true;
+}
+// 내 지도 / 함께 본 지도 전환
+async function switchMapOwner(who){
+  if(who==='together'){
+    const ok = await ensurePartnerVisits(document.getElementById('ct-together'), '불러오는 중...');
+    if(!ok) return;
+    togetherMode = true;
+  } else {
+    togetherMode = false;
+  }
+  resetZoom(); showAll=false; renderTravel();
+}
+
+/* 설정 > 커플 연동 섹션 표시 갱신 */
+async function renderCoupleSettingsRow(){
+  const uid = typeof getCurrentUserId === 'function' ? getCurrentUserId() : null;
+  if(uid && typeof refreshPartnerUid === 'function') await refreshPartnerUid(uid);
+  const partnerUid = typeof getPartnerUid === 'function' ? getPartnerUid() : null;
+  document.getElementById('couple-row-unlinked').style.display = partnerUid ? 'none' : 'flex';
+  document.getElementById('couple-row-linked').style.display = partnerUid ? 'flex' : 'none';
+  if(partnerUid){
+    document.getElementById('couple-partner-name').textContent = typeof getPartnerNickname === 'function' ? getPartnerNickname() : '애인';
+  }
+  updateCoupleToggleVisibility();
+}
+function openCoupleModal(){
+  document.getElementById('couple-main-actions').style.display = 'block';
+  document.getElementById('couple-invite-box').style.display = 'none';
+  document.getElementById('couple-code-input-box').style.display = 'none';
+  document.getElementById('couple-modal').classList.add('open');
+}
+function closeCoupleModal(e){
+  if(e && e.target.id!=='couple-modal') return;
+  if(typeof stopListenForPairAccept === 'function') stopListenForPairAccept();
+  document.getElementById('couple-modal').classList.remove('open');
+}
+async function startCoupleInvite(){
+  const uid = typeof getCurrentUserId === 'function' ? getCurrentUserId() : null;
+  if(!uid){ showToast('로그인이 필요해요'); return; }
+  try{
+    const code = await createPairInvite(uid, profile?.nickname);
+    document.getElementById('couple-main-actions').style.display = 'none';
+    document.getElementById('couple-invite-box').style.display = 'block';
+    document.getElementById('couple-invite-code').textContent = code;
+    document.getElementById('couple-invite-status').textContent = '상대방이 코드를 입력할 때까지 기다리는 중...';
+    listenForPairAccept(code, uid, (partnerUid)=>{
+      document.getElementById('couple-invite-status').textContent = '연동되었습니다! 🎉';
+      showToast('애인과 연동되었습니다! 💑');
+      renderCoupleSettingsRow();
+      setTimeout(()=>closeCoupleModal(), 1200);
+    });
+  }catch(e){ showToast('코드 생성 실패: '+(e.message||'')); }
+}
+// 초대 코드만 클립보드에 복사 (설명 문구 없이, 순수 코드만)
+function shareCoupleCode(){
+  const code = document.getElementById('couple-invite-code').textContent;
+  navigator.clipboard.writeText(code).then(()=>showToast('코드가 복사되었습니다 ✓')).catch(()=>showToast('복사에 실패했어요'));
+}
+function showCoupleCodeInput(){
+  document.getElementById('couple-main-actions').style.display = 'none';
+  document.getElementById('couple-code-input-box').style.display = 'block';
+  document.getElementById('couple-code-input').value = '';
+  setTimeout(()=>document.getElementById('couple-code-input').focus(), 150);
+}
+async function submitCoupleCode(){
+  const uid = typeof getCurrentUserId === 'function' ? getCurrentUserId() : null;
+  if(!uid){ showToast('로그인이 필요해요'); return; }
+  const code = document.getElementById('couple-code-input').value.trim();
+  if(!code){ showToast('코드를 입력해주세요'); return; }
+  try{
+    const partnerName = await acceptPairInvite(code, uid, profile?.nickname);
+    showToast(`${partnerName}님과 연동되었습니다! 💑`);
+    partnerVisits = null; // 다음 조회 시 새로 받아오도록 캐시 초기화
+    await renderCoupleSettingsRow();
+    closeCoupleModal();
+  }catch(e){ showToast(e.message || '연동에 실패했어요'); }
+}
+async function confirmUnpair(){
+  if(!confirm('애인과의 지도 연동을 끊으시겠어요? 서로의 지도를 더 이상 볼 수 없게 돼요.')) return;
+  const uid = typeof getCurrentUserId === 'function' ? getCurrentUserId() : null;
+  if(!uid) return;
+  try{
+    await unpairPartner(uid);
+    togetherMode = false; partnerVisits = null; partnerProfile = null;
+    await renderCoupleSettingsRow();
+    renderTravel();
+    showToast('연동을 해제했어요.');
+  }catch(e){ showToast('연동 해제 실패: '+(e.message||'')); }
+}
+
 function renderSearchResults(query){
   const resultsEl = document.getElementById('search-results');
   const cfg = getMap(currentMap);
@@ -395,8 +554,9 @@ function renderSearchResults(query){
     resultsEl.innerHTML = '<div class="search-empty">검색 결과가 없습니다.</div>';
     return;
   }
+  const av = activeVisits();
   resultsEl.innerHTML = regions.slice(0,50).map(r=>{
-    const d = visits[r.id];
+    const d = av[r.id];
     const icon = d?.status==='visited' ? '✅' : d?.status==='wish' ? '🔖' : '📍';
     return `<div class="search-result-row" onclick="focusRegion('${r.id}')"><span class="search-result-icon">${icon}</span><span class="search-result-name">${r.name}</span></div>`;
   }).join('');
@@ -431,38 +591,90 @@ function focusRegion(id){
 /* ── 기록 관리 ── */
 function openRecModal(id){
   activeRegion=id;
-  const d=visits[id];
+  const d=activeVisits()[id];
   const status = d ? d.status : 'visited';
   tempStatus = status;
-  document.getElementById('rec-title').textContent=getRegionName(id);
-  document.getElementById('btn-del-rec').style.display=d?'block':'none';
+  document.getElementById('rec-title').textContent=getRegionName(id)+(togetherMode?' 🌍':'');
+  document.getElementById('rec-modal').classList.toggle('couple-view', togetherMode);
+  document.getElementById('rec-modal').classList.remove('readonly-view');
+  document.getElementById('btn-del-rec').style.display=(d&&!togetherMode)?'block':'none';
   document.getElementById('sb-v').className='sts-btn'+(status==='visited'?' on-v':'');
   document.getElementById('sb-w').className='sts-btn'+(status==='wish'?' on-w':'');
-  showStatusSection(status);
-  if(status==='wish'){
-    loadWishFormFields();
+  if(togetherMode){
+    // 함께 본 지도: 상태(방문/위시) 구분 없이 나+애인의 공유된 기록을 한 목록에 모아 보여준다
+    document.getElementById('wish-form').style.display = 'none';
+    document.getElementById('records-section').style.display = 'block';
+    renderCoupleRecordsInModal(id);
   } else {
-    renderRecordsInModal(id);
+    showStatusSection(status);
+    if(status==='wish'){
+      loadWishFormFields();
+    } else {
+      renderRecordsInModal(id);
+    }
   }
   document.getElementById('rec-modal').classList.add('open');
   const regionName = getRegionName(id);
   recentViews = [{id, name: regionName}, ...recentViews.filter(v=>(typeof v==='string'?v:v.id)!==id)].slice(0,10);
   saveRecent();
 }
+// "함께 본 지도"에서 지역 클릭 시: 나의 기록(전체) + 애인의 공유된 기록을 날짜순으로 합쳐서 보여줌
+// 내 기록은 ☆/★로 대표사진 선택 가능 (애인 기록은 버튼 없음)
+function renderCoupleRecordsInModal(id){
+  const list = document.getElementById('records-list');
+  const mineD = visits[id];
+  const mine = toRecordList(mineD).map(r=>({r, who:'mine'}));
+  const partnerD = partnerVisits ? partnerVisits[id] : null;
+  const partnerRecs = toRecordList(partnerD).map(r=>({r, who:'partner'}));
+  const combined = [...mine, ...partnerRecs];
+  if(!combined.length){
+    list.innerHTML = '<div style="text-align:center;color:var(--text-sub);padding:20px 0;font-size:13px;line-height:1.6">아직 함께 나눌 기록이 없어요.<br>"내 지도"에서 기록을 남기고 애인과 공유해보세요!</div>';
+    return;
+  }
+  combined.sort((a,b)=>(b.r.startDate||'').localeCompare(a.r.startDate||''));
+  list.innerHTML = combined.map(({r,who})=>{
+    const photos = r.photos||[];
+    const isCover = who==='mine' && photos.length && mineD && mineD.coverPhoto===photos[0];
+    const thumb = photos.length
+      ? `<div class="rec-thumb-wrap">
+           <img class="rec-thumb" src="${photos[0]}">
+           ${who==='mine' ? `<button class="rec-cover-btn${isCover?' active':''}" onclick="event.stopPropagation();setCoverPhoto('${r.id}')" title="지도 대표사진으로 설정">${isCover?'★':'☆'}</button>` : ''}
+         </div>`
+      : `<div class="rec-thumb-empty">${r.wish?'🔖':'📍'}</div>`;
+    const badge = who==='mine' ? '<span class="who-badge who-mine">🔵 나</span>' : '<span class="who-badge who-partner">🩷 애인</span>';
+    return `<div class="rec-row">${thumb}
+      <div class="rec-info-row">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:4px">
+          ${badge}<span class="date">${getRecordDateLabel(r)}</span>
+        </div>
+        ${r.tags ? `<div style="font-size:11px;color:var(--primary);margin-top:2px">${r.tags}</div>` : ''}
+        ${r.memo ? `<div class="memo">${r.memo}</div>` : ''}
+      </div></div>`;
+  }).join('');
+}
 function showStatusSection(s){
   document.getElementById('wish-form').style.display = s==='wish' ? 'block' : 'none';
   document.getElementById('records-section').style.display = s==='visited' ? 'block' : 'none';
 }
 function loadWishFormFields(){
-  const d = visits[activeRegion] || {};
+  const d = activeVisits()[activeRegion] || {};
   tempPhotos = d.photos ? [...d.photos] : (d.photo ? [d.photo] : []);
   document.getElementById('rec-date').value = d.date||'';
   document.getElementById('rec-tags').value = d.tags||'';
   document.getElementById('rec-memo').value = d.memo||'';
+  const shareRow = document.getElementById('rec-share-row');
+  const partnerUid = typeof getPartnerUid === 'function' ? getPartnerUid() : null;
+  if(shareRow){
+    shareRow.style.display = partnerUid ? 'flex' : 'none';
+    document.getElementById('rec-share-chk').checked = d.shared !== false;
+  }
   renderGallery();
 }
+// 함께 본 지도 보기 중에는 편집 불가 (읽기 전용)
+function isCoupleReadOnly(){ return togetherMode; }
 // ✅/🔖 버튼 클릭 시 즉시 상태를 저장 (매번 "저장하기"를 누를 필요 없음)
 function setStatus(s){
+  if(isCoupleReadOnly()) return;
   tempStatus=s;
   document.getElementById('sb-v').className='sts-btn'+(s==='visited'?' on-v':'');
   document.getElementById('sb-w').className='sts-btn'+(s==='wish'?' on-w':'');
@@ -502,13 +714,16 @@ function addPhotos(inp){
 function delPhoto(i){ tempPhotos.splice(i,1); renderGallery(); }
 // 가고 싶어요(wish) 상태 전용 저장 (단일 메모)
 function saveRecord(){
-  visits[activeRegion]={ status:'wish', photos:tempPhotos, photo:tempPhotos[0]||null, date:document.getElementById('rec-date').value, tags:document.getElementById('rec-tags').value, memo:document.getElementById('rec-memo').value };
+  if(isCoupleReadOnly()) return;
+  const shareChk = document.getElementById('rec-share-chk');
+  const shared = shareChk ? shareChk.checked : true;
+  visits[activeRegion]={ status:'wish', photos:tempPhotos, photo:tempPhotos[0]||null, date:document.getElementById('rec-date').value, tags:document.getElementById('rec-tags').value, memo:document.getElementById('rec-memo').value, shared };
   saveVisits(); closeRecModal(); renderTravel(); drawDonuts(); renderCalendar(); showToast('저장되었습니다 ✓');
 }
 
 /* ── 방문 기록(records[]) 목록 렌더 & 작성/수정 모달 ── */
 function renderRecordsInModal(id){
-  const d = visits[id];
+  const d = activeVisits()[id];
   const records = getRegionRecords(d);
   const list = document.getElementById('records-list');
   if(!records.length){
@@ -536,6 +751,7 @@ function renderRecordsInModal(id){
   }).join('');
 }
 // 지도에 표시되는 대표사진 지정/해제 (records-list의 ☆/★ 버튼)
+// "함께 본 지도"에서도 내 기록의 대표사진 선택은 허용한다.
 function setCoverPhoto(recordId){
   const d = visits[activeRegion];
   if(!d) return;
@@ -544,15 +760,18 @@ function setCoverPhoto(recordId){
   const photo = rec.photos[0];
   d.coverPhoto = (d.coverPhoto===photo) ? null : photo;
   saveVisits();
-  renderRecordsInModal(activeRegion);
+  if(togetherMode) renderCoupleRecordsInModal(activeRegion);
+  else renderRecordsInModal(activeRegion);
   renderTravel();
   showToast(d.coverPhoto ? '지도 대표사진으로 설정했어요 ⭐' : '대표사진 설정을 해제했어요');
 }
 function openRecordForm(recordId){
+  if(isCoupleReadOnly() && !recordId) return;
   editingRecordId = recordId || null;
-  const d = visits[activeRegion];
+  const d = activeVisits()[activeRegion];
   const rec = editingRecordId ? (d?.records||[]).find(r=>r.id===editingRecordId) : null;
   document.getElementById('record-form-title').textContent = rec ? '방문 기록 수정' : '새 방문 기록';
+  document.getElementById('record-form-modal').classList.toggle('readonly-view', isCoupleReadOnly());
   rfPhotos = rec && rec.photos ? [...rec.photos] : [];
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('rf-start-date').value = rec ? rec.startDate : today;
@@ -560,7 +779,13 @@ function openRecordForm(recordId){
   document.getElementById('rf-end-date').min = document.getElementById('rf-start-date').value;
   document.getElementById('rf-tags').value = rec ? (rec.tags||'') : '';
   document.getElementById('rf-memo').value = rec ? (rec.memo||'') : '';
-  document.getElementById('rf-btn-delete').style.display = rec ? 'block' : 'none';
+  document.getElementById('rf-btn-delete').style.display = (rec && !isCoupleReadOnly()) ? 'block' : 'none';
+  const shareRow = document.getElementById('rf-share-row');
+  const partnerUid = typeof getPartnerUid === 'function' ? getPartnerUid() : null;
+  if(shareRow){
+    shareRow.style.display = partnerUid ? 'flex' : 'none';
+    document.getElementById('rf-share-chk').checked = rec ? (rec.shared !== false) : true;
+  }
   renderRfGallery();
   document.getElementById('record-form-modal').classList.add('open');
 }
@@ -592,12 +817,15 @@ function addRecordFormPhotos(inp){
 }
 function delRfPhoto(i){ rfPhotos.splice(i,1); renderRfGallery(); }
 function saveRecordForm(){
+  if(isCoupleReadOnly()) return;
   const startDate = document.getElementById('rf-start-date').value;
   let endDate = document.getElementById('rf-end-date').value;
   if(!startDate){ showToast('시작일을 입력해주세요'); return; }
   if(!endDate || endDate < startDate) endDate = startDate;
   const tags = document.getElementById('rf-tags').value;
   const memo = document.getElementById('rf-memo').value;
+  const shareChk = document.getElementById('rf-share-chk');
+  const shared = shareChk ? shareChk.checked : true;
 
   const prevStatus = visits[activeRegion] ? visits[activeRegion].status : null;
   if(!visits[activeRegion]) visits[activeRegion] = { status:'visited', records:[] };
@@ -606,9 +834,9 @@ function saveRecordForm(){
 
   if(editingRecordId){
     const idx = visits[activeRegion].records.findIndex(r=>r.id===editingRecordId);
-    if(idx>=0) visits[activeRegion].records[idx] = { id:editingRecordId, startDate, endDate, tags, memo, photos:rfPhotos };
+    if(idx>=0) visits[activeRegion].records[idx] = { id:editingRecordId, startDate, endDate, tags, memo, photos:rfPhotos, shared };
   } else {
-    visits[activeRegion].records.push({ id:genRecordId(), startDate, endDate, tags, memo, photos:rfPhotos });
+    visits[activeRegion].records.push({ id:genRecordId(), startDate, endDate, tags, memo, photos:rfPhotos, shared });
   }
   saveVisits();
   closeRecordForm();
@@ -621,6 +849,7 @@ function saveRecordForm(){
   if(prevStatus!=='visited') checkBadge(mapIdForRegion);
 }
 function deleteRecordForm(){
+  if(isCoupleReadOnly()) return;
   if(!editingRecordId) return;
   if(!confirm('이 기록을 삭제할까요?')) return;
   const d = visits[activeRegion];
@@ -788,6 +1017,7 @@ function renderBadgeList(mapId){
   document.getElementById('badge-list-inline').innerHTML = html;
 }
 function deleteRecord(){
+  if(isCoupleReadOnly()) return;
   if(!confirm('이 기록을 삭제할까요?')) return;
   const mid = getMapIdByRegionId(activeRegion);
   const d = visits[activeRegion];
@@ -1137,6 +1367,8 @@ document.addEventListener('DOMContentLoaded', () => {
       (async () => {
         if (typeof waitForFirebaseAuthReady === 'function') await waitForFirebaseAuthReady();
         syncFromCloud(savedUid).catch(e => console.warn('자동 로그인 동기화 실패:', e));
+        if (typeof refreshPartnerUid === 'function') await refreshPartnerUid(savedUid).catch(()=>{});
+        if (typeof updateCoupleToggleVisibility === 'function') updateCoupleToggleVisibility();
       })();
     }
   }
